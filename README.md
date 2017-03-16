@@ -12,7 +12,7 @@ búsqueda más conocidos, tanto *no-informados* como *informados*.
 El motor principal se construyó aumentando una sistema *GPS* similar ofrecido
 por la cátedra, el cual puede encontrarse en:
 
-	![@AlanPierri - General Problem Solver](https://github.com/apierri/GeneralProblemSolver)
+* [@AlanPierri - General Problem Solver](https://github.com/apierri/GeneralProblemSolver)
 
 ## Instalación
 
@@ -48,7 +48,7 @@ selectivamente cada parámetro de operación sin reconstruir el proyecto:
 	<?xml version = "1.0" encoding = "UTF-8"?>
 	<solverConfiguration>
 		<!-- Parámetros generales -->
-		<strategy>ar.edu.itba.solver.strategy.DFS</listenAddress>
+		<strategy>IterativeDeepeningDFS</listenAddress>
 		<heuristic>none</heuristic>
 		<cost>none</cost>
 		<!-- Especificación del juego -->
@@ -60,13 +60,16 @@ selectivamente cada parámetro de operación sin reconstruir el proyecto:
 Los parámetros aquí utilizados representan los valores por defecto. El
 conjunto de valores admitidos en cada *tag* es:
 
-* `strategy`: DFS, BFS, Iterative Deepening DFS, Greedy, A*.
-* `heuristic`: "none", H1, H2.
-* `cost`: "none", F1.
-* `board`: la ruta a un archivo en formato *\*.sia* describiendo un juego de NxM
-celdas y K colores.
+* `strategy`: la estrategia de búsqueda a utilizar, puede ser no-informada (_DFS_, _BFS_, _IterativeDeepeningDFS_), o informada (_Greedy_, _A\*_).
 
-El formato *\*.sia* utilizado es modo texto (*UTF-8 encoding*), y se compone
+* `heuristic`: la función heurística a utilizar (_H1_, _H2_), durante una búsqueda informada, o _none_ si no aplica.
+
+* `cost`: la función de costo (_F1_), o la ausencia de ella si no aplica (_none_), como es el caso en los algoritmos no-informados.
+
+* `board`: la ruta a un archivo en formato *\*.sia* describiendo un juego de NxM
+celdas y K colores. El archivo se validará previamente a desplegar el algoritmo seleccionado.
+
+El formato ***\*.sia*** utilizado es modo texto (*UTF-8 encoding*), y se compone
 de un *header* inicial con las dimensiones del tablero y de la paleta de
 colores (en este orden: filas, columnas, colores), separadas por espacios. En
 las siguientes líneas, el tablero propiamente dicho, descrito como una
