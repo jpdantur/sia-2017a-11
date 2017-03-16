@@ -14,7 +14,11 @@
 	@XmlRootElement
 	public final class SolverConfiguration {
 
-		private String strategy = "ar.edu.itba.solver.strategy.DFS";
+		private String strategy = "IterativeDeepeningDFS";
+		private String heuristic = "none";
+		private String cost = "none";
+
+		private String board = "/res/benchmarks/board4x5_6.sia";
 
 		/*
 		** Getter's
@@ -25,6 +29,21 @@
 			return strategy;
 		}
 
+		public String getHeuristic() {
+
+			return heuristic;
+		}
+
+		public String getCost() {
+
+			return cost;
+		}
+
+		public String getBoard() {
+
+			return board;
+		}
+
 		/*
 		** Setter's
 		*/
@@ -33,5 +52,23 @@
 		public void setStrategy(final String strategy) {
 
 			this.strategy = strategy;
+		}
+
+		@XmlElement
+		public void setHeuristic(final String heuristic) {
+
+			this.heuristic = heuristic;
+		}
+
+		@XmlElement
+		public void setCost(final String cost) {
+
+			this.cost = cost;
+		}
+
+		@XmlElement
+		public void setBoard(final String board) {
+
+			this.board = board;
 		}
 	}
