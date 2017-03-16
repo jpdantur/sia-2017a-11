@@ -23,6 +23,7 @@
 			requestStaticInjection(ConfigurationLoader.class);
 
 			// Specific bindings:
+			bind(SIAReader.class);
 			bind(Solver.class);
 		}
 	}

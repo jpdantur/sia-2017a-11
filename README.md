@@ -48,7 +48,7 @@ selectivamente cada parámetro de operación sin reconstruir el proyecto:
 	<?xml version = "1.0" encoding = "UTF-8"?>
 	<solverConfiguration>
 		<!-- Parámetros generales -->
-		<strategy>IterativeDeepeningDFS</listenAddress>
+		<strategy>IterativeDeepeningDFS</strategy>
 		<heuristic>none</heuristic>
 		<cost>none</cost>
 		<!-- Especificación del juego -->
