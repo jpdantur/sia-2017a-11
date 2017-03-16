@@ -1,0 +1,158 @@
+
+	<project
+		xmlns = "http://maven.apache.org/POM/4.0.0"
+		xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation = "http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+		<!-- Maven POM Version -->
+		<modelVersion>4.0.0</modelVersion>
+
+		<!-- Project Specific Coordinates -->
+		<groupId>ar.edu.itba.solver</groupId>
+		<artifactId>solver</artifactId>
+		<version>1.0</version>
+		<packaging>jar</packaging>
+		<name>Solver</name>
+
+		<properties>
+			<!-- Java Specification -->
+			<jdk.version>1.8</jdk.version>
+			<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+			<resource.folder>${basedir}/res</resource.folder>
+			<source.folder>${basedir}/src</source.folder>
+			<test.folder>${basedir}/test</test.folder>
+			<main.class>ar.edu.itba.solver.Main</main.class>
+
+			<!-- Maven Specification -->
+			<maven-jar-plugin.version>3.0.2</maven-jar-plugin.version>
+			<maven-assembly-plugin.version>3.0.0</maven-assembly-plugin.version>
+			<maven-compiler-plugin.version>3.6.1</maven-compiler-plugin.version>
+			<maven-eclipse-plugin.version>2.10</maven-eclipse-plugin.version>
+
+			<!-- General Dependency Versions -->
+			<logback.version>1.2.1</logback.version>
+			<org.slf4j.version>1.7.24</org.slf4j.version>
+			<jaxb.version>2.2.12</jaxb.version>
+			<guice.version>4.1.0</guice.version>
+
+			<!-- Testing Dependency Versions -->
+			<junit.version>4.12</junit.version>
+			<mockito.version>2.7.17</mockito.version>
+		</properties>
+
+		<dependencies>
+			<!-- Logger Dependencies -->
+			<dependency>
+				<groupId>ch.qos.logback</groupId>
+				<artifactId>logback-core</artifactId>
+				<version>${logback.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>ch.qos.logback</groupId>
+				<artifactId>logback-classic</artifactId>
+				<version>${logback.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>${org.slf4j.version}</version>
+			</dependency>
+			<!-- JAXB Dependency -->
+			<dependency>
+				<groupId>javax.xml.bind</groupId>
+				<artifactId>jaxb-api</artifactId>
+				<version>${jaxb.version}</version>
+			</dependency>
+			<!-- Google Guice Dependency -->
+			<dependency>
+				<groupId>com.google.inject</groupId>
+				<artifactId>guice</artifactId>
+				<version>${guice.version}</version>
+			</dependency>
+
+			<!-- JUnit Test Framework -->
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>${junit.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<!-- Mocking Dependency -->
+			<dependency>
+				<groupId>org.mockito</groupId>
+				<artifactId>mockito-core</artifactId>
+				<version>${mockito.version}</version>
+				<scope>test</scope>
+			</dependency>
+		</dependencies>
+
+		<build>
+			<!-- Resource/Source/Test Directories -->
+			<resources>
+				<resource>
+					<directory>${resource.folder}</directory>
+				</resource>
+			</resources>
+			<sourceDirectory>${source.folder}</sourceDirectory>
+			<testSourceDirectory>${test.folder}</testSourceDirectory>
+
+			<plugins>
+				<!-- Crea el JAR del proyecto (sin dependencias) -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-jar-plugin</artifactId>
+					<version>${maven-jar-plugin.version}</version>
+					<configuration>
+						<archive>
+							<manifest>
+								<mainClass>${main.class}</mainClass>
+							</manifest>
+						</archive>
+					</configuration>
+				</plugin>
+
+				<!-- Genera el JAR completo (con dependencias) -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-assembly-plugin</artifactId>
+					<version>${maven-assembly-plugin.version}</version>
+					<configuration>
+						<outputDirectory>${basedir}</outputDirectory>
+						<appendAssemblyId>false</appendAssemblyId>
+						<finalName>${project.artifactId}-${project.version}-full</finalName>
+						<archive>
+							<manifest>
+								<mainClass>${main.class}</mainClass>
+							</manifest>
+						</archive>
+						<descriptorRefs>
+							<descriptorRef>jar-with-dependencies</descriptorRef>
+						</descriptorRefs>
+					</configuration>
+					<executions>
+						<execution>
+							<id>make-assembly</id>
+							<phase>package</phase>
+							<goals>
+								<goal>single</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+
+				<!-- Utilizado al compilar el proyecto -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>${maven-compiler-plugin.version}</version>
+					<configuration>
+						<compilerVersion>${jdk.version}</compilerVersion>
+						<source>${jdk.version}</source>
+						<target>${jdk.version}</target>
+						<!-- Prevents an endPosTable exception during compilation -->
+						<useIncrementalCompilation>false</useIncrementalCompilation>
+					</configuration>
+				</plugin>
+			</plugins>
+		</build>
+	</project>
