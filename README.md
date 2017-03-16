@@ -2,21 +2,17 @@
 
 # General Problem Solver
 
-Se implementó un servidor proxy para el protocolo **_XXX_**, utilizando
-**_Java SE 8 Release_**. El mismo soporta múltiples clientes, aprovechando
-todos los procesadores disponibles en el sistema (*multi-threading*), y
-permite la administración en forma remota. Además, expone un servicio de
-monitoreo por el cual se pueden obtener métricas y estadísticas de
-funcionamiento.
+Se implementó un sistema de resolución de problemas general (*GPS*), bajo
+**_Java SE 8 Release_**. El mismo se utiliza para resolver de forma automática
+instancias del conocido juego **_Fill Zone_**.
 
-Se hizo especial hincapié en la *performance* del sistema, por lo que se
-desarrolló sobre una arquitectura *event-based* utilizando **_Java NIO_**, la
-cual se integra en una capa de transporte sin estado almacenado
-(*stateless*), e independiente de la capa de aplicación.
+En particular, los mecanismos utilizados hacen referencia a los métodos de
+búsqueda más conocidos, tanto *no-informados* como *informados*.
 
-La infraestructura depende ampliamente de **_Google™ Guice_**, para realizar
-inyección de dependencias (*DI*), y reducir el acoplamiento entre los diversos
-componentes que integran el servidor.
+El motor principal se construyó aumentando una sistema *GPS* similar ofrecido
+por la cátedra, el cual puede encontrarse en:
+
+	[Alan Pierri](https://github.com/apierri/GeneralProblemSolver)
 
 ## Instalación
 
@@ -43,37 +39,53 @@ directorio raíz, ejecute:
 	java -jar solver-1.0-full.jar
 
 Si lo desea, puede generar un documento *XML* en el directorio raíz denominado
-`proxy.xml`, con la siguiente estructura, lo que permite modificar
+`solver.xml`, con la siguiente estructura, lo que permite modificar
 selectivamente cada parámetro de operación sin reconstruir el proyecto:
 
 ```
 #!xml
 
 	<?xml version = "1.0" encoding = "UTF-8"?>
-	<proxyConfiguration>
-		<!-- Listening Addresses -->
-		<listenAddress>0.0.0.0</listenAddress>
-		<adminListenAddress>localhost</adminListenAddress>
-		<!-- Binding Ports -->
-		<listenPort>1024</listenPort>
-		<adminListenPort>1025</adminListenPort>
-		<!-- Buffer Sizes -->
-		<proxyBufferSize>8192</proxyBufferSize>
-		<adminBufferSize>8192</adminBufferSize>
-		<!-- Performance -->
-		<workers>-1</workers>
-		<inactivityTimeout>300000</inactivityTimeout>
-		<lazyIntervalDetection>1000</lazyIntervalDetection>
-		<shutdownTimeout>2000</shutdownTimeout>
-		<aggressiveShutdownTimeout>1000</aggressiveShutdownTimeout>
-	</proxyConfiguration>
+	<solverConfiguration>
+		<!-- Parámetros generales -->
+		<strategy>ar.edu.itba.solver.strategy.DFS</listenAddress>
+		<heuristic>none</heuristic>
+		<cost>none</cost>
+		<!-- Especificación del juego -->
+		<board>/res/benchmarks/board4x5_6.sia</board>
+	</solverConfiguration>
 
 ```
 
-Los parámetros aquí utilizados representan los valores por defecto. Para más
-información sobre el significado de cada propiedad y los valores que admite,
-consulte la documentación (*Capítulo 4: Interfaz*, y
-*Apéndice C: Configuración*).
+Los parámetros aquí utilizados representan los valores por defecto. El
+conjunto de valores admitidos en cada *tag* es:
+
+* Strategy: DFS, BFS, Iterative Deepening DFS, Greedy, A*.
+* Heuristic: "none", H1, H2.
+* Cost: "none", F1.
+* Board: la ruta a un archivo en formato _*.sia_ describiendo un juego de NxM
+celdas y K colores.
+
+El formato _*.sia_ utilizado es modo texto (*UTF-8 encoding*), y se compone de
+un *header* inicial con las dimensiones del tablero y de la paleta de colores
+(en este orden: filas, columnas, colores), separadas por espacios. En las
+siguientes líneas, el tablero propiamente dicho, descrito como una secuencia
+de números enteros separados por espacios y numerados de *0* a *(K - 1)*:
+
+```
+#!csv
+
+	4 5 6
+	0 3 4 3 1
+	5 5 5 4 2
+	2 2 1 0 0
+	3 2 3 4 4
+
+```
+
+En este ejemplo, el tablero posee una dimensión de *4x5* celdas (*4* filas y
+*5* columnas), y una paleta de *6* colores, por lo cual las sucesivas celdas
+se deben numerar de *0* a *5*.
 
 ### Autores
 
