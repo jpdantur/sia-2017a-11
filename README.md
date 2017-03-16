@@ -12,7 +12,7 @@ búsqueda más conocidos, tanto *no-informados* como *informados*.
 El motor principal se construyó aumentando una sistema *GPS* similar ofrecido
 por la cátedra, el cual puede encontrarse en:
 
-* [@AlanPierri - General Problem Solver](https://github.com/apierri/GeneralProblemSolver)
+* [@AlanPierri - General Problem Solver [full branch]](https://github.com/apierri/GeneralProblemSolver)
 
 ## Instalación
 
@@ -66,8 +66,8 @@ conjunto de valores admitidos en cada *tag* es:
 
 * `cost`: la función de costo (_F1_), o la ausencia de ella si no aplica (_none_), como es el caso en los algoritmos no-informados.
 
-* `board`: la ruta a un archivo en formato *\*.sia* describiendo un juego de NxM
-celdas y K colores. El archivo se validará previamente a desplegar el algoritmo seleccionado.
+* `board`: la ruta a un archivo en formato *\*.sia* describiendo un juego de _NxM_
+celdas y _K_ colores. El archivo se validará previamente a desplegar el algoritmo seleccionado.
 
 El formato ***\*.sia*** utilizado es modo texto (*UTF-8 encoding*), y se compone
 de un *header* inicial con las dimensiones del tablero y de la paleta de
