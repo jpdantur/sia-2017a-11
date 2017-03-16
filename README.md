@@ -12,7 +12,7 @@ búsqueda más conocidos, tanto *no-informados* como *informados*.
 El motor principal se construyó aumentando una sistema *GPS* similar ofrecido
 por la cátedra, el cual puede encontrarse en:
 
-	[Alan Pierri](https://github.com/apierri/GeneralProblemSolver)
+	![@AlanPierri - General Problem Solver](https://github.com/apierri/GeneralProblemSolver)
 
 ## Instalación
 
@@ -60,17 +60,18 @@ selectivamente cada parámetro de operación sin reconstruir el proyecto:
 Los parámetros aquí utilizados representan los valores por defecto. El
 conjunto de valores admitidos en cada *tag* es:
 
-* Strategy: DFS, BFS, Iterative Deepening DFS, Greedy, A*.
-* Heuristic: "none", H1, H2.
-* Cost: "none", F1.
-* Board: la ruta a un archivo en formato _*.sia_ describiendo un juego de NxM
+* `strategy`: DFS, BFS, Iterative Deepening DFS, Greedy, A*.
+* `heuristic`: "none", H1, H2.
+* `cost`: "none", F1.
+* `board`: la ruta a un archivo en formato *\*.sia* describiendo un juego de NxM
 celdas y K colores.
 
-El formato _*.sia_ utilizado es modo texto (*UTF-8 encoding*), y se compone de
-un *header* inicial con las dimensiones del tablero y de la paleta de colores
-(en este orden: filas, columnas, colores), separadas por espacios. En las
-siguientes líneas, el tablero propiamente dicho, descrito como una secuencia
-de números enteros separados por espacios y numerados de *0* a *(K - 1)*:
+El formato *\*.sia* utilizado es modo texto (*UTF-8 encoding*), y se compone
+de un *header* inicial con las dimensiones del tablero y de la paleta de
+colores (en este orden: filas, columnas, colores), separadas por espacios. En
+las siguientes líneas, el tablero propiamente dicho, descrito como una
+secuencia de números enteros separados por espacios y numerados de *0* a
+*(K - 1)*:
 
 ```
 #!csv
