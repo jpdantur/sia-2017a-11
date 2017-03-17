@@ -95,6 +95,6 @@ se deben numerar de *0* a *5*.
 
 El sistema fue desarrollado por el _Grupo 11_, compuesto por los siguientes autores:
 
-* (*00.000*) Juan Dantur
+* (*54.623*) Juan Dantur
 * (*00.000*) Ariel Debrouvier
 * (*53.396*) Agustín Golmar
