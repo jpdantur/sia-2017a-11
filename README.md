@@ -96,5 +96,5 @@ se deben numerar de *0* a *5*.
 El sistema fue desarrollado por los siguientes autores:
 
 * (*54.623*) Juan Dantur
-* (*00.000*) Ariel Debrouvier
+* (*55.382*) Ariel Debrouvier
 * (*53.396*) Agustín Golmar
