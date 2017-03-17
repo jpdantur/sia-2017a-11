@@ -12,7 +12,7 @@ búsqueda más conocidos, tanto *no-informados* como *informados*.
 El motor principal se construyó aumentando una sistema *GPS* similar ofrecido
 por la cátedra, el cual puede encontrarse en:
 
-* [@AlanPierri - General Problem Solver [full branch]](https://github.com/apierri/GeneralProblemSolver)
+* [@AlanPierri - General Problem Solver [full branch]](https://github.com/apierri/GeneralProblemSolver/tree/full)
 
 ## Instalación
 
@@ -52,7 +52,7 @@ selectivamente cada parámetro de operación sin reconstruir el proyecto:
 		<heuristic>none</heuristic>
 		<cost>none</cost>
 		<!-- Especificación del juego -->
-		<board>/res/benchmarks/board4x5_6.sia</board>
+		<board>./res/benchmarks/board4x5_6.sia</board>
 	</solverConfiguration>
 
 ```
@@ -93,7 +93,7 @@ se deben numerar de *0* a *5*.
 
 ### Autores
 
-El sistema fue desarrollado por los siguientes autores:
+El sistema fue desarrollado por el _Grupo 11_, compuesto por los siguientes autores:
 
 * (*00.000*) Juan Dantur
 * (*00.000*) Ariel Debrouvier

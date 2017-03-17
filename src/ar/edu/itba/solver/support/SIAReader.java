@@ -1,7 +1,15 @@
 
 	package ar.edu.itba.solver.support;
 
+	import java.io.IOException;
+	import java.nio.charset.Charset;
+	import java.nio.charset.StandardCharsets;
+	import java.nio.file.Files;
+	import java.nio.file.Path;
+	import java.nio.file.Paths;
+	import java.util.NoSuchElementException;
 	import java.util.Optional;
+	import java.util.stream.Stream;
 
 	import org.slf4j.Logger;
 	import org.slf4j.LoggerFactory;
@@ -21,6 +29,10 @@
 		private static final Logger logger
 			= LoggerFactory.getLogger(SIAReader.class);
 
+		// Charset UTF-8:
+		private static final Charset charset
+			= StandardCharsets.UTF_8;
+
 		/**
 		* <p> ... FALTA COMPLETAR! ... </p>
 		*
@@ -35,7 +47,65 @@
 
 		public Optional<Object> loadGame(final String filename) {
 
-			logger.info("Cargando el juego...");
+			logger.info("Cargando el juego... ({})", filename);
+
+			final Path game = Paths.get(filename);
+			final int [] header = getHeader(game);
+			final int [][] board = getBoard(game);
+
+			logger.info("Header: {} {} {}", header[0], header[1], header[2]);
+
 			return Optional.empty();
+		}
+
+		private int [] getHeader(final Path game) {
+
+			try (final Stream<String> lines = Files.lines(game, charset)) {
+
+				return lines.findFirst().map(line -> {
+
+					return Stream
+							.of(line.split("\\s"))
+							.mapToInt(Integer::parseUnsignedInt)
+							.toArray();
+				}).filter(header -> header.length == 3).get();
+			}
+			catch (final IOException exception) {
+
+				logger.error("El archivo no existe o no se puede abrir.");
+			}
+			catch (final NoSuchElementException exception) {
+
+				logger.error("Especificación del juego inválida.");
+			}
+			return new int[]{0, 0, 0};
+		}
+
+		private int [][] getBoard(final Path game) {
+
+			try (final Stream<String> lines = Files.lines(game, charset)) {
+
+				lines.skip(1).map(line -> {
+
+					return Stream
+							.of(line.split("\\s"))
+							.mapToInt(Integer::parseUnsignedInt)
+							.toArray();
+				}).forEachOrdered(row -> {
+
+					for (final int cell : row)
+						System.out.print(cell + " ");
+					System.out.println("");
+				});
+			}
+			catch (final IOException exception) {
+
+				logger.error("El archivo no existe o no se puede abrir.");
+			}
+			catch (final NoSuchElementException exception) {
+
+				logger.error("Especificación del juego inválida.");
+			}
+			return new int[][]{{0}};
 		}
 	}
