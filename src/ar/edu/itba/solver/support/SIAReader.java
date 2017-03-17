@@ -58,6 +58,18 @@
 			return Optional.empty();
 		}
 
+		/**
+		* <p>Se encarga de obtener las dimensiones del juego y el tamaño de la
+		* paleta de colores, los cuáles se encuentran en el <i>header</i> del
+		* archivo de especificación <b>*.sia</b>.</p>
+		*
+		* @param game
+		*	El <i>Path</i> que identifica la especificación del juego.
+		*
+		* @return Un array conteniendo las 3 dimensiones en este orden: filas,
+		*	columnas y colores.
+		*/
+
 		private int [] getHeader(final Path game) {
 
 			try (final Stream<String> lines = Files.lines(game, charset)) {
