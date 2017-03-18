@@ -29,7 +29,7 @@ public abstract class GPSEngine {
 		problem = myProblem;
 		strategy = myStrategy;
 
-		GPSNode rootNode = new GPSNode(problem.getInitState(), 0);
+		GPSNode rootNode = new GPSNode(problem.getInitState(), 0, 0);
 		explosionCounter = 0;
 		boolean finished = false;
 		boolean failed = false;
@@ -84,7 +84,7 @@ public abstract class GPSEngine {
 		updateBest(node);
 		for (GPSRule rule : problem.getRules()) {
 			try {
-				GPSNode newNode = new GPSNode(rule.evalRule(node.getState()), node.getCost() + rule.getCost());
+				GPSNode newNode = new GPSNode(rule.evalRule(node.getState()), node.getCost() + rule.getCost(), node.getDepth()+1);
 				newNode.setParent(node);
 				newCandidates.add(newNode);
 			} catch (NotAppliableException e) {
