@@ -2,9 +2,10 @@ package ar.edu.itba.solver.engine.gps;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Deque;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
-import java.util.Queue;
 import java.util.TreeSet;
 
 import ar.edu.itba.solver.engine.gps.api.GPSProblem;
@@ -14,7 +15,7 @@ import ar.edu.itba.solver.engine.gps.exception.NotAppliableException;
 
 public abstract class GPSEngine {
 
-	protected Queue<GPSNode> open;
+	protected Deque<GPSNode> open;
 	protected Map<GPSState, Integer> bestCosts;
 
 	protected GPSProblem problem;
@@ -24,7 +25,7 @@ public abstract class GPSEngine {
 	protected SearchStrategy strategy;
 
 	public GPSEngine(GPSProblem myProblem, SearchStrategy myStrategy) {
-		// TODO: open = *Su queue favorito, TENIENDO EN CUENTA EL ORDEN DE LOS NODOS*
+		open = new LinkedList<>();
 		bestCosts = new HashMap<GPSState, Integer>();
 		problem = myProblem;
 		strategy = myStrategy;
@@ -96,10 +97,15 @@ public abstract class GPSEngine {
 		case ASTAR:
 			break;
 		case BFS:
+			for (GPSNode candidate:newCandidates) {
+				open.add(candidate);
+			}
 			break;
 		case DFS:
-			break;
 		case IDDFS:
+			for (GPSNode candidate:newCandidates) {
+			open.addFirst(candidate);
+			}
 			break;
 		case GREEDY:
 			break;
