@@ -18,7 +18,7 @@
 		private String heuristic = "none";
 		private String cost = "none";
 
-		private String board = "/res/benchmarks/board4x5_6.sia";
+		private String problem = "/res/benchmarks/board4x5_6.sia";
 
 		/*
 		** Getter's
@@ -39,9 +39,9 @@
 			return cost;
 		}
 
-		public String getBoard() {
+		public String getProblem() {
 
-			return board;
+			return problem;
 		}
 
 		/*
@@ -67,8 +67,8 @@
 		}
 
 		@XmlElement
-		public void setBoard(final String board) {
+		public void setProblem(final String problem) {
 
-			this.board = board;
+			this.problem = problem;
 		}
 	}

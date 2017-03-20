@@ -7,8 +7,7 @@
 	import java.nio.file.Files;
 	import java.nio.file.Path;
 	import java.nio.file.Paths;
-	import java.util.NoSuchElementException;
-	import java.util.Optional;
+	import java.util.List;
 	import java.util.stream.Stream;
 
 	import org.slf4j.Logger;
@@ -16,8 +15,13 @@
 
 	import com.google.inject.Singleton;
 
+	import ar.edu.itba.solver.engine.gps.api.GPSProblem;
+	import ar.edu.itba.solver.problem.FillZone;
+
+	import static java.util.stream.Collectors.toList;
+
 		/**
-		* <p>Esta clase permite leer y validar una especificación del juego
+		* <p>Esta clase permite leer y validar una especificación del problema
 		* <i>Fill Zone</i> en formato <b>*.sia</b>, y generar un estado que lo
 		* represente.</p>
 		*/
@@ -34,28 +38,30 @@
 			= StandardCharsets.UTF_8;
 
 		/**
-		* <p> ... FALTA COMPLETAR! ... </p>
+		* <p>Carga un problema desde una especificación en una estructura
+		* genérica especial.</p>
 		*
 		* @param filename
 		*	La ruta hacia el archivo en formato <i>*.sia</i> que posee la
-		*	especificación del juego.
+		*	especificación del problema.
 		*
-		* @return Opcionalmente el estado que representa el juego a resolver,
-		*	o un objeto vacío si hubo un error durante la apertura o
-		*	validación del mismo.
+		* @return Devuelve la especificación del problema.
+		*
+		* @throws IOException
+		*	En caso de no poder abrir o encontrar el archivo que contiene la
+		*	especificación del problema.
 		*/
 
-		public Optional<Object> loadGame(final String filename) {
+		public GPSProblem loadProblem(final String filename)
+				throws IOException {
 
-			logger.info("Cargando el juego... ({})", filename);
+			logger.info("Cargando la especificación ({}).", filename);
 
-			final Path game = Paths.get(filename);
-			final int [] header = getHeader(game);
-			final int [][] board = getBoard(game);
+			final Path path = Paths.get(filename);
+			final int [] header = getHeader(path);
+			final int [][] board = getBoard(path, header[0]);
 
-			logger.info("Header: {} {} {}", header[0], header[1], header[2]);
-
-			return Optional.empty();
+			return new FillZone(header, board);
 		}
 
 		/**
@@ -63,61 +69,62 @@
 		* paleta de colores, los cuáles se encuentran en el <i>header</i> del
 		* archivo de especificación <b>*.sia</b>.</p>
 		*
-		* @param game
-		*	El <i>Path</i> que identifica la especificación del juego.
+		* @param path
+		*	El <i>Path</i> que identifica la especificación del problema.
 		*
 		* @return Un array conteniendo las 3 dimensiones en este orden: filas,
 		*	columnas y colores.
+		*
+		* @throws IOException
+		*	En caso de no poder abrir la especificación.
 		*/
 
-		private int [] getHeader(final Path game) {
+		private int [] getHeader(final Path path)
+				throws IOException {
 
-			try (final Stream<String> lines = Files.lines(game, charset)) {
-
-				return lines.findFirst().map(line -> {
-
-					return Stream
-							.of(line.split("\\s"))
-							.mapToInt(Integer::parseUnsignedInt)
-							.toArray();
-				}).filter(header -> header.length == 3).get();
-			}
-			catch (final IOException exception) {
-
-				logger.error("El archivo no existe o no se puede abrir.");
-			}
-			catch (final NoSuchElementException exception) {
-
-				logger.error("Especificación del juego inválida.");
-			}
-			return new int[]{0, 0, 0};
+			return Files.lines(path, charset)
+					.findFirst()
+					.map(SIAReader::toIntArray)
+					.filter(header -> header.length == 3)
+					.orElse(new int[]{0, 0, 0});
 		}
 
-		private int [][] getBoard(final Path game) {
+		/**
+		* <p>Obtiene la información del tablero de juego, es decir, la matriz
+		* de colores. Las dimensiones de la matriz deben corresponderse con
+		* las dimensiones especificadas en el <i>header</i>.</p>
+		*
+		* @param path
+		*	El <i>Path</i> que identifica la especificación del juego.
+		* @param rows
+		*	La cantidad de filas de la matriz del problema.
+		*
+		* @return Un array bidimensional que representa el tablero de colores.
+		*
+		* @throws IOException
+		*	En caso de no poder abrir la especificación.
+		*/
 
-			try (final Stream<String> lines = Files.lines(game, charset)) {
+		private int [][] getBoard(final Path path, final int rows)
+				throws IOException {
 
-				lines.skip(1).map(line -> {
+			final int [][] board = new int[rows][];
+			int row = 0;
 
-					return Stream
-							.of(line.split("\\s"))
-							.mapToInt(Integer::parseUnsignedInt)
-							.toArray();
-				}).forEachOrdered(row -> {
+			final List<String> lines = Files.lines(path, charset)
+					.skip(1)
+					.collect(toList());
 
-					for (final int cell : row)
-						System.out.print(cell + " ");
-					System.out.println("");
-				});
-			}
-			catch (final IOException exception) {
+			for (final String line : lines)
+				board[row++] = toIntArray(line);
 
-				logger.error("El archivo no existe o no se puede abrir.");
-			}
-			catch (final NoSuchElementException exception) {
+			return board;
+		}
 
-				logger.error("Especificación del juego inválida.");
-			}
-			return new int[][]{{0}};
+		private static final int [] toIntArray(final String line) {
+
+			return Stream.of(line.split("\\s"))
+					.mapToInt(Integer::parseUnsignedInt)
+					.toArray();
 		}
 	}

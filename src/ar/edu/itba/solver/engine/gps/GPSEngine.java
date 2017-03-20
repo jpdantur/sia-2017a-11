@@ -12,7 +12,7 @@ import ar.edu.itba.solver.engine.gps.api.GPSRule;
 import ar.edu.itba.solver.engine.gps.api.GPSState;
 import ar.edu.itba.solver.engine.gps.exception.NotAppliableException;
 
-public abstract class GPSEngine {
+public class GPSEngine {
 
 	protected Queue<GPSNode> open;
 	protected Map<GPSState, Integer> bestCosts;

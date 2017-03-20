@@ -1,7 +1,7 @@
 
 	package ar.edu.itba.solver.engine;
 
-	import java.util.Optional;
+	import java.io.IOException;
 
 	import org.slf4j.Logger;
 	import org.slf4j.LoggerFactory;
@@ -12,6 +12,9 @@
 	import ar.edu.itba.solver.support.SIAReader;
 	import ar.edu.itba.solver.config.ConfigurationLoader;
 	import ar.edu.itba.solver.config.SolverConfiguration;
+	import ar.edu.itba.solver.engine.gps.GPSEngine;
+	import ar.edu.itba.solver.engine.gps.SearchStrategy;
+	import ar.edu.itba.solver.engine.gps.api.GPSProblem;
 
 		/**
 		* <p>Esta clase se encarga de resolver el juego provisto mediante la
@@ -40,27 +43,36 @@
 
 		/**
 		* <p>Utilizando el archivo de configuración, extrae la estrategia y el
-		* tablero de juego, y lo resuelve utilizando el sistem GPS.</p>
+		* tablero de juego, y lo resuelve utilizando el sistema GPS.</p>
 		*/
 
-		public void resolve() {
+		public void solve() {
 
-			final SolverConfiguration config = configurator.getSolverConfig();
+			// Leer la configuración:
+			final SolverConfiguration config
+				= configurator.getSolverConfig();
 
-			logger.info(
-					"Utilizando la estrategia: {}",
-					config.getStrategy());
+			logger.info("Utilizando la estrategia: {}", config.getStrategy());
 
-			// Obtener la especificación del juego:
-			final Optional<Object> game = reader.loadGame(config.getBoard());
+			try {
 
-			if (game.isPresent()) {
+				// Obtener la especificación del problema:
+				final GPSProblem problem
+					= reader.loadProblem(config.getProblem());
 
-				// Continuará...
+				// Obtener la estrategia:
+				final SearchStrategy strategy
+					= SearchStrategy.valueOf(config.getStrategy());
+
+				// Ejecutar el motor de búsqueda:
+				/* final GPSEngine engine
+					= */ new GPSEngine(problem, strategy);
 			}
-			else logger.info("No hay juego!");
+			catch (final IOException exception) {
 
-			logger.info(
-					Message.SHUTDOWN.getMessage());
+				logger.error("No se pudo leer la especificación.");
+			}
+
+			logger.info(Message.SHUTDOWN.getMessage());
 		}
 	}
