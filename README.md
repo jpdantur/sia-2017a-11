@@ -59,7 +59,7 @@ selectivamente cada parámetro de operación sin reconstruir el proyecto:
 Los parámetros aquí utilizados representan los valores por defecto. El
 conjunto de valores admitidos en cada *tag* es:
 
-* `strategy`: la estrategia de búsqueda a utilizar, puede ser no-informada (_DFS_, _BFS_, _IDDFS_), o informada (GREEDY, _ASTAR_).
+* `strategy`: la estrategia de búsqueda a utilizar, puede ser no-informada (_DFS_, _BFS_, _IDDFS_), o informada (_GREEDY_, _ASTAR_).
 
 * `heuristic`: la función heurística a utilizar (_H1_, _H2_), durante una búsqueda informada, o _none_ si no aplica.
 
