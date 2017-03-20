@@ -6,7 +6,7 @@
 		*
 		* <p>Actualmente vacía, se supone que generaliza una estrategia de
 		* búsqueda de forma genérica, y por lo tanto todas las estrategias
-		* deberíasn implementar este interfaz.</p>
+		* deberían implementar este interfaz.</p>
 		*/
 
 	public interface GPSStrategy {

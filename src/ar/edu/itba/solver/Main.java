@@ -55,7 +55,7 @@
 				configurator.loadSolverConfig(SOLVER_CONFIGURATION_FILENAME);
 
 				// Ejecutar el sistema GPS:
-				injector.getInstance(Solver.class).resolve();
+				injector.getInstance(Solver.class).solve();
 			}
 			catch (final JAXBException exception) {
 
@@ -63,6 +63,9 @@
 						Message.INVALID_CONFIGURATION.getMessage());
 			}
 			catch (final Exception exception) {
+
+				// TODO: eliminar esta línea, antes de entregar...
+				exception.printStackTrace();
 
 				logger.error(
 						Message.UNKNOWN.getMessage(),

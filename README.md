@@ -12,7 +12,7 @@ búsqueda más conocidos, tanto *no-informados* como *informados*.
 El motor principal se construyó aumentando una sistema *GPS* similar ofrecido
 por la cátedra, el cual puede encontrarse en:
 
-* [@AlanPierri - General Problem Solver [full branch]](https://github.com/apierri/GeneralProblemSolver)
+* [@AlanPierri - General Problem Solver [full branch]](https://github.com/apierri/GeneralProblemSolver/tree/full)
 
 ## Instalación
 
@@ -52,7 +52,7 @@ selectivamente cada parámetro de operación sin reconstruir el proyecto:
 		<heuristic>none</heuristic>
 		<cost>none</cost>
 		<!-- Especificación del juego -->
-		<board>/res/benchmarks/board4x5_6.sia</board>
+		<problem>./res/benchmarks/board4x5_6.sia</problem>
 	</solverConfiguration>
 
 ```
@@ -66,7 +66,7 @@ conjunto de valores admitidos en cada *tag* es:
 
 * `cost`: la función de costo (_F1_), o la ausencia de ella si no aplica (_none_), como es el caso en los algoritmos no-informados.
 
-* `board`: la ruta a un archivo en formato *\*.sia* describiendo un juego de _NxM_
+* `problem`: la ruta a un archivo en formato *\*.sia* describiendo un juego de _NxM_
 celdas y _K_ colores. El archivo se validará previamente a desplegar el algoritmo seleccionado.
 
 El formato ***\*.sia*** utilizado es modo texto (*UTF-8 encoding*), y se compone
@@ -93,7 +93,7 @@ se deben numerar de *0* a *5*.
 
 ### Autores
 
-El sistema fue desarrollado por los siguientes autores:
+El sistema fue desarrollado por el _Grupo 11_, compuesto por los siguientes autores:
 
 * (*54.623*) Juan Dantur
 * (*55.382*) Ariel Debrouvier
