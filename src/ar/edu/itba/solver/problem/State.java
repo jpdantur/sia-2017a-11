@@ -1,10 +1,12 @@
 
 	package ar.edu.itba.solver.problem;
 
+	import java.util.Arrays;
+
 	import ar.edu.itba.solver.engine.gps.api.GPSState;
 
 		/**
-		* <p>Representa el estado del juego <i>FillZone</i>, es decir, una
+		* <p>Representa el estado del juego <i>Fill Zone</i>, es decir, una
 		* matriz coloreada, y una paleta de colores.<p>
 		*/
 
@@ -47,7 +49,11 @@
 		@Override
 		public boolean equals(Object obj) {
 
-			// TODO: falta completar...
-			return super.equals(obj);
+			if (obj instanceof State) {
+
+				final State state = (State) obj;
+				return Arrays.deepEquals(board, state.board);
+			}
+			return false;
 		}
 	}

@@ -6,7 +6,10 @@
 	import ar.edu.itba.solver.engine.gps.exception.NotAppliableException;
 
 		/**
-		* <p></p>
+		* <p>Representa una acción o regla disponible para expandir un nodo en
+		* el grafo de búsqueda. En este caso, la acción especifica la
+		* aplicación de un nuevo color, sobre la celda distinguida, y sobre
+		* sus adyacentes similares.</p>
 		*/
 
 	public final class ChangeColour implements GPSRule {

@@ -9,6 +9,12 @@
 	import ar.edu.itba.solver.engine.gps.api.GPSRule;
 	import ar.edu.itba.solver.engine.gps.api.GPSState;
 
+		/**
+		* <p>La clase que representa el problema a resolver, en este caso,
+		* el juego <b>Fill Zone</b>. Se encarga de establecer el estado
+		* inicial y el conjunto de reglas disponibles.</p>
+		*/
+
 	public final class FillZone implements GPSProblem {
 
 		private final State initialState;
