@@ -48,9 +48,8 @@ selectivamente cada parámetro de operación sin reconstruir el proyecto:
 	<?xml version = "1.0" encoding = "UTF-8"?>
 	<solverConfiguration>
 		<!-- Parámetros generales -->
-		<strategy>IterativeDeepeningDFS</strategy>
+		<strategy>IDDFS</strategy>
 		<heuristic>none</heuristic>
-		<cost>none</cost>
 		<!-- Especificación del juego -->
 		<problem>./res/benchmarks/board4x5_6.sia</problem>
 	</solverConfiguration>
@@ -60,11 +59,9 @@ selectivamente cada parámetro de operación sin reconstruir el proyecto:
 Los parámetros aquí utilizados representan los valores por defecto. El
 conjunto de valores admitidos en cada *tag* es:
 
-* `strategy`: la estrategia de búsqueda a utilizar, puede ser no-informada (_DFS_, _BFS_, _IterativeDeepeningDFS_), o informada (_Greedy_, _A\*_).
+* `strategy`: la estrategia de búsqueda a utilizar, puede ser no-informada (_DFS_, _BFS_, _IDDFS_), o informada (GREEDY, _ASTAR_).
 
 * `heuristic`: la función heurística a utilizar (_H1_, _H2_), durante una búsqueda informada, o _none_ si no aplica.
-
-* `cost`: la función de costo (_F1_), o la ausencia de ella si no aplica (_none_), como es el caso en los algoritmos no-informados.
 
 * `problem`: la ruta a un archivo en formato *\*.sia* describiendo un juego de _NxM_
 celdas y _K_ colores. El archivo se validará previamente a desplegar el algoritmo seleccionado.

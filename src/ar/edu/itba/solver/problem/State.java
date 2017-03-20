@@ -19,11 +19,6 @@
 			this.board = board;
 		}
 
-		public int [][] getBoard() {
-
-			return board;
-		}
-
 		public int getRows() {
 
 			return board.length;
@@ -39,16 +34,6 @@
 			return board[0][0];
 		}
 
-		public int get(final int row, final int column) {
-
-			return board[row][column];
-		}
-
-		public void set(final int row, final int column, final int colour) {
-
-			board[row][column] = colour;
-		}
-
 		public boolean isUniform() {
 
 			final int distinguished = getDistinguished();
@@ -61,6 +46,43 @@
 			return true;
 		}
 
+		public State deepCopy() {
+
+			final int rows = getRows();
+			final int columns = getColumns();
+
+			final int [][] newBoard = new int[rows][columns];
+
+			for (int x = 0; x < rows; ++x)
+				for (int y = 0; y < columns; ++y)
+					newBoard[x][y] = board[x][y];
+
+			return new State(newBoard);
+		}
+
+		public State paint(final int colour) {
+
+			// Se define recursivamente, por simplicidad:
+			final int distinguished = getDistinguished();
+			paint(0, 0, distinguished, colour);
+			return this;
+		}
+
+		private void paint(final int x, final int y,
+				final int distinguished, final int colour) {
+
+			if (0 <= x && x < getRows())
+				if (0 <= y && y < getColumns())
+					if (board[x][y] == distinguished) {
+
+						board[x][y] = colour;
+						paint(x - 1, y, distinguished, colour);		// Up
+						paint(x + 1, y, distinguished, colour);		// Down
+						paint(x, y - 1, distinguished, colour);		// Left
+						paint(x, y + 1, distinguished, colour);		// Right
+					}
+		}
+
 		@Override
 		public boolean equals(Object obj) {
 
@@ -70,5 +92,18 @@
 				return Arrays.deepEquals(board, state.board);
 			}
 			return false;
+		}
+
+		@Override
+		public int hashCode() {
+
+			return Arrays.deepHashCode(board);
+		}
+
+		@Override
+		public String toString() {
+
+			// TODO: hay que cambiarlo para que muestre los tableros...
+			return "Distinguished: " + getDistinguished() + "\n";
 		}
 	}

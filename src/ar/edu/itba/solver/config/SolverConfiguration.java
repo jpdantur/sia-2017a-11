@@ -16,7 +16,6 @@
 
 		private String strategy = "IIDFS";
 		private String heuristic = "none";
-		private String cost = "none";
  
 		private String problem = "./res/benchmarks/board4x5_6.sia";
 
@@ -32,11 +31,6 @@
 		public String getHeuristic() {
 
 			return heuristic;
-		}
-
-		public String getCost() {
-
-			return cost;
 		}
 
 		public String getProblem() {
@@ -58,12 +52,6 @@
 		public void setHeuristic(final String heuristic) {
 
 			this.heuristic = heuristic;
-		}
-
-		@XmlElement
-		public void setCost(final String cost) {
-
-			this.cost = cost;
 		}
 
 		@XmlElement

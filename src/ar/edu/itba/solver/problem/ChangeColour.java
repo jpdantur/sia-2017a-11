@@ -43,17 +43,8 @@
 			if (colour == fzState.getDistinguished())
 				throw new NotAppliableException();
 
-			// TODO: falta evaluar la regla y devolver el nuevo estado...
-			final int rows = fzState.getRows();
-			final int columns = fzState.getColumns();
-
-			final int [][] oldBoard = fzState.getBoard();
-			final int [][] newBoard = new int[rows][columns];
-
-			for (int x = 0; x < rows; ++x)
-				for (int y = 0; y < columns; ++y)
-					newBoard[x][y] = oldBoard[x][y];
-
-			return new State(null);
+			return fzState
+					.deepCopy()
+					.paint(colour);
 		}
 	}
