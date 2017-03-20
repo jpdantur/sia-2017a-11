@@ -19,6 +19,21 @@
 			this.board = board;
 		}
 
+		public int [][] getBoard() {
+
+			return board;
+		}
+
+		public int getRows() {
+
+			return board.length;
+		}
+
+		public int getColumns() {
+
+			return board[0].length;
+		}
+
 		public int getDistinguished() {
 
 			return board[0][0];
