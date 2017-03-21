@@ -65,8 +65,9 @@
 					= SearchStrategy.valueOf(config.getStrategy());
 
 				// Ejecutar el motor de búsqueda:
-				/* final GPSEngine engine
-					= */ new GPSEngine(problem, strategy).findSolution();
+				 final GPSEngine engine =  new GPSEngine(problem, strategy);
+				 engine.findSolution();
+				 logger.info("Solucion: {}", engine.getSolutionNode().getSolution());
 			}
 			catch (final IOException exception) {
 
