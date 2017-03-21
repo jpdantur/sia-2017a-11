@@ -1,9 +1,10 @@
 
 	package ar.edu.itba.solver.problem;
 
+	import java.util.Optional;
+
 	import ar.edu.itba.solver.engine.gps.api.GPSRule;
 	import ar.edu.itba.solver.engine.gps.api.GPSState;
-	import ar.edu.itba.solver.engine.gps.exception.NotAppliableException;
 
 		/**
 		* <p>Representa una acción o regla disponible para expandir un nodo en
@@ -35,16 +36,15 @@
 		}
 
 		@Override
-		public GPSState evalRule(GPSState state)
-				throws NotAppliableException {
+		public Optional<GPSState> evalRule(GPSState state) {
 
 			final State fzState = (State) state;
 
 			if (colour == fzState.getDistinguished())
-				throw new NotAppliableException();
+				return Optional.empty();
 
-			return fzState
+			return Optional.of(fzState
 					.deepCopy()
-					.paint(colour);
+					.paint(colour));
 		}
 	}

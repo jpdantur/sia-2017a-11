@@ -66,7 +66,7 @@
 
 				// Ejecutar el motor de búsqueda:
 				/* final GPSEngine engine
-					= */ new GPSEngine(problem, strategy);
+					= */ new GPSEngine(problem, strategy).findSolution();
 			}
 			catch (final IOException exception) {
 

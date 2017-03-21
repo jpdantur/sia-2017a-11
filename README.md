@@ -12,7 +12,7 @@ búsqueda más conocidos, tanto *no-informados* como *informados*.
 El motor principal se construyó aumentando una sistema *GPS* similar ofrecido
 por la cátedra, el cual puede encontrarse en:
 
-* [@AlanPierri - General Problem Solver [full branch]](https://github.com/apierri/GeneralProblemSolver/tree/full)
+* [@AlanPierri - General Problem Solver [master branch]](https://github.com/apierri/GeneralProblemSolver)
 
 ## Instalación
 

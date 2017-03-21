@@ -1,6 +1,6 @@
 package ar.edu.itba.solver.engine.gps.api;
 
-import ar.edu.itba.solver.engine.gps.exception.NotAppliableException;
+import java.util.Optional;
 
 /**
  * GPSRule interface.
@@ -27,8 +27,6 @@ public interface GPSRule {
 	 * @param state
 	 *            The previous state of the problem.
 	 * @return The next state of the problem.
-	 * @throws NotAppliableException
-	 *             If the rule can not be applied to the received state.
 	 */
-	GPSState evalRule(GPSState state) throws NotAppliableException;
+	Optional<GPSState> evalRule(GPSState state);
 }

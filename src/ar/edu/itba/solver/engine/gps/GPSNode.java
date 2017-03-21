@@ -8,13 +8,11 @@ public class GPSNode {
 
 	private GPSNode parent;
 
-	private int cost;
-	private int depth;
+	private Integer cost;
 
-	public GPSNode(GPSState state, int cost, int depth) {
+	public GPSNode(GPSState state, Integer cost) {
 		this.state = state;
 		this.cost = cost;
-		this.depth = depth;
 	}
 
 	public GPSNode getParent() {
@@ -29,7 +27,7 @@ public class GPSNode {
 		return state;
 	}
 
-	public int getCost() {
+	public Integer getCost() {
 		return cost;
 	}
 
@@ -60,10 +58,6 @@ public class GPSNode {
 		} else if (!state.equals(other.state))
 			return false;
 		return true;
-	}
-
-	public int getDepth() {
-		return depth;
 	}
 
 }
