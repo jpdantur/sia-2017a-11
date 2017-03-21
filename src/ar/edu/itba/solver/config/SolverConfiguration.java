@@ -14,10 +14,10 @@
 	@XmlRootElement
 	public final class SolverConfiguration {
 
-		private String strategy = "IDDFS";
-		private String heuristic = "none";
+		private String strategy /*= "IDDFS"*/;
+		private String heuristic/* = "none"*/;
  
-		private String problem = "./res/benchmarks/board4x5_6.sia";
+		private String problem /*= "./res/benchmarks/board4x5_6.sia"*/;
 
 		/*
 		** Getter's
