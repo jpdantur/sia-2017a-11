@@ -13,7 +13,8 @@
 	import ar.edu.itba.solver.config.ConfigurationLoader;
 	import ar.edu.itba.solver.config.SolverConfiguration;
 	import ar.edu.itba.solver.engine.gps.GPSEngine;
-	import ar.edu.itba.solver.engine.gps.SearchStrategy;
+import ar.edu.itba.solver.engine.gps.GPSNode;
+import ar.edu.itba.solver.engine.gps.SearchStrategy;
 	import ar.edu.itba.solver.engine.gps.api.GPSProblem;
 
 		/**
@@ -67,7 +68,17 @@
 				// Ejecutar el motor de búsqueda:
 				 final GPSEngine engine =  new GPSEngine(problem, strategy);
 				 engine.findSolution();
-				 logger.info("Solucion: {}", engine.getSolutionNode().getSolution());
+				 
+				 if (!engine.isFailed()){
+					 GPSNode solution=engine.getSolutionNode();
+					 logger.info("Solución:\n{}", solution.getSolution());
+					 logger.info("Costo: {}", solution.getCost());
+					 
+				 }else{
+					 logger.info("No se encontró solución!");
+				 }
+				 logger.info("Nodos explotados: {}", engine.getExplosionCounter());
+				 
 			}
 			catch (final IOException exception) {
 

@@ -103,13 +103,14 @@
 		@Override
 		public String toString() {
 			StringBuilder result = new StringBuilder();
-			result.append("Distinguished: " + getDistinguished()+"\n");
+			
 			for (int i=0; i<board.length; i++) {
 				for (int j=0; j<board[i].length; j++) {
 					result.append(board[i][j] + " ");
 				}
 				result.append("\n");
 			}
-			return result.toString();
+			
+			return result.append("\n").toString();
 		}
 	}

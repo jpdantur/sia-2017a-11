@@ -13,7 +13,7 @@
 
 	@XmlRootElement
 	public final class SolverConfiguration {
-
+		//TODO: setear valor por defecto, agregar random?
 		private String strategy /*= "IDDFS"*/;
 		private String heuristic/* = "none"*/;
  
