@@ -41,10 +41,10 @@ public class GPSEngine {
 
 	public void findSolution() {
 		if (strategy == SearchStrategy.IDDFS) {
-			int counter = 0;
+			int maxDepth = 0;
 			while (!finished){
-				explore(counter);
-				counter++;
+				explore(maxDepth);
+				maxDepth++;
 			}
 		}
 		else {
@@ -52,20 +52,18 @@ public class GPSEngine {
 		}
 	}
 	
-	private void explore(int counter) {
+	private void explore(int maxDepth) {
 		GPSNode rootNode = new GPSNode(problem.getInitState(), 0);
 		open.add(rootNode);
-		int depth=0;
-		while (open.size() >= 0 &&(!(strategy == SearchStrategy.IDDFS) || depth<=counter)) {
+		while (open.size() >= 0) {
 			GPSNode currentNode = open.remove();
 			if (problem.isGoal(currentNode.getState())) {
 				finished = true;
 				solutionNode = currentNode;
 				return;
-			} else {
+			} else if (!(strategy == SearchStrategy.IDDFS) || currentNode.getCost()<=maxDepth)  {
 				explode(currentNode);
 			}
-			depth++;
 		}
 		if (open.size()==0){
 			failed = true;
