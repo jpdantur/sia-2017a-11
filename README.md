@@ -68,7 +68,7 @@ conjunto de valores admitidos en cada *tag* es:
 celdas y _K_ colores. El archivo se validará previamente a desplegar el algoritmo seleccionado.
 
 * `print`: indica si los pasos intermedios se deben mostrar en caso de hallar una solución, y por lo
-tanto, admite los valores _true_ o _false.
+tanto, admite los valores _true_ o _false_.
 
 El formato ***\*.sia*** utilizado es modo texto (*UTF-8 encoding*), y se compone
 de un *header* inicial con las dimensiones del tablero y de la paleta de
