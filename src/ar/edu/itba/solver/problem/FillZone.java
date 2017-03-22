@@ -23,6 +23,8 @@
 		private final int rows;
 		private final int columns;
 		private final int colours;
+		
+		private final String heuristic;
 
 		public FillZone(final int [] header, final int [][] board) {
 
@@ -32,6 +34,9 @@
 			this.rows = header[0];
 			this.columns = header[1];
 			this.colours = header[2];
+			
+			//TODO Setear desde la configuración
+			this.heuristic = "distinct";
 
 			// Generar conjunto de reglas:
 			initRules(colours);
@@ -58,9 +63,13 @@
 
 		@Override
 		public Integer getHValue(GPSState state) {
-
-			// TODO: falta definir...
-			return 0;
+			
+				if (heuristic.equals("distinct"))				
+					return ((State)state).getDistinct();
+			else
+				//TODO: Definir segunda heurística
+				return 0;
+					
 		}
 
 		public int getRows() {

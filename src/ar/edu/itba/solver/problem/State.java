@@ -2,8 +2,10 @@
 	package ar.edu.itba.solver.problem;
 
 	import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
-	import ar.edu.itba.solver.engine.gps.api.GPSState;
+import ar.edu.itba.solver.engine.gps.api.GPSState;
 
 		/**
 		* <p>Representa el estado del juego <i>Fill Zone</i>, es decir, una
@@ -32,6 +34,19 @@
 		public int getDistinguished() {
 
 			return board[0][0];
+		}
+		
+		public int getDistinct() {
+			
+			Set<Integer> distinct = new HashSet<>();
+			
+			for (int[] row: board){
+				for (int tile : row){
+					distinct.add(tile);
+				}
+			}			
+			
+			return distinct.size();
 		}
 
 		public boolean isUniform() {
@@ -108,6 +123,13 @@
 			result.append("> Color: ")
 				.append(getDistinguished())
 				.append("\n");
+			
+			/*
+			 * Para testear H value de heurística 1
+			 * result.append("> H value: ")
+			.append(getDistinct())
+			.append("\n");
+			*/
 
 			for (int i = 0; i < getRows(); ++i) {
 
