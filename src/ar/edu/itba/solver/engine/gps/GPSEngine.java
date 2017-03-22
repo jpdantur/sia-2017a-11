@@ -59,18 +59,19 @@ public class GPSEngine {
 		boolean limit = false;
 		while (open.size() > 0) {
 			GPSNode currentNode = open.remove();
+			int depth = depth(currentNode);
 			//System.out.println("Hola:\n"+currentNode.getSolution());
 			//if (maxDepth == 7)
 				//System.out.println("Hola:\n"+currentNode.getSolution());
 			//limit = currentNode.getCost()>maxDepth;
-			if (currentNode.getCost()>maxDepth) {
+			if (depth>maxDepth) {
 				limit = true;
 			}
 			if (problem.isGoal(currentNode.getState())) {
 				finished = true;
 				solutionNode = currentNode;
 				return;
-			} else if (!(strategy == SearchStrategy.IDDFS) || currentNode.getCost()<=maxDepth)  {
+			} else if (!(strategy == SearchStrategy.IDDFS) || depth<=maxDepth)  {
 				explode(currentNode);
 			}
 		}
@@ -78,6 +79,13 @@ public class GPSEngine {
 			failed = true;
 			finished = true;
 		}
+	}
+
+	private int depth(final GPSNode currentNode) {
+
+		final GPSNode parent = currentNode.getParent();
+		if (parent == null) return 0;
+		return 1 + depth(parent);
 	}
 
 	private void explode(GPSNode node) {
