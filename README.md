@@ -48,10 +48,11 @@ selectivamente cada parámetro de operación sin reconstruir el proyecto:
 	<?xml version = "1.0" encoding = "UTF-8"?>
 	<solverConfiguration>
 		<!-- Parámetros generales -->
-		<strategy>IDDFS</strategy>
+		<strategy>DFS</strategy>
 		<heuristic>none</heuristic>
 		<!-- Especificación del juego -->
-		<problem>./res/benchmarks/board4x5_6.sia</problem>
+		<problem>./res/benchmarks/medium30x30_5.sia</problem>
+		<print>false</print>
 	</solverConfiguration>
 
 ```
@@ -65,6 +66,9 @@ conjunto de valores admitidos en cada *tag* es:
 
 * `problem`: la ruta a un archivo en formato *\*.sia* describiendo un juego de _NxM_
 celdas y _K_ colores. El archivo se validará previamente a desplegar el algoritmo seleccionado.
+
+* `print`: indica si los pasos intermedios se deben mostrar en caso de hallar una solución, y por lo
+tanto, admite los valores _true_ o _false.
 
 El formato ***\*.sia*** utilizado es modo texto (*UTF-8 encoding*), y se compone
 de un *header* inicial con las dimensiones del tablero y de la paleta de

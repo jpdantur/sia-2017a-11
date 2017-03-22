@@ -55,11 +55,20 @@
 		public GPSProblem loadProblem(final String filename)
 				throws IOException {
 
-			logger.info("Cargando la especificación ({}).", filename);
+			logger.info(
+					"Cargando la especificación ({}).",
+					filename);
 
 			final Path path = Paths.get(filename);
 			final int [] header = getHeader(path);
 			final int [][] board = getBoard(path, header[0]);
+
+			logger.info(
+					"Problema de dimensión {}x{}, con paleta de {} color{}.",
+					header[0],
+					header[1],
+					header[2],
+					1 < header[2]? "es" : "");
 
 			return new FillZone(header, board);
 		}

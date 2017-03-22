@@ -102,15 +102,21 @@
 
 		@Override
 		public String toString() {
-			StringBuilder result = new StringBuilder();
-			
-			for (int i=0; i<board.length; i++) {
-				for (int j=0; j<board[i].length; j++) {
+
+			final StringBuilder result = new StringBuilder();
+
+			result.append("> Color: ")
+				.append(getDistinguished())
+				.append("\n");
+
+			for (int i = 0; i < getRows(); ++i) {
+
+				for (int j = 0; j < getColumns(); j++)
 					result.append(board[i][j] + " ");
-				}
+
 				result.append("\n");
 			}
-			
+
 			return result.append("\n").toString();
 		}
 	}

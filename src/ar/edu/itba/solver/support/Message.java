@@ -13,6 +13,10 @@
 			("Adiós!"),
 		INVALID_CONFIGURATION
 			("No se pudo instalar la configuración del sistema GPS."),
+		CANNOT_READ_SPECIFICATION
+			("No se pudo leer la especificación del problema ({})."),
+		NON_EXISTENT_STRATEGY
+			("La estrategia especificada no existe ({})."),
 		UNKNOWN
 			("Error desconocido (módulo {}). Contacte a un Ingeniero.");
 

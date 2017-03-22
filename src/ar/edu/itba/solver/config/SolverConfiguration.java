@@ -13,11 +13,12 @@
 
 	@XmlRootElement
 	public final class SolverConfiguration {
-		//TODO: setear valor por defecto, agregar random?
-		private String strategy /*= "IDDFS"*/;
-		private String heuristic/* = "none"*/;
- 
-		private String problem /*= "./res/benchmarks/board4x5_6.sia"*/;
+
+		private String strategy = "DFS";
+		private String heuristic = "none";
+
+		private String problem = "./res/benchmarks/trivial.sia";
+		private boolean print = false;
 
 		/*
 		** Getter's
@@ -36,6 +37,11 @@
 		public String getProblem() {
 
 			return problem;
+		}
+
+		public boolean getPrint() {
+
+			return print;
 		}
 
 		/*
@@ -58,5 +64,11 @@
 		public void setProblem(final String problem) {
 
 			this.problem = problem;
+		}
+
+		@XmlElement
+		public void setPrint(final boolean print) {
+
+			this.print = print;
 		}
 	}

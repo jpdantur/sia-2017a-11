@@ -13,8 +13,8 @@
 	import ar.edu.itba.solver.config.ConfigurationLoader;
 	import ar.edu.itba.solver.config.SolverConfiguration;
 	import ar.edu.itba.solver.engine.gps.GPSEngine;
-import ar.edu.itba.solver.engine.gps.GPSNode;
-import ar.edu.itba.solver.engine.gps.SearchStrategy;
+	import ar.edu.itba.solver.engine.gps.GPSNode;
+	import ar.edu.itba.solver.engine.gps.SearchStrategy;
 	import ar.edu.itba.solver.engine.gps.api.GPSProblem;
 
 		/**
@@ -53,7 +53,13 @@ import ar.edu.itba.solver.engine.gps.SearchStrategy;
 			final SolverConfiguration config
 				= configurator.getSolverConfig();
 
-			logger.info("Utilizando la estrategia: {}", config.getStrategy());
+			logger.info(
+					"Utilizando la estrategia: {}.",
+					config.getStrategy());
+
+			logger.info(
+					"Utilizando la heurística: {}.",
+					config.getHeuristic());
 
 			try {
 
@@ -66,25 +72,56 @@ import ar.edu.itba.solver.engine.gps.SearchStrategy;
 					= SearchStrategy.valueOf(config.getStrategy());
 
 				// Ejecutar el motor de búsqueda:
-				 final GPSEngine engine =  new GPSEngine(problem, strategy);
-				 engine.findSolution();
-				 
-				 if (!engine.isFailed()){
-					 GPSNode solution=engine.getSolutionNode();
-					 logger.info("Solución:\n{}", solution.getSolution());
-					 logger.info("Costo: {}", solution.getCost());
-					 
-				 }else{
-					 logger.info("No se encontró solución!");
-				 }
-				 logger.info("Nodos explotados: {}", engine.getExplosionCounter());
-				 
+				final GPSEngine engine
+					= new GPSEngine(problem, strategy);
+
+				final long startTime = System.nanoTime();
+				engine.findSolution();
+
+				logger.info(
+						"Tiempo de procesamiento: {} seg.",
+						(System.nanoTime() - startTime) / 1.0E9);
+
+				if (!engine.isFailed()) {
+
+					final GPSNode solution = engine.getSolutionNode();
+
+					if (true == config.getPrint())
+						logger.info("Solución:\n\n{}", solution.getSolution());
+
+					logger.info("Profundidad: {}", depth(solution));
+					logger.info("Costo: {}", solution.getCost());
+				}
+				else logger.info("No se encontró solución!");
+
+				logger.info(
+						"Nodos explotados: {}",
+						engine.getExplosionCounter());
+
+				logger.info(
+						"Nodos frontera: {}",
+						engine.getOpen().size());
 			}
 			catch (final IOException exception) {
 
-				logger.error("No se pudo leer la especificación.");
+				logger.error(
+						Message.CANNOT_READ_SPECIFICATION.getMessage(),
+						config.getProblem());
+			}
+			catch (final IllegalArgumentException exception) {
+
+				logger.error(
+						Message.NON_EXISTENT_STRATEGY.getMessage(),
+						config.getStrategy());
 			}
 
 			logger.info(Message.SHUTDOWN.getMessage());
+		}
+
+		private int depth(final GPSNode solution) {
+
+			final GPSNode parent = solution.getParent();
+			if (parent == null) return 0;
+			return 1 + depth(parent);
 		}
 	}
