@@ -53,10 +53,19 @@ public class GPSEngine {
 	}
 	
 	private void explore(int maxDepth) {
+		bestCosts = new HashMap<>();
 		GPSNode rootNode = new GPSNode(problem.getInitState(), 0);
 		open.add(rootNode);
-		while (open.size() >= 0) {
+		boolean limit = false;
+		while (open.size() > 0) {
 			GPSNode currentNode = open.remove();
+			//System.out.println("Hola:\n"+currentNode.getSolution());
+			//if (maxDepth == 7)
+				//System.out.println("Hola:\n"+currentNode.getSolution());
+			//limit = currentNode.getCost()>maxDepth;
+			if (currentNode.getCost()>maxDepth) {
+				limit = true;
+			}
 			if (problem.isGoal(currentNode.getState())) {
 				finished = true;
 				solutionNode = currentNode;
@@ -65,7 +74,7 @@ public class GPSEngine {
 				explode(currentNode);
 			}
 		}
-		if (open.size()==0){
+		if (!limit && open.size() == 0){
 			failed = true;
 			finished = true;
 		}
@@ -87,7 +96,9 @@ public class GPSEngine {
 		case DFS:
 		case IDDFS:
 			if (bestCosts.containsKey(node.getState())) {
+				//System.out.println("loop");
 				return;
+				
 			}
 			newCandidates = new ArrayList<>();
 			addCandidates(node, newCandidates);
