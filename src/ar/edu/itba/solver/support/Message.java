@@ -10,7 +10,7 @@
 	public enum Message {
 
 		SHUTDOWN
-			("Adiós!"),
+			("[2017] General Problem Solver®, Inc."),
 		INVALID_CONFIGURATION
 			("No se pudo instalar la configuración del sistema GPS."),
 		CANNOT_READ_SPECIFICATION

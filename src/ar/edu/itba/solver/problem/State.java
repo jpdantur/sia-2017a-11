@@ -2,10 +2,10 @@
 	package ar.edu.itba.solver.problem;
 
 	import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+	import java.util.HashSet;
+	import java.util.Set;
 
-import ar.edu.itba.solver.engine.gps.api.GPSState;
+	import ar.edu.itba.solver.engine.gps.api.GPSState;
 
 		/**
 		* <p>Representa el estado del juego <i>Fill Zone</i>, es decir, una
@@ -123,7 +123,7 @@ import ar.edu.itba.solver.engine.gps.api.GPSState;
 			result.append("> Color: ")
 				.append(getDistinguished())
 				.append("\n");
-			
+
 			/*
 			 * Para testear H value de heurística 1
 			 * result.append("> H value: ")

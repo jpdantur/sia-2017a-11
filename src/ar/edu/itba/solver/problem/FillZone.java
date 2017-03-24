@@ -87,7 +87,7 @@
 			return colours;
 		}
 
-		private void initRules(int colours) {
+		private void initRules(final int colours) {
 
 			IntStream.range(0, colours)
 				.mapToObj(ChangeColour::new)

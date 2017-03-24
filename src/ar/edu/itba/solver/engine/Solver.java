@@ -61,6 +61,10 @@
 					"Utilizando la heurística: {}.",
 					config.getHeuristic());
 
+			logger.info(
+					"Cargando la especificación ({}).",
+					config.getProblem());
+
 			try {
 
 				// Obtener la especificación del problema:

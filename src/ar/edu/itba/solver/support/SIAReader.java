@@ -55,10 +55,6 @@
 		public GPSProblem loadProblem(final String filename)
 				throws IOException {
 
-			logger.info(
-					"Cargando la especificación ({}).",
-					filename);
-
 			final Path path = Paths.get(filename);
 			final int [] header = getHeader(path);
 			final int [][] board = getBoard(path, header[0]);

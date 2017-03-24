@@ -50,9 +50,9 @@ selectivamente cada parámetro de operación sin reconstruir el proyecto:
 		<!-- Parámetros generales -->
 		<strategy>DFS</strategy>
 		<heuristic>none</heuristic>
+		<print>false</print>
 		<!-- Especificación del juego -->
 		<problem>./res/benchmarks/medium30x30_5.sia</problem>
-		<print>false</print>
 	</solverConfiguration>
 
 ```
