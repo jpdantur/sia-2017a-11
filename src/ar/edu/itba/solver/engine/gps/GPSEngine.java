@@ -82,13 +82,12 @@
 
 			close.clear();
 			boolean limit = false;
-			open.add(new GPSNode(problem.getInitState(), 0));
+			open.add(new GPSNode(problem.getInitState(), 0, null));
 
 			while (!open.isEmpty()) {
 
 				final GPSNode node = open.remove();
-				final int depth;
-				
+				final int depth;				
 				
 				if (strategy == SearchStrategy.IDDFS)
 					depth=depth(node);					
@@ -218,7 +217,7 @@
 					.ifPresent(state -> {
 
 					final GPSNode newNode
-						= new GPSNode(state, node.getCost() + rule.getCost());
+						= new GPSNode(state, node.getCost() + rule.getCost(),rule);
 
 					newNode.setParent(node);
 					candidates.add(newNode);
