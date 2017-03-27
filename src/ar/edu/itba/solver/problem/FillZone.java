@@ -68,9 +68,14 @@
 			final State fzState = (State) state;
 			switch (heuristic) {
 
+				// Admissible...
 				case "distinct":
 					return fzState.getDistinct();
-				case "SEGUNDA HEURÍSTICA!!!":
+				case "graph":
+					return null;
+
+				// Non-admissible...
+				case "frontier":
 					return null;
 
 				case "none":

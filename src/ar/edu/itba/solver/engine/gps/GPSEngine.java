@@ -87,12 +87,11 @@
 			while (!open.isEmpty()) {
 
 				final GPSNode node = open.remove();
-				final int depth;				
-				
+				final int depth;
+
 				if (strategy == SearchStrategy.IDDFS)
-					depth=depth(node);					
-				else					
-					depth=0;
+					depth = depth(node);
+				else depth = 0;
 
 				if (maxDepth < depth) limit = true;
 				if (problem.isGoal(node.getState())) {
@@ -112,13 +111,14 @@
 			}
 		}
 
+		/*
 		private void printSolution(final GPSNode node) {
 
 			if (node == null) return;
-
 			printSolution(node.getParent());
 			System.out.println("Evaluation: " + evaluation(node));
 		}
+		*/
 
 		/**
 		* <p>Permite computar la profundidad del nodo, aplicando un recorrido
@@ -182,7 +182,7 @@
 					break;
 				}
 				case GREEDY: {
-					
+
 					if (close.containsKey(node.getState())) return;
 					final PriorityQueue<GPSNode> queue
 						= new PriorityQueue<>(
@@ -216,8 +216,10 @@
 				rule.evalRule(node.getState())
 					.ifPresent(state -> {
 
+					final int cost = node.getCost() + rule.getCost();
+
 					final GPSNode newNode
-						= new GPSNode(state, node.getCost() + rule.getCost(),rule);
+						= new GPSNode(state, cost, rule);
 
 					newNode.setParent(node);
 					candidates.add(newNode);
@@ -260,8 +262,7 @@
 						= problem.getHValue(node.getState());
 					evaluation += (heuristic != null? heuristic : 0);
 					break;
-			}		
-			
+			}
 			return evaluation;
 		}
 
