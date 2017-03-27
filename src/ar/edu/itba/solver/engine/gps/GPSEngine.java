@@ -87,13 +87,20 @@
 			while (!open.isEmpty()) {
 
 				final GPSNode node = open.remove();
-				final int depth = depth(node);
+				final int depth;
+				
+				
+				if (strategy == SearchStrategy.IDDFS)
+					depth=depth(node);					
+				else					
+					depth=0;
 
 				if (maxDepth < depth) limit = true;
 				if (problem.isGoal(node.getState())) {
 
 					finished = true;
 					solution = node;
+					//printSolution(solution);
 					return;
 				}
 				else if (depth <= maxDepth) explode(node);
@@ -104,6 +111,14 @@
 				failed = true;
 				finished = true;
 			}
+		}
+
+		private void printSolution(final GPSNode node) {
+
+			if (node == null) return;
+
+			printSolution(node.getParent());
+			System.out.println("Evaluation: " + evaluation(node));
 		}
 
 		/**
@@ -160,9 +175,16 @@
 				case ASTAR: {
 
 					if (!isBest(node.getState(), node.getCost())) return;
+					final PriorityQueue<GPSNode> queue
+						= new PriorityQueue<>(
+							Comparator.comparing(n -> evaluation(n)));
+					addCandidates(node, queue);
+					while (!queue.isEmpty()) open.add(queue.remove());
+					break;
 				}
 				case GREEDY: {
-
+					
+					if (close.containsKey(node.getState())) return;
 					final PriorityQueue<GPSNode> queue
 						= new PriorityQueue<>(
 							Comparator.comparing(n -> evaluation(n)));
@@ -239,7 +261,8 @@
 						= problem.getHValue(node.getState());
 					evaluation += (heuristic != null? heuristic : 0);
 					break;
-			}
+			}		
+			
 			return evaluation;
 		}
 
