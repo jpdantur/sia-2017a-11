@@ -13,8 +13,11 @@
 	import org.slf4j.Logger;
 	import org.slf4j.LoggerFactory;
 
+	import com.google.inject.Inject;
 	import com.google.inject.Singleton;
 
+	import ar.edu.itba.solver.config.ConfigurationLoader;
+	import ar.edu.itba.solver.config.SolverConfiguration;
 	import ar.edu.itba.solver.engine.gps.api.GPSProblem;
 	import ar.edu.itba.solver.problem.FillZone;
 
@@ -37,13 +40,18 @@
 		private static final Charset charset
 			= StandardCharsets.UTF_8;
 
+		// Configuración:
+		private final ConfigurationLoader configurator;
+
+		@Inject
+		private SIAReader(final ConfigurationLoader configurator) {
+
+			this.configurator = configurator;
+		}
+
 		/**
 		* <p>Carga un problema desde una especificación en una estructura
-		* genérica especial.</p>
-		*
-		* @param filename
-		*	La ruta hacia el archivo en formato <i>*.sia</i> que posee la
-		*	especificación del problema.
+		* genérica especial, obtenida mediante inyección.</p>
 		*
 		* @return Devuelve la especificación del problema.
 		*
@@ -52,10 +60,13 @@
 		*	especificación del problema.
 		*/
 
-		public GPSProblem loadProblem(final String filename)
+		public GPSProblem loadProblem()
 				throws IOException {
 
-			final Path path = Paths.get(filename);
+			final SolverConfiguration config
+				= configurator.getSolverConfig();
+
+			final Path path = Paths.get(config.getProblem());
 			final int [] header = getHeader(path);
 			final int [][] board = getBoard(path, header[0]);
 
@@ -66,7 +77,10 @@
 					header[2],
 					1 < header[2]? "es" : "");
 
-			return new FillZone(header, board);
+			return new FillZone(
+					header,
+					board,
+					config.getHeuristic());
 		}
 
 		/**

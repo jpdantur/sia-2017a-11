@@ -69,7 +69,7 @@
 
 				// Obtener la especificación del problema:
 				final GPSProblem problem
-					= reader.loadProblem(config.getProblem());
+					= reader.loadProblem();
 
 				// Obtener la estrategia:
 				final SearchStrategy strategy

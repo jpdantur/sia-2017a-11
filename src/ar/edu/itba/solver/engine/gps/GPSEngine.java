@@ -157,21 +157,17 @@
 					for (final GPSNode n : candidates) open.addFirst(n);
 					break;
 				}
-				case GREEDY: {
-
-					// TODO: revisar comparador...
-					candidates = new PriorityQueue<>(
-							Comparator.comparing(GPSNode::getCost).reversed());
-					addCandidates(node, candidates);
-					// TODO: ¿Cómo se agregan los nodos a open en GREEDY?
-					break;
-				}
 				case ASTAR: {
 
 					if (!isBest(node.getState(), node.getCost())) return;
-					candidates = new ArrayList<>();
-					addCandidates(node, candidates);
-					// TODO: ¿Cómo se agregan los nodos a open en A*?
+				}
+				case GREEDY: {
+
+					final PriorityQueue<GPSNode> queue
+						= new PriorityQueue<>(
+							Comparator.comparing(n -> evaluation(n)));
+					addCandidates(node, queue);
+					while (!queue.isEmpty()) open.add(queue.remove());
 					break;
 				}
 			}
@@ -205,6 +201,46 @@
 					newNode.setParent(node);
 					candidates.add(newNode);
 				});
+		}
+
+		/**
+		* <p>Se encarga de computar la función de evaluación (en general,
+		* denotada con <i>f(n)</i>), para un nodo especificado, en función de
+		* la estrategia utilizada. En particular, los parámetros empleados
+		* representan la función de costo <i>g(n)</i>, y la función de
+		* heurística <i>h(n)</i> (solo durante una búsqueda informada).</p>
+		*
+		* @param node
+		*	El nodo sobre el cual computar la función de evaluación.
+		*
+		* @return Devuelve <i>f(n)</i>, donde <i>n</i> es el nodo
+		*	especificado.
+		*/
+
+		private int evaluation(final GPSNode node) {
+
+			int evaluation = 0;
+			switch (strategy) {
+
+				// f(n) = g(n)
+				case BFS:
+				case DFS:
+				case IDDFS:
+					evaluation += node.getCost();
+					break;
+
+				// f(n) = g(n) + h(n)
+				case ASTAR:
+					evaluation += node.getCost();
+
+				// f(n) = h(n)
+				case GREEDY:
+					final Integer heuristic
+						= problem.getHValue(node.getState());
+					evaluation += (heuristic != null? heuristic : 0);
+					break;
+			}
+			return evaluation;
 		}
 
 		/**

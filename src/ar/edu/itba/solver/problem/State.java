@@ -35,18 +35,17 @@
 
 			return board[0][0];
 		}
-		
+
 		public int getDistinct() {
-			
-			Set<Integer> distinct = new HashSet<>();
-			
-			for (int[] row: board){
-				for (int tile : row){
+
+			final Set<Integer> distinct = new HashSet<>();
+
+			for (int [] row : board)
+				for (int tile : row)
 					distinct.add(tile);
-				}
-			}			
-			
-			return distinct.size();
+
+			// Debe ser igual a 0 en los estados solución:
+			return distinct.size() - 1;
 		}
 
 		public boolean isUniform() {
@@ -124,11 +123,10 @@
 				.append(getDistinguished())
 				.append("\n");
 
-			/*
-			 * Para testear H value de heurística 1
-			 * result.append("> H value: ")
-			.append(getDistinct())
-			.append("\n");
+			// Mostrar heurística DISTINCT:
+			/* result.append("> H Value: ")
+				.append(getDistinct())
+				.append("\n");
 			*/
 
 			for (int i = 0; i < getRows(); ++i) {
