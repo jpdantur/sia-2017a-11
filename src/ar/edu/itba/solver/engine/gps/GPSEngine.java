@@ -171,19 +171,10 @@
 					for (final GPSNode n : candidates) open.addFirst(n);
 					break;
 				}
+				case GREEDY:
 				case ASTAR: {
 
 					if (!isBest(node.getState(), node.getCost())) return;
-					final PriorityQueue<GPSNode> queue
-						= new PriorityQueue<>(
-							Comparator.comparing(n -> evaluation(n)));
-					addCandidates(node, queue);
-					while (!queue.isEmpty()) open.add(queue.remove());
-					break;
-				}
-				case GREEDY: {
-
-					if (close.containsKey(node.getState())) return;
 					final PriorityQueue<GPSNode> queue
 						= new PriorityQueue<>(
 							Comparator.comparing(n -> evaluation(n)));
