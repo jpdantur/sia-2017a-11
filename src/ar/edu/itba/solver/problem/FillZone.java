@@ -3,7 +3,7 @@
 
 	import java.util.ArrayList;
 	import java.util.List;
-import java.util.stream.IntStream;
+	import java.util.stream.IntStream;
 
 	import ar.edu.itba.solver.engine.gps.api.GPSProblem;
 	import ar.edu.itba.solver.engine.gps.api.GPSRule;
@@ -31,7 +31,10 @@ import java.util.stream.IntStream;
 				final int [][] board,
 				final String heuristic) {
 
-			this.initialState = new State(board);
+			if (heuristic.equals("graph"))
+				this.initialState = new GraphState(board);
+			else this.initialState = new MatrixState(board);
+
 			this.rules = new ArrayList<>();
 
 			this.rows = header[0];
@@ -65,18 +68,26 @@ import java.util.stream.IntStream;
 		@Override
 		public Integer getHValue(GPSState state) {
 
-			final State fzState = (State) state;
 			switch (heuristic) {
 
 				// Admissible...
-				case "distinct":
+				case "distinct": {
+
+					final MatrixState fzState = (MatrixState) state;
 					return fzState.getDistinct();
-				case "graph":
-					return null;
+				}
+				case "graph": {
+
+					final GraphState fzState = (GraphState) state;
+					return fzState.getFurthestDistance();
+				}
 
 				// Non-admissible...
-				case "frontier":					
+				case "frontier": {
+
+					final MatrixState fzState = (MatrixState) state;
 					return fzState.getFrontier(getColours());
+				}
 
 				case "none":
 				default:

@@ -1,125 +1,72 @@
 package ar.edu.itba.solver.problem;
 
-import java.util.*;
+import java.awt.Point;
+import java.util.LinkedList;
+import java.util.Queue;
 
 import ar.edu.itba.solver.engine.gps.api.GPSState;
-import ar.edu.itba.util.Graph;
 
-public class GraphState implements GPSState {
-	
+public class GraphState implements GPSState, State {
+
 	private IslandGraph board;
-	private Island distinguished;
-	
-	/*public static void main(String[] args) {
-		int [][] board = {{0,3,4,3,1},
-							{5,5,5,4,2},
-							{2,2,1,0,0},
-							{3,2,3,4,4}};
-		GraphState s = new GraphState(board);
-		System.out.println(s.board);
-		System.out.println(s.board.getDistinguished());
-		s.board.paint(5);
-		System.out.println(s.board);
 
-		System.out.println(s.board.getDistinguished());
-		s.board.paint(1);
-		System.out.println(s.board);
-		System.out.println(s.board.getDistinguished());
-		s.board.paint(0);
-		System.out.println(s.board);
-		System.out.println(s.board.getDistinguished());
-		s.board.paint(2);
-		System.out.println(s.board);
-		System.out.println(s.board.getDistinguished());
-		s.board.paint(1);
-		System.out.println(s.board);
-		System.out.println(s.board.getDistinguished());
-		s.board.paint(3);
-		System.out.println(s.board);
-		System.out.println(s.board.getDistinguished());
-		s.board.paint(4);
-		System.out.println("---------");
-		System.out.println(s.board);
-		System.out.println(s.board.getDistinguished());
-	}*/
-	
 	public GraphState(int [][] board) {
 		this.board = getIslandGraph(board);
 	}
-	
+
 	public boolean isUniform() {
-		return board.getElements().size()==1;
+		return board.getElements().size() == 1;
+	}	
+
+	@Override
+	public int getDistinguished() {
+
+		return board.getDistinguished().color;
 	}
 
-
-	
-	private class Tuple {
-		int x;
-		int y;
-		
-		public Tuple(int x, int y) {
-			this.x=x;
-			this.y=y;
-		}
-
-		@Override
-		public int hashCode() {
-			final int prime = 31;
-			int result = 1;
-			result = prime * result + getOuterType().hashCode();
-			result = prime * result + x;
-			result = prime * result + y;
-			return result;
-		}
-
-		@Override
-		public boolean equals(Object obj) {
-			if (this == obj)
-				return true;
-			if (obj == null)
-				return false;
-			if (getClass() != obj.getClass())
-				return false;
-			Tuple other = (Tuple) obj;
-			if (!getOuterType().equals(other.getOuterType()))
-				return false;
-			if (x != other.x)
-				return false;
-			if (y != other.y)
-				return false;
-			return true;
-		}
-
-		private GraphState getOuterType() {
-			return GraphState.this;
-		}
+	@Override
+	public State deepCopy() {
+		// TODO Auto-generated method stub
+		return null;
 	}
-	
+
+	@Override
+	public State paint(final int colour) {
+
+		board.paint(colour);
+		return this;
+	}
+
+	public int getFurthestDistance() {
+
+		// TODO: heurística 'graph'...
+		return 0;
+	}
 
 	private class Node {
 		Island island;
-		Tuple position;
+		Point position;
 
-		Node(Island island, Tuple position) {
+		Node(Island island, Point position) {
 			this.island = island;
 			this.position = position;
 		}
 	}
-	
+
 	private IslandGraph getIslandGraph(int [][] board) {
 		Island[][] usedCells = new Island[board.length][board[0].length];
 		Queue<Node> queue = new LinkedList<Node>();
 		IslandGraph graph = new IslandGraph();
-		queue.offer(new Node(null, new Tuple(0,0)));
+		queue.offer(new Node(null, new Point(0,0)));
 		while (!queue.isEmpty()) {
 			Node node = queue.poll();
 			Island neighbourIsland = node.island;
-			Tuple position = node.position;
+			Point position = node.position;
 			int x = position.x;
 			int y = position.y;
 			if (usedCells[x][y] == null) {
 				Island island = new Island(board[x][y]);
-				if (x==0 && y==0) {
+				if (x == 0 && y == 0) {
 					graph.addDistinguished(island);
 				}
 				else {
@@ -141,7 +88,7 @@ public class GraphState implements GPSState {
 			return;
 		}
 		if (board[x][y] != color) {
-			queue.offer(new Node(island, new Tuple(x,y)));
+			queue.offer(new Node(island, new Point(x,y)));
 			return;
 		}
 		usedCells[x][y] = island;
@@ -149,7 +96,7 @@ public class GraphState implements GPSState {
 			for (int j = -1; j < 2; j++) {
 				if (Math.abs(i) != Math.abs(j)) {
 					getIslandsGraph(x + i, y + j, usedCells, color, queue,
-							island,board);
+							island, board);
 				}
 			}
 		}

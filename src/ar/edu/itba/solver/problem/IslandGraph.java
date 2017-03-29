@@ -1,9 +1,6 @@
 package ar.edu.itba.solver.problem;
 
 import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
 import java.util.Set;
 
 public class IslandGraph {
@@ -15,17 +12,17 @@ public class IslandGraph {
 		nodes = new HashSet<>();
 
 	}
-	
+
 	public Island getDistinguished() {
 		return distinguished.elem;
 	}
-	
+
 	public void addDistinguished(Island distinguished) {
 		Node<Island> dist = new Node<>(distinguished);
 		nodes.add(dist);
 		this.distinguished=dist;
 	}
-	
+
 	public Set<Island> getElements(){
 		Set<Island> elements = new HashSet<>();
 		for(Node<Island> n : nodes){
@@ -44,7 +41,7 @@ public class IslandGraph {
 		}
 		return node;
 	}
-	
+
 	public void paint (int color) {
 		distinguished.mark=1;
 		Set <Node<Island>> newNeighbors = new HashSet<>();
@@ -71,7 +68,7 @@ public class IslandGraph {
 	public boolean putNode(Island elem) {
 		return nodes.add(new Node<Island>(elem));
 	}
-	
+
 	public boolean isUniform() {
 		return distinguished.neighbours.size()==0;
 	}
@@ -84,8 +81,7 @@ public class IslandGraph {
 		}
 		return n1.setNeighbour(n2) && n2.setNeighbour(n1);
 	}
-	
-	
+
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
@@ -97,12 +93,6 @@ public class IslandGraph {
 			sb.append("\n");
 		}
 		return sb.toString();
-	}
-
-	private void resetNodes() {
-		for(Node<Island> node : nodes){
-			node.reset();
-		}
 	}
 
 	class Node<E> {
@@ -132,7 +122,7 @@ public class IslandGraph {
 		public Set<Node<E>> getNeighbours() {
 			return neighbours;
 		}
-		
+
 		public boolean setNeighbour(Node<E> n){
 			return this.neighbours.add(n);
 		}
@@ -140,29 +130,28 @@ public class IslandGraph {
 		public E getElement() {
 			return elem;
 		}
-		
+
 		public void reset(){
 			isVisited = false;
 			mark = 0;
 		}
-		
+
 		public void mark(int mark){
 			this.mark = mark;
 		}
-		
+
 		public int getMark(){
 			return mark;
 		}
-		
+
 		@Override
 		public String toString() {
 			return elem.toString();
 		}
-		
+
 		@Override
 		public int hashCode() {
 			return elem.hashCode();
 		}
 	}
 }
-
