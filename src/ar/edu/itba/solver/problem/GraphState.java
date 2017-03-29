@@ -1,17 +1,85 @@
 package ar.edu.itba.solver.problem;
 
 import java.awt.Point;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.Queue;
 
 import ar.edu.itba.solver.engine.gps.api.GPSState;
 
-public class GraphState implements GPSState, State {
+public class GraphState implements GPSState, State, Serializable {
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((board == null) ? 0 : board.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		GraphState other = (GraphState) obj;
+		if (board == null) {
+			if (other.board != null)
+				return false;
+		} else if (!board.equals(other.board))
+			return false;
+		return true;
+	}
 
 	private IslandGraph board;
+	
+	
+	public static void main (String [] args) {
+ 		int [][] board = {{0,3,4,3,1},
+ 							{5,5,5,4,2},
+ 							{2,2,1,0,0},
+ 							{3,2,3,4,4}};
+		System.out.println(new GraphState(board).board);
+		GraphState s = new GraphState(board);
+		System.out.println(s.board);
+	System.out.println(s.board.getDistinguished());
+		s.board.paint(5);
+		System.out.println(s.board);
+
+		System.out.println(s.board.getDistinguished());
+		s.board.paint(1);
+		System.out.println(s.board);
+		System.out.println(s.board.getDistinguished());
+		s.board.paint(0);
+		System.out.println(s.board);
+		System.out.println(s.board.getDistinguished());
+		s.board.paint(2);
+		System.out.println(s.board);
+		System.out.println(s.board.getDistinguished());
+		s.board.paint(1);
+		System.out.println(s.board);
+	System.out.println(s.board.getDistinguished());
+		s.board.paint(3);
+		System.out.println(s.board);
+		System.out.println(s.board.getDistinguished());
+		s.board.paint(4);
+		System.out.println("---------");
+	System.out.println(s.board);
+	System.out.println(s.board.getDistinguished());
+	}
 
 	public GraphState(int [][] board) {
 		this.board = getIslandGraph(board);
+	}
+	public GraphState() {
+		
 	}
 
 	public boolean isUniform() {
@@ -26,8 +94,9 @@ public class GraphState implements GPSState, State {
 
 	@Override
 	public State deepCopy() {
-		// TODO Auto-generated method stub
-		return null;
+		GraphState copy = new GraphState();
+		copy.board=board.deepCopy();
+		return copy;
 	}
 
 	@Override
@@ -65,7 +134,7 @@ public class GraphState implements GPSState, State {
 			int x = position.x;
 			int y = position.y;
 			if (usedCells[x][y] == null) {
-				Island island = new Island(board[x][y]);
+				Island island = new Island(board[x][y],new Point(x,y));
 				if (x == 0 && y == 0) {
 					graph.addDistinguished(island);
 				}
@@ -92,6 +161,7 @@ public class GraphState implements GPSState, State {
 			return;
 		}
 		usedCells[x][y] = island;
+		island.addPoint(new Point(x,y));
 		for (int i = -1; i < 2; i++) {
 			for (int j = -1; j < 2; j++) {
 				if (Math.abs(i) != Math.abs(j)) {
