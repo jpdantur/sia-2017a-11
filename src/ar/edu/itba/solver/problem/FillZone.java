@@ -3,7 +3,7 @@
 
 	import java.util.ArrayList;
 	import java.util.List;
-	import java.util.stream.IntStream;
+import java.util.stream.IntStream;
 
 	import ar.edu.itba.solver.engine.gps.api.GPSProblem;
 	import ar.edu.itba.solver.engine.gps.api.GPSRule;
@@ -75,8 +75,8 @@
 					return null;
 
 				// Non-admissible...
-				case "frontier":
-					return null;
+				case "frontier":					
+					return fzState.getFrontier(getColours());
 
 				case "none":
 				default:

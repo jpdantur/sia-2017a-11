@@ -1,7 +1,8 @@
 
 	package ar.edu.itba.solver.problem;
 
-	import java.util.Arrays;
+	import java.awt.Point;
+import java.util.Arrays;
 	import java.util.HashSet;
 	import java.util.Set;
 
@@ -81,7 +82,7 @@
 			paint(0, 0, distinguished, colour);
 			return this;
 		}
-
+		
 		private void paint(final int x, final int y,
 				final int distinguished, final int colour) {
 
@@ -95,6 +96,57 @@
 						paint(x, y - 1, distinguished, colour);		// Left
 						paint(x, y + 1, distinguished, colour);		// Right
 					}
+		}
+		
+		private Set<Point> adjacent;
+		private Set<Point> visited;
+		private int[] colors;
+		
+		public Integer getFrontier(int colours){
+			
+			int distinguished = getDistinguished();
+			colors = new int[colours];			
+			adjacent= new HashSet<Point>();
+			visited = new HashSet<Point>();
+			
+			frontier(0,0,distinguished);
+			
+			int frontierSize = adjacent.size();
+			
+			int max=0;
+			
+			for (int amount : colors){
+				if (amount>max)
+					max=amount;				
+			}
+			
+			return (max == 0 ? max : 1 + frontierSize - max );
+		}
+		
+		private void frontier(final int x, final int y, final int distinguished){
+			
+			if (0 <= x && x < getRows()){
+				if (0 <= y && y < getColumns()){
+					if (!visited.contains(new Point(x,y))){
+						
+						visited.add(new Point(x,y));
+						
+						if (board[x][y] == distinguished) {
+							
+							frontier(x - 1, y, distinguished);		// Up
+							frontier(x + 1, y, distinguished);		// Down
+							frontier(x, y - 1, distinguished);		// Left
+							frontier(x, y + 1, distinguished);		// Right
+							
+							}
+						else{
+							adjacent.add(new Point(x,y));
+							colors[board[x][y]]++;							
+						}
+					}
+				}
+			}
+			
 		}
 
 		@Override
@@ -124,10 +176,10 @@
 				.append("\n");
 
 			// Mostrar heurística DISTINCT:
-			/* result.append("> H Value: ")
-				.append(getDistinct())
-				.append("\n");
-			*/
+//			 result.append("> H Value: ")
+//				.append(getDistinct())
+//				.append("\n");
+			
 
 			for (int i = 0; i < getRows(); ++i) {
 
