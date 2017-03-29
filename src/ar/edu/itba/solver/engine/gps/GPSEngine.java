@@ -24,8 +24,7 @@
 	public final class GPSEngine {
 
 		// Open list:
-		private final Deque<GPSNode> open
-			= new LinkedList<>();
+		private final Queue<GPSNode> open;
 
 		// Close list:
 		private final Map<GPSState, Integer> close
@@ -49,6 +48,31 @@
 
 			this.problem = problem;
 			this.strategy = strategy;
+
+			switch (strategy) {
+
+				// Blind Search:
+				case BFS:
+				case DFS:
+				case IDDFS: {
+
+					open = new LinkedList<>();
+					break;
+				}
+
+				// Heuristic Search:
+				case GREEDY:
+				case ASTAR: {
+
+					open = new PriorityQueue<>(
+							Comparator.comparing(n -> evaluation(n)));
+					break;
+				}
+
+				// Unknown:
+				default:
+					throw new IllegalArgumentException();
+			}
 		}
 
 		/**
@@ -101,7 +125,8 @@
 					//printSolution(solution);
 					return;
 				}
-				else if (depth <= maxDepth) explode(node);
+				else if (depth <= maxDepth && canExplode(node))
+					explode(node);
 			}
 
 			if (open.isEmpty() && !limit) {
@@ -151,35 +176,30 @@
 
 		private void explode(final GPSNode node) {
 
-			final Collection<GPSNode> candidates;
+			final Collection<GPSNode> candidates
+				= new ArrayList<>();
+
+			// Explotar y almacenar:
+			addCandidates(node, candidates);
+
 			switch (strategy) {
 
 				case BFS: {
 
-					if (close.containsKey(node.getState())) return;
-					candidates = new ArrayList<>();
-					addCandidates(node, candidates);
 					open.addAll(candidates);
 					break;
 				}
 				case DFS:
 				case IDDFS: {
 
-					if (!isBest(node.getState(), node.getCost())) return;
-					candidates = new ArrayList<>();
-					addCandidates(node, candidates);
-					for (final GPSNode n : candidates) open.addFirst(n);
+					final Deque<GPSNode> deque = (Deque<GPSNode>) open;
+					for (final GPSNode n : candidates) deque.addFirst(n);
 					break;
 				}
 				case GREEDY:
 				case ASTAR: {
 
-					if (!isBest(node.getState(), node.getCost())) return;
-					final PriorityQueue<GPSNode> queue
-						= new PriorityQueue<>(
-							Comparator.comparing(n -> evaluation(n)));
-					addCandidates(node, queue);
-					while (!queue.isEmpty()) open.add(queue.remove());
+					for (final GPSNode n : candidates) open.add(n);
 					break;
 				}
 			}
@@ -201,7 +221,7 @@
 				final Collection<GPSNode> candidates) {
 
 			++explosions;
-			updateBest(node);
+			updateCost(node);
 
 			for (final GPSRule rule : problem.getRules())
 				rule.evalRule(node.getState())
@@ -259,21 +279,23 @@
 
 		/**
 		* <p>Verifica si un estado explorado es nuevo o si el mismo había sido
-		* alcanzado previamente, pero con un costo mayor.</p>
+		* alcanzado previamente, pero con un costo mayor, lo que es
+		* equivalente a decidir si el mismo es explotable. No es necesario
+		* verificar el parámetro heurístico debido a que el mismo es estático
+		* con respecto al estado, es decir, representa un invariante.</p>
 		*
-		* @param state
-		*	El estado a verificar.
-		* @param cost
-		*	El costo del estado propuesto.
+		* @param node
+		*	El nodo que se desea explotar.
 		*
 		* @return Devuelve <i>true</i> si el estado es nuevo, o si posee un
 		*	costo menor.
 		*/
 
-		private boolean isBest(final GPSState state, final Integer cost) {
+		private boolean canExplode(final GPSNode node) {
 
+			final GPSState state = node.getState();
 			return !close.containsKey(state)
-					|| cost < close.get(state);
+					|| node.getCost() < close.get(state);
 		}
 
 		/**
@@ -284,7 +306,7 @@
 		*	El nodo a actualizar.
 		*/
 
-		private void updateBest(final GPSNode node) {
+		private void updateCost(final GPSNode node) {
 
 			close.put(node.getState(), node.getCost());
 		}
