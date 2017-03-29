@@ -199,7 +199,7 @@
 				case GREEDY:
 				case ASTAR: {
 
-					for (final GPSNode n : candidates) open.add(n);
+					open.addAll(candidates);
 					break;
 				}
 			}
