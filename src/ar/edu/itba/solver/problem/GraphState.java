@@ -7,46 +7,51 @@ import ar.edu.itba.util.Graph;
 
 public class GraphState implements GPSState {
 	
-	private Graph<Island> board;
+	private IslandGraph board;
+	private Island distinguished;
 	
 	/*public static void main(String[] args) {
 		int [][] board = {{0,3,4,3,1},
 							{5,5,5,4,2},
 							{2,2,1,0,0},
 							{3,2,3,4,4}};
-		System.out.println(new GraphState(board).board);
+		GraphState s = new GraphState(board);
+		System.out.println(s.board);
+		System.out.println(s.board.getDistinguished());
+		s.board.paint(5);
+		System.out.println(s.board);
+
+		System.out.println(s.board.getDistinguished());
+		s.board.paint(1);
+		System.out.println(s.board);
+		System.out.println(s.board.getDistinguished());
+		s.board.paint(0);
+		System.out.println(s.board);
+		System.out.println(s.board.getDistinguished());
+		s.board.paint(2);
+		System.out.println(s.board);
+		System.out.println(s.board.getDistinguished());
+		s.board.paint(1);
+		System.out.println(s.board);
+		System.out.println(s.board.getDistinguished());
+		s.board.paint(3);
+		System.out.println(s.board);
+		System.out.println(s.board.getDistinguished());
+		s.board.paint(4);
+		System.out.println("---------");
+		System.out.println(s.board);
+		System.out.println(s.board.getDistinguished());
 	}*/
 	
 	public GraphState(int [][] board) {
 		this.board = getIslandGraph(board);
 	}
-
-	private class Island {
-		int color;
-		Set<Tuple> points = new HashSet<>();
-		public Island(int color) {
-			this.color=color;
-		}
-		void addPoint(int x,int y) {
-			points.add(new Tuple(x,y));
-		}
-		
-		public boolean equals(Object obj) {
-			return points.equals(((Island)obj).points);
-		}
-		
-		public int hashCode() {
-			return points.hashCode();
-		}
-		
-		public String toString() {
-			if (points.isEmpty())
-				return (color+"(-1,-1)");
-			Tuple any = points.iterator().next();
-			return(color+"("+any.x+","+any.y+")");
-		}
-		
+	
+	public boolean isUniform() {
+		return board.getElements().size()==1;
 	}
+
+
 	
 	private class Tuple {
 		int x;
@@ -101,10 +106,10 @@ public class GraphState implements GPSState {
 		}
 	}
 	
-	private Graph<Island> getIslandGraph(int [][] board) {
+	private IslandGraph getIslandGraph(int [][] board) {
 		Island[][] usedCells = new Island[board.length][board[0].length];
 		Queue<Node> queue = new LinkedList<Node>();
-		Graph<Island> graph = new Graph<Island>();
+		IslandGraph graph = new IslandGraph();
 		queue.offer(new Node(null, new Tuple(0,0)));
 		while (!queue.isEmpty()) {
 			Node node = queue.poll();
@@ -114,7 +119,12 @@ public class GraphState implements GPSState {
 			int y = position.y;
 			if (usedCells[x][y] == null) {
 				Island island = new Island(board[x][y]);
-				graph.putNode(island);
+				if (x==0 && y==0) {
+					graph.addDistinguished(island);
+				}
+				else {
+					graph.putNode(island);
+				}
 				getIslandsGraph(x, y, usedCells, board[x][y], queue, island, board);
 			} 
 			if (neighbourIsland != null) {
@@ -135,7 +145,6 @@ public class GraphState implements GPSState {
 			return;
 		}
 		usedCells[x][y] = island;
-		island.addPoint(x, y);
 		for (int i = -1; i < 2; i++) {
 			for (int j = -1; j < 2; j++) {
 				if (Math.abs(i) != Math.abs(j)) {
