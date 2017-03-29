@@ -118,16 +118,17 @@ import java.util.Set;
 			
 			int max=stat.getMax();
 			
-			return (max == 0 ? max : 1 + frontierSize - max );
+			return (max == 0 ? 0 : 1 + frontierSize - max );
 		}
 		
 		private void frontier(final int x, final int y, final int distinguished){
 			
+			final Point point = new Point(x, y);
 			if (0 <= x && x < getRows()){
 				if (0 <= y && y < getColumns()){
-					if (!visited.contains(new Point(x,y))){
+					if (!visited.contains(point)){
 						
-						visited.add(new Point(x,y));
+						visited.add(point);
 						
 						if (board[x][y] == distinguished) {
 							
@@ -138,7 +139,7 @@ import java.util.Set;
 							
 							}
 						else{
-							adjacent.add(new Point(x,y));
+							adjacent.add(point);
 							colors[board[x][y]]++;							
 						}
 					}
