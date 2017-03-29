@@ -4,7 +4,8 @@
 	import java.awt.Point;
 import java.util.Arrays;
 	import java.util.HashSet;
-	import java.util.Set;
+import java.util.IntSummaryStatistics;
+import java.util.Set;
 
 	import ar.edu.itba.solver.engine.gps.api.GPSState;
 
@@ -113,12 +114,9 @@ import java.util.Arrays;
 			
 			int frontierSize = adjacent.size();
 			
-			int max=0;
+			IntSummaryStatistics stat = Arrays.stream(colors).summaryStatistics();
 			
-			for (int amount : colors){
-				if (amount>max)
-					max=amount;				
-			}
+			int max=stat.getMax();
 			
 			return (max == 0 ? max : 1 + frontierSize - max );
 		}
