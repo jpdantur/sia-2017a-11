@@ -9,10 +9,12 @@ instancias del conocido juego **_Fill Zone_**.
 En particular, los mecanismos utilizados hacen referencia a los métodos de
 búsqueda más conocidos, tanto *no-informados* como *informados*.
 
-El motor principal se construyó aumentando una sistema *GPS* similar ofrecido
+El motor principal se construyó aumentando un sistema *GPS* similar ofrecido
 por la cátedra, el cual puede encontrarse en:
 
-* [@AlanPierri - General Problem Solver [master branch]](https://github.com/apierri/GeneralProblemSolver)
+* [@AlanPierri - General Problem Solver [master branch]](
+https://github.com/apierri/GeneralProblemSolver
+)
 
 ## Instalación
 
@@ -98,7 +100,7 @@ se deben numerar de *0* a *5*.
 
 ## Casos de Uso
 
-A continuación se disponen 2 ejemplos de configuración. El primero permite
+A continuación, se disponen 2 ejemplos de configuración. El primero permite
 utilizar una búsqueda desinformada (*blind search*) para resolver un problema
 de dimensión _15x15_, con una paleta de _5_ colores:
 
@@ -121,7 +123,7 @@ En este caso se aplicó el algoritmo _DFS_ sin heurística, especificando el
 requerimiento de visualizar la solución, una vez hallada.
 
 En el siguiente ejemplo, se utiliza una estrategia informada (*heuristic
-search*), en particular, *GREEDY* con heurística *distinct* para ressolver un
+search*), en particular, *GREEDY* con heurística *distinct* para resolver un
 problema de gran magnitud:
 
 ```
