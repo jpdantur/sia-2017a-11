@@ -38,40 +38,6 @@ public class GraphState implements State {
 
 	private IslandGraph board;
 	
-	
-	/*public static void main (String [] args) {
- 		int [][] board = {{0,3,4,3,1},
- 							{5,5,5,4,2},
- 							{2,2,1,0,0},
- 							{3,2,3,4,4}};
-		System.out.println(new GraphState(board).board);
-		GraphState s = new GraphState(board);
-		System.out.println(s.board);
-	System.out.println(s.board.getDistinguished());
-		s.board.paint(5);
-		System.out.println(s.board);
-
-		System.out.println(s.board.getDistinguished());
-		s.board.paint(1);
-		System.out.println(s.board);
-		System.out.println(s.board.getDistinguished());
-		s.board.paint(0);
-		System.out.println(s.board);
-		System.out.println(s.board.getDistinguished());
-		s.board.paint(2);
-		System.out.println(s.board);
-		System.out.println(s.board.getDistinguished());
-		s.board.paint(1);
-		System.out.println(s.board);
-	System.out.println(s.board.getDistinguished());
-		s.board.paint(3);
-		System.out.println(s.board);
-		System.out.println(s.board.getDistinguished());
-		s.board.paint(4);
-		System.out.println("---------");
-	System.out.println(s.board);
-	System.out.println(s.board.getDistinguished());
-	}*/
 
 	public GraphState(int [][] board) {
 		this.board = getIslandGraph(board);
@@ -106,8 +72,7 @@ public class GraphState implements State {
 
 	public int getFurthestDistance() {
 
-		// TODO: heurística 'graph'...
-		return 0;
+		return board.getFurthestDistance();
 	}
 
 	private class Node {

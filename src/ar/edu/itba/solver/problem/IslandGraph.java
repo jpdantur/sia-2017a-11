@@ -1,9 +1,13 @@
 package ar.edu.itba.solver.problem;
 
 import java.awt.Point;
+import java.util.Deque;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.IdentityHashMap;
+import java.util.LinkedList;
 import java.util.Map;
+import java.util.Queue;
 import java.util.Set;
 
 public class IslandGraph{
@@ -146,5 +150,43 @@ public class IslandGraph{
 		} else if (!nodes.equals(other.nodes))
 			return false;
 		return true;
+	}
+
+
+    public int getFurthestDistance() {
+    	Deque<Node> queue = new LinkedList<>();
+    	Map<Node,Integer> distanceMap = new HashMap<>();
+        queue.clear();
+        distanceMap.clear();
+
+        queue.addLast(distinguished);
+        distanceMap.put(distinguished, 0);
+
+        int maximumDistance = 0;
+
+        while (!queue.isEmpty()) {
+            Node current = queue.removeFirst();
+
+            for (Node child : current.neighbours) {
+                if (!distanceMap.containsKey(child)) {
+                    int distance = distanceMap.get(current) + 1;
+                    distanceMap.put(child, distance);
+                    queue.addLast(child);
+
+                    if (maximumDistance < distance) {
+                        maximumDistance = distance;
+                    }
+                }
+            }
+        }
+
+        return maximumDistance;
+    }
+
+	private void clearMarks() {
+		for (Node n:nodes) {
+			n.isVisited=false;
+		}
+		
 	}
 }
