@@ -7,7 +7,6 @@ import java.util.HashSet;
 import java.util.IdentityHashMap;
 import java.util.LinkedList;
 import java.util.Map;
-import java.util.Queue;
 import java.util.Set;
 
 public class IslandGraph{
@@ -183,6 +182,7 @@ public class IslandGraph{
         return maximumDistance;
     }
 
+	@SuppressWarnings("unused")
 	private void clearMarks() {
 		for (Node n:nodes) {
 			n.isVisited=false;
