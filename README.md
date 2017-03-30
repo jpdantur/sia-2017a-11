@@ -48,7 +48,7 @@ selectivamente cada parámetro de operación sin reconstruir el proyecto:
 #!xml
 
 <?xml version = "1.0" encoding = "UTF-8"?>
-	<solverConfiguration>
+<solverConfiguration>
 	<!-- Parámetros generales -->
 	<strategy>GREEDY</strategy>
 	<heuristic>distinct</heuristic>
@@ -108,7 +108,7 @@ de dimensión _15x15_, con una paleta de _5_ colores:
 #!xml
 
 <?xml version = "1.0" encoding = "UTF-8"?>
-	<solverConfiguration>
+<solverConfiguration>
 	<!-- Parámetros generales -->
 	<strategy>DFS</strategy>
 	<heuristic>none</heuristic>
@@ -130,7 +130,7 @@ problema de gran magnitud:
 #!xml
 
 <?xml version = "1.0" encoding = "UTF-8"?>
-	<solverConfiguration>
+<solverConfiguration>
 	<!-- Parámetros generales -->
 	<strategy>GREEDY</strategy>
 	<heuristic>distinct</heuristic>
