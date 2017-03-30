@@ -8,7 +8,26 @@ public class GraphState implements State {
 
 	@Override
 	public String toString() {
-		return "GraphState [board=" + board + "]";
+
+		final StringBuilder result = new StringBuilder();
+
+		result.append("> Color: ")
+			.append(getDistinguished())
+			.append("\n");
+
+		// Mostrar heurística DISTINCT:
+//		 result.append("> H Value: ")
+//			.append(getDistinct())
+//			.append("\n");
+		for (int i = 0; i < getRows(); ++i) {
+
+			for (int j = 0; j < getColumns(); j++)
+				result.append(board.getColor(i, j) + " ");
+
+			result.append("\n");
+		}
+
+		return result.append("\n").toString();
 	}
 
 	@Override
@@ -37,11 +56,23 @@ public class GraphState implements State {
 	}
 
 	private IslandGraph board;
+	private int rows;
+	private int columns;
 	
 
 	public GraphState(int [][] board) {
 		this.board = getIslandGraph(board);
+		rows=board.length;
+		columns=board[0].length;
 	}
+	public int getRows() {
+		return rows;
+	}
+
+	public int getColumns() {
+		return columns;
+	}
+
 	public GraphState() {
 		
 	}
@@ -60,6 +91,8 @@ public class GraphState implements State {
 	public State deepCopy() {
 		GraphState copy = new GraphState();
 		copy.board=board.deepCopy();
+		copy.rows=rows;
+		copy.columns=columns;
 		return copy;
 	}
 
@@ -135,4 +168,6 @@ public class GraphState implements State {
 		}
 		return;
 	}
+	
+	
 }

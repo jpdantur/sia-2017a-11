@@ -189,4 +189,12 @@ public class IslandGraph{
 		}
 		
 	}
+	
+	public int getColor(int x, int y) {
+		for (Node n:nodes) {
+			if (n.elem.positions.contains(new Point(x,y)))
+				return n.elem.color;
+		}
+		return -1; //Not found
+	}
 }
