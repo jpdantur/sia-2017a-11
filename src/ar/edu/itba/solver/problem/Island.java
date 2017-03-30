@@ -29,8 +29,9 @@ public class Island {
 		if (positions == null) {
 			if (other.positions != null)
 				return false;
-		} else if (!positions.equals(other.positions))
+		} else if (!positions.equals(other.positions)) {
 			return false;
+		}
 		return true;
 	}
 

@@ -7,6 +7,11 @@ import java.util.Queue;
 public class GraphState implements State {
 
 	@Override
+	public String toString() {
+		return "GraphState [board=" + board + "]";
+	}
+
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
