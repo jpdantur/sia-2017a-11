@@ -111,18 +111,13 @@
 			while (!open.isEmpty()) {
 
 				final GPSNode node = open.remove();
-				final int depth;
-
-				if (strategy == SearchStrategy.IDDFS)
-					depth = depth(node);
-				else depth = 0;
+				final int depth = node.getDepth();
 
 				if (maxDepth < depth) limit = true;
 				if (problem.isGoal(node.getState())) {
 
 					finished = true;
 					solution = node;
-					//printSolution(solution);
 					return;
 				}
 				else if (depth <= maxDepth && canExplode(node))
@@ -134,33 +129,6 @@
 				failed = true;
 				finished = true;
 			}
-		}
-
-		/*
-		private void printSolution(final GPSNode node) {
-
-			if (node == null) return;
-			printSolution(node.getParent());
-			System.out.println("Evaluation: " + evaluation(node));
-		}
-		*/
-
-		/**
-		* <p>Permite computar la profundidad del nodo, aplicando un recorrido
-		* en dirección inversa hacia la raíz del árbol de búsqueda.</p>
-		*
-		* @param node
-		*	El nodo para el cual se calculará la profundidad.
-		*
-		* @return Devuelve la profundidad a la que se encuentra el nodo. Si el
-		*	nodo es raíz, su profundidad es cero.
-		*/
-
-		private int depth(final GPSNode node) {
-
-			final GPSNode parent = node.getParent();
-			if (parent == null) return 0;
-			return 1 + depth(parent);
 		}
 
 		/**

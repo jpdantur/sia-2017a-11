@@ -1,75 +1,87 @@
-package ar.edu.itba.solver.engine.gps;
 
-import ar.edu.itba.solver.engine.gps.api.GPSRule;
-import ar.edu.itba.solver.engine.gps.api.GPSState;
+	package ar.edu.itba.solver.engine.gps;
 
-public class GPSNode {
+	import ar.edu.itba.solver.engine.gps.api.GPSRule;
+	import ar.edu.itba.solver.engine.gps.api.GPSState;
 
-	private GPSState state;
+	public class GPSNode {
 
-	private GPSNode parent;
+		private GPSState state;
+		private GPSNode parent;
+		private Integer cost;
+		private GPSRule rule;
+		private int depth;
 
-	private Integer cost;
-	
-	private GPSRule generationRule;
+		public GPSNode(GPSState state, Integer cost, GPSRule generationRule) {
 
-	public GPSNode(GPSState state, Integer cost, GPSRule generationRule) {
-		this.state = state;
-		this.cost = cost;
-		this.generationRule = generationRule;
-	}
-
-	public GPSNode getParent() {
-		return parent;
-	}
-
-	public void setParent(GPSNode parent) {
-		this.parent = parent;
-	}
-
-	public GPSState getState() {
-		return state;
-	}
-
-	public Integer getCost() {
-		return cost;
-	}
-
-	@Override
-	public String toString() {
-		return state.toString();
-	}
-
-	public String getSolution() {
-		if (this.parent == null) {
-			return this.state.toString();
+			this.state = state;
+			this.cost = cost;
+			this.rule = generationRule;
+			this.depth = 0;
 		}
-		return this.parent.getSolution() + this.state.toString();
-	}
-	
-	public GPSRule getGenerationRule() {
-		return generationRule;
-	}
 
-	public void setGenerationRule(GPSRule generationRule) {
-		this.generationRule = generationRule;
-	}
+		public int getDepth() {
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		GPSNode other = (GPSNode) obj;
-		if (state == null) {
-			if (other.state != null)
-				return false;
-		} else if (!state.equals(other.state))
-			return false;
-		return true;
-	}
+			return depth;
+		}
 
-}
+		public GPSNode getParent() {
+
+			return parent;
+		}
+
+		public GPSState getState() {
+
+			return state;
+		}
+
+		public Integer getCost() {
+
+			return cost;
+		}
+
+		public void setParent(GPSNode parent) {
+
+			this.parent = parent;
+			if (parent == null) depth = 0;
+			else depth = parent.depth + 1;
+		}
+
+		@Override
+		public String toString() {
+
+			return state.toString();
+		}
+
+		public String getSolution() {
+
+			if (this.parent == null)
+				return state.toString();
+
+			return parent.getSolution() + state.toString();
+		}
+
+		public GPSRule getGenerationRule() {
+
+			return rule;
+		}
+
+		public void setGenerationRule(GPSRule generationRule) {
+
+			this.rule = generationRule;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+
+			if (obj instanceof GPSNode) {
+
+				final GPSNode node = (GPSNode) obj;
+
+				if (state != null)
+					if (node.state != null)
+						return state.equals(node.state);
+			}
+			return false;
+		}
+	}

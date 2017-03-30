@@ -45,35 +45,39 @@ selectivamente cada parámetro de operación sin reconstruir el proyecto:
 ```
 #!xml
 
-	<?xml version = "1.0" encoding = "UTF-8"?>
+<?xml version = "1.0" encoding = "UTF-8"?>
 	<solverConfiguration>
-		<!-- Parámetros generales -->
-		<strategy>DFS</strategy>
-		<heuristic>none</heuristic>
-		<print>false</print>
-		<!-- Especificación del juego -->
-		<problem>./res/benchmarks/medium30x30_5.sia</problem>
-	</solverConfiguration>
+	<!-- Parámetros generales -->
+	<strategy>GREEDY</strategy>
+	<heuristic>distinct</heuristic>
+	<print>false</print>
+	<!-- Especificación del juego -->
+	<problem>./res/benchmarks/medium30x30_5.sia</problem>
+</solverConfiguration>
 
 ```
 
 Los parámetros aquí utilizados representan los valores por defecto. El
 conjunto de valores admitidos en cada *tag* es:
 
-* `strategy`: la estrategia de búsqueda a utilizar, puede ser no-informada (_DFS_, _BFS_, _IDDFS_), o informada (_GREEDY_, _ASTAR_).
+* `strategy`: la estrategia de búsqueda a utilizar, puede ser no-informada
+(_DFS_, _BFS_, _IDDFS_), o informada (_GREEDY_, _ASTAR_).
 
-* `heuristic`: la función heurística a utilizar (_H1_, _H2_), durante una búsqueda informada, o _none_ si no aplica.
+* `heuristic`: la función heurística a utilizar (_distinct_, _frontier_,
+_graph_), durante una búsqueda informada, o _none_ si no aplica.
 
-* `problem`: la ruta a un archivo en formato *\*.sia* describiendo un juego de _NxM_
-celdas y _K_ colores. El archivo se validará previamente a desplegar el algoritmo seleccionado.
+* `print`: indica si los pasos intermedios se deben mostrar en caso de hallar
+una solución, y por lo tanto, admite los valores _true_ o _false_.
 
-* `print`: indica si los pasos intermedios se deben mostrar en caso de hallar una solución, y por lo
-tanto, admite los valores _true_ o _false_.
+* `problem`: la ruta a un archivo en formato *\*.sia* describiendo un juego de
+_NxM_ celdas y _K_ colores. El archivo se validará previamente a desplegar el
+algoritmo seleccionado.
 
-El formato ***\*.sia*** utilizado es modo texto (*UTF-8 encoding*), y se compone
-de un *header* inicial con las dimensiones del tablero y de la paleta de
-colores (en este orden: filas, columnas, colores), separadas por espacios. En
-las siguientes líneas, el tablero propiamente dicho, descrito como una
+El formato ***\*.sia*** utilizado es modo texto (*UTF-8 encoding*), y se
+compone de un *header* inicial con las dimensiones del tablero y de la paleta
+de colores (en este orden: filas, columnas, colores), separadas por espacios.
+
+En las siguientes líneas, el tablero propiamente dicho, descrito como una
 secuencia de números enteros separados por espacios y numerados de *0* a
 *(K - 1)*:
 
@@ -92,9 +96,57 @@ En este ejemplo, el tablero posee una dimensión de *4x5* celdas (*4* filas y
 *5* columnas), y una paleta de *6* colores, por lo cual las sucesivas celdas
 se deben numerar de *0* a *5*.
 
+## Casos de Uso
+
+A continuación se disponen 2 ejemplos de configuración. El primero permite
+utilizar una búsqueda desinformada (*blind search*) para resolver un problema
+de dimensión _15x15_, con una paleta de _5_ colores:
+
+```
+#!xml
+
+<?xml version = "1.0" encoding = "UTF-8"?>
+	<solverConfiguration>
+	<!-- Parámetros generales -->
+	<strategy>DFS</strategy>
+	<heuristic>none</heuristic>
+	<print>true</print>
+	<!-- Especificación del juego -->
+	<problem>./res/benchmarks/medium15x15_5.sia</problem>
+</solverConfiguration>
+
+```
+
+En este caso se aplicó el algoritmo _DFS_ sin heurística, especificando el
+requerimiento de visualizar la solución, una vez hallada.
+
+En el siguiente ejemplo, se utiliza una estrategia informada (*heuristic
+search*), en particular, *GREEDY* con heurística *distinct* para ressolver un
+problema de gran magnitud:
+
+```
+#!xml
+
+<?xml version = "1.0" encoding = "UTF-8"?>
+	<solverConfiguration>
+	<!-- Parámetros generales -->
+	<strategy>GREEDY</strategy>
+	<heuristic>distinct</heuristic>
+	<print>false</print>
+	<!-- Especificación del juego -->
+	<problem>./res/benchmarks/heavy100x100_10.sia</problem>
+</solverConfiguration>
+
+```
+
+En algunos segundos, el sistema logra resolver una matriz de _100x100_, bajo
+una paleta de _10_ colores, un problema intratable utilizando búsquedas
+desinformadas. Se decide no imprimir la solución debido a su extensión.
+
 ### Autores
 
-El sistema fue desarrollado por el _Grupo 11_, compuesto por los siguientes autores:
+El sistema fue desarrollado por el _Grupo 11_, compuesto por los siguientes
+autores:
 
 * (*54.623*) Juan Dantur
 * (*55.382*) Ariel Debrouvier

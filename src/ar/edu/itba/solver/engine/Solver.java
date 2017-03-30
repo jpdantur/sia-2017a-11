@@ -93,7 +93,7 @@
 					if (true == config.getPrint())
 						logger.info("Solución:\n\n{}", solution.getSolution());
 
-					logger.info("Profundidad: {}", depth(solution));
+					logger.info("Profundidad: {}", solution.getDepth());
 					logger.info("Costo: {}", solution.getCost());
 				}
 				else logger.info("No se encontró solución!");
@@ -120,12 +120,5 @@
 			}
 
 			logger.info(Message.SHUTDOWN.getMessage());
-		}
-
-		private int depth(final GPSNode solution) {
-
-			final GPSNode parent = solution.getParent();
-			if (parent == null) return 0;
-			return 1 + depth(parent);
 		}
 	}
