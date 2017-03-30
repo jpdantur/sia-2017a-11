@@ -1,18 +1,10 @@
 package ar.edu.itba.solver.problem;
 
 import java.awt.Point;
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.IdentityHashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import javax.jws.soap.SOAPBinding;
-
-import com.cedarsoftware.*;
-import com.cedarsoftware.util.DeepEquals;
 
 public class IslandGraph{
 
@@ -207,9 +199,9 @@ public class IslandGraph{
 		    	g.distinguished=newNode;
 		    }
 		  }
-		  System.out.println("-----");
+		  /*System.out.println("-----");
 		  System.out.println(this);
-		  System.out.println(g);
+		  System.out.println(g);*/
 		return g;
 	}
 	
@@ -242,12 +234,5 @@ public class IslandGraph{
 		} else if (!nodes.equals(other.nodes))
 			return false;
 		return true;
-	}
-
-	private void clearMarks() {
-		for (Node n:nodes) {
-			n.isVisited=false;
-		}
-		
 	}
 }

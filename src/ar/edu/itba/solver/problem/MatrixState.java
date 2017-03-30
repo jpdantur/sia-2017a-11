@@ -7,14 +7,12 @@
 	import java.util.IntSummaryStatistics;
 	import java.util.Set;
 
-	import ar.edu.itba.solver.engine.gps.api.GPSState;
-
 		/**
 		* <p>Representa el estado del juego <i>Fill Zone</i>, es decir, una
 		* matriz coloreada, y una paleta de colores.<p>
 		*/
 
-	public final class MatrixState implements GPSState, State {
+	public final class MatrixState implements State {
 
 		private final int [][] board;
 

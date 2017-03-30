@@ -1,12 +1,10 @@
 package ar.edu.itba.solver.problem;
 
 import java.awt.Point;
-import java.io.Serializable;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-public class Island implements Serializable {
+public class Island {
 
 	@Override
 	public int hashCode() {

@@ -1,17 +1,10 @@
 package ar.edu.itba.solver.problem;
 
 import java.awt.Point;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import ar.edu.itba.solver.engine.gps.api.GPSState;
-
-public class GraphState implements GPSState, State, Serializable {
+public class GraphState implements State {
 
 	@Override
 	public int hashCode() {
@@ -41,7 +34,7 @@ public class GraphState implements GPSState, State, Serializable {
 	private IslandGraph board;
 	
 	
-	public static void main (String [] args) {
+	/*public static void main (String [] args) {
  		int [][] board = {{0,3,4,3,1},
  							{5,5,5,4,2},
  							{2,2,1,0,0},
@@ -73,7 +66,7 @@ public class GraphState implements GPSState, State, Serializable {
 		System.out.println("---------");
 	System.out.println(s.board);
 	System.out.println(s.board.getDistinguished());
-	}
+	}*/
 
 	public GraphState(int [][] board) {
 		this.board = getIslandGraph(board);
