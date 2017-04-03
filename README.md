@@ -16,6 +16,12 @@ por la cátedra, el cual puede encontrarse en:
 https://github.com/apierri/GeneralProblemSolver
 )
 
+La presentación se encuentra disponible en:
+
+* [@YouTube - General Problem Solver [video]](
+https://www.youtube.com/watch?v=r7orpFEoeFk
+)
+
 ## Instalación
 
 Para construir el proyecto es necesario que el sistema posea un compilador
