@@ -34,6 +34,7 @@
 			<org.slf4j.version>1.7.24</org.slf4j.version>
 			<jaxb.version>2.2.12</jaxb.version>
 			<guice.version>4.1.0</guice.version>
+			<org.json.version>20160810</org.json.version>
 
 			<!-- Testing Dependency Versions -->
 			<junit.version>4.12</junit.version>
@@ -68,6 +69,12 @@
 				<groupId>com.google.inject</groupId>
 				<artifactId>guice</artifactId>
 				<version>${guice.version}</version>
+			</dependency>
+			<!-- JSON Parser for Gridlock -->
+			<dependency>
+				<groupId>org.json</groupId>
+				<artifactId>json</artifactId>
+				<version>${org.json.version}</version>
 			</dependency>
 
 			<!-- JUnit Test Framework -->

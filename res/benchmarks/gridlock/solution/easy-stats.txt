@@ -1,0 +1,6 @@
+DFS Solution cost: 1536
+DFS Solution depth: 1536
+DFS Frontier nodes: 8032
+DFS Expanded nodes: 2165
+DFS Execution time(ms): 268
+
