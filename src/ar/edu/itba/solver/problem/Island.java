@@ -44,7 +44,9 @@ public class Island {
 	
 	public Island(int color, Set<Point> positions) {
 		this.color=color;
-		this.positions=positions;
+		for (Point p: positions) {
+			this.positions.add(new Point(p.x,p.y));
+		}
 	}
 
 	public void addPoint(Point p) {
