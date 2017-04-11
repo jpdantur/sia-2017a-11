@@ -1,0 +1,6 @@
+IDDFS Solution cost: 61
+IDDFS Solution depth: 61
+IDDFS Frontier nodes: 193
+IDDFS Expanded nodes: 3837118
+IDDFS Execution time(ms): 144376
+

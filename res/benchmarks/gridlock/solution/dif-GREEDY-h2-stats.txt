@@ -1,0 +1,6 @@
+GREEDY Solution cost: 892
+GREEDY Solution depth: 892
+GREEDY Frontier nodes: 144573
+GREEDY Expanded nodes: 112423
+GREEDY Execution time(ms): 9274
+

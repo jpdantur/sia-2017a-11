@@ -1,0 +1,4 @@
+BFS Frontier nodes: 0
+BFS Expanded nodes: 937
+BFS Execution time(ms): 210
+

@@ -1,0 +1,6 @@
+ASTAR Solution cost: 61
+ASTAR Solution depth: 61
+ASTAR Frontier nodes: 4917
+ASTAR Expanded nodes: 13086
+ASTAR Execution time(ms): 960
+

@@ -1,0 +1,6 @@
+BFS Solution cost: 61
+BFS Solution depth: 61
+BFS Frontier nodes: 4277
+BFS Expanded nodes: 14577
+BFS Execution time(ms): 980
+

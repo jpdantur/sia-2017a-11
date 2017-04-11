@@ -1,0 +1,30 @@
+DFS Solution cost: 1536
+DFS Solution depth: 1536
+DFS Frontier nodes: 8032
+DFS Expanded nodes: 2165
+DFS Execution time(ms): 235
+
+BFS Solution cost: 10
+BFS Solution depth: 10
+BFS Frontier nodes: 736
+BFS Expanded nodes: 447
+BFS Execution time(ms): 38
+
+IDDFS Solution cost: 10
+IDDFS Solution depth: 10
+IDDFS Frontier nodes: 11
+IDDFS Expanded nodes: 2095
+IDDFS Execution time(ms): 79
+
+GREEDY Solution cost: 45
+GREEDY Solution depth: 45
+GREEDY Frontier nodes: 658
+GREEDY Expanded nodes: 137
+GREEDY Execution time(ms): 8
+
+ASTAR Solution cost: 10
+ASTAR Solution depth: 10
+ASTAR Frontier nodes: 483
+ASTAR Expanded nodes: 138
+ASTAR Execution time(ms): 6
+

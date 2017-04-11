@@ -1,0 +1,4 @@
+ASTAR Frontier nodes: 0
+ASTAR Expanded nodes: 937
+ASTAR Execution time(ms): 160
+
