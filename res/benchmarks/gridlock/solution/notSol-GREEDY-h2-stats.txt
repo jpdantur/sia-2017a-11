@@ -1,4 +1,0 @@
-GREEDY Frontier nodes: 0
-GREEDY Expanded nodes: 16695
-GREEDY Execution time(ms): 1022
-

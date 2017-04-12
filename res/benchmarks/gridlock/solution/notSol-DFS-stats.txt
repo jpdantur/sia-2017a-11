@@ -1,4 +1,0 @@
-DFS Frontier nodes: 0
-DFS Expanded nodes: 156846
-DFS Execution time(ms): 6004
-
