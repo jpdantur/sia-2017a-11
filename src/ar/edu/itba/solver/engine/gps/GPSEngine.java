@@ -160,8 +160,23 @@
 				case DFS:
 				case IDDFS: {
 
-					final Deque<GPSNode> deque = (Deque<GPSNode>) open;
-					for (final GPSNode n : candidates) deque.addFirst(n);
+					final Deque<GPSNode> deque
+						= (Deque<GPSNode>) open;
+
+					/* No es muy eficiente, pero es solo para probar que esto
+					** es el causante del exceso de nodos explotados:
+					*/
+					final Object [] indexedCandidates
+						= candidates.toArray();
+
+					for (int i = indexedCandidates.length; 0 < i; --i)
+						deque.addFirst((GPSNode) indexedCandidates[i - 1]);
+
+					/* Antes se insertaban en orden inverso:
+					**
+					**	for (final GPSNode n : candidates)
+					**		deque.addFirst(n);
+					*/
 					break;
 				}
 				case GREEDY:
@@ -262,7 +277,15 @@
 		private boolean canExplode(final GPSNode node) {
 
 			final GPSState state = node.getState();
-			return !close.containsKey(state)
+
+			/* Esto reduce un poco más la cantidad de nodos explotados:
+			*/
+			if (strategy == SearchStrategy.DFS
+					|| strategy == SearchStrategy.BFS
+					|| strategy == SearchStrategy.GREEDY)
+				return !close.containsKey(state);
+			else
+				return !close.containsKey(state)
 					|| node.getCost() < close.get(state);
 		}
 
