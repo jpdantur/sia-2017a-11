@@ -63,7 +63,7 @@
 					this.propagate(instances(k, :));
 
 					% Corregir aprendizaje:
-					this.backpropagate(targets(k));
+					this.backpropagate(targets(k, :));
 				end
 			end
 
@@ -74,7 +74,7 @@
 				for k = 1:size(instances, 1)
 
 					% Propagar cambios:
-					prediction(k) = this.propagate(instances(k, :));
+					prediction(k, :) = this.propagate(instances(k, :));
 				end
 			end
 		end

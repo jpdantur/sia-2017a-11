@@ -62,8 +62,8 @@
 
 				% Cargar especificación del problema:
 				specification = importdata(this.problem);
-				this.instances = specification.data(:, 1:end - 1);
-				this.targets = specification.data(:, end);
+				this.instances = specification.data(:, 1:this.inputs);
+				this.targets = specification.data(:, 1 + this.inputs:end);
 			end
 		end
 

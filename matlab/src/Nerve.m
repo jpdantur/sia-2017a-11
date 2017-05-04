@@ -29,11 +29,27 @@
 					config.transfers, ...
 					config.learningRate);
 
+				% Pre-procesamiento (para 'bits'):
+				config.instances = 2 * config.instances - 1;
+				config.targets = 2 * config.targets - 1;
+
+				tic;
+
 				% Entrenar la red neuronal:
 				perceptron.train(config.instances, config.targets);
 
+				toc;
+				tic;
+
 				% Predecir las mismas instancias:
 				targets = perceptron.predict(config.instances);
+
+				toc;
+
+				% Resultados:
+				[0, sum(targets == -1), sum(config.targets == -1)]
+				[1, sum(targets == +1), sum(config.targets == +1)]
+				sum(targets == config.targets)
 			end
 		end
 	end
