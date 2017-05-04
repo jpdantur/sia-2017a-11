@@ -38,22 +38,28 @@
 				output = this.transfer{1, 1}(input * this.weights);
 			end
 
+			% Actualizar pesos:
+			function this = update(this, weights)
+
+				this.weights = this.weights + weights;
+			end
+
 			% Computa el parámetro 'delta' de salida:
 			function delta = outerDelta(this, target, output)
 
-				delta = this.transfer{1, 2}(output) * (target - output);
+				delta = this.transfer{1, 2}(output) .* (target - output);
 			end
 
 			% Computa el parámetro 'delta' interno:
 			function delta = innerDelta(this, delta, output, weights)
 
-				delta = this.transfer{1, 2}(output) * (weights * delta);
+				delta = this.transfer{1, 2}(output) .* (delta * weights);
 			end
 
 			% Devuelve los pesos para 'back-propagation':
 			function weights = getInnerWeights(this)
 
-				weights = this.weights(1:end - 1, :);
+				weights = this.weights(1:end - 1, :)';
 			end
 		end
 	end

@@ -33,7 +33,7 @@
 						case 'sigmoid'
 							beta = configuration.beta;
 							activations{k, 1} = @(x) sigmf(x, [2 * beta, 0]);
-							activations{k, 2} = @(x) 2 * beta * x * (1 - x);
+							activations{k, 2} = @(x) 2 * beta * x .* (1 - x);
 						case 'linear'
 							activations{k, 1} = @(x) x;
 							activations{k, 2} = @(x) 1;

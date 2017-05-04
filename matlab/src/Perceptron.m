@@ -96,34 +96,36 @@
 			% Aplicar 'back-propagation':
 			function this = backpropagate(this, target)
 
-				% %%%%
-				% La descripción está en las filminas 15, 16 y 17 de la teórica...
-				%
-				% (!!!) Este método está totalmente incompleto, obviamente. (!!!)
-				%
+				% Computar 'deltas':
+				deltas = getDeltas(this, target);
+
+				% Actualizar pesos para cada capa:
+				for k = 1:size(this.network, 2)
+
+					% Agregar umbrales:
+					V = [this.outputs{k}, -1];
+
+					this.network{k}.update( ...
+						this.learningRate * V' * deltas{k});
+				end
+			end
+
+			% Computa los 'delta' para 'back-propagation':
+			function deltas = getDeltas(this, target)
 
 				% Última capa:
 				k = size(this.network, 2);
 
 				% Este 'delta' depende de 'target':
-				delta = this.network{k} ...
-					.outerDelta(target, this.outputs{k + 1})
+				deltas{k} = this.network{k} ...
+					.outerDelta(target, this.outputs{k + 1});
 
 				% En orden inverso:
 				for k = size(this.network, 2):-1:2
 
-					% outputs(1) es la entrada original ...
-					% outputs(k > 1) es la salida de la capa (k - 1) ...
-					%
-					% Dudas...
-					%
-					%	¿El delta de una capa interna se computa con los pesos
-					%	de la capa superior?
-					%
-
-					delta = this.network{k - 1} ...
-						.innerDelta(delta, this.outputs{k}, ...
-							this.network{k}.getInnerWeights())
+					deltas{k - 1} = this.network{k - 1} ...
+						.innerDelta(deltas{k}, this.outputs{k}, ...
+							this.network{k}.getInnerWeights());
 				end
 			end
 		end
