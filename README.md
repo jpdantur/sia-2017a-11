@@ -1,6 +1,6 @@
 ![...](res/images/header.jpg)
 
-# General Problem Solver
+# General Problem Solver 
 
 Se implementó un sistema de resolución de problemas general (*GPS*), bajo
 **_Java SE 8 Release_**. El mismo se utiliza para resolver de forma automática
