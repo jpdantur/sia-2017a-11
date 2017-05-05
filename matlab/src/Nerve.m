@@ -33,23 +33,53 @@
 				config.instances = 2 * config.instances - 1;
 				config.targets = 2 * config.targets - 1;
 
-				tic;
+				% Cantidad de patrones disponibles:
+				patterns = size(config.instances, 1);
+				trainSize = round(patterns * config.trainRatio);
 
-				% Entrenar la red neuronal:
-				perceptron.train(config.instances, config.targets);
+				for k = 1:config.epochs
 
-				toc;
-				tic;
+					trainIndexes = randperm(patterns, trainSize);
+					testIndexes = setdiff(1:patterns, trainIndexes);
 
-				% Predecir las mismas instancias:
-				targets = perceptron.predict(config.instances);
+					trainingInstances = config.instances(trainIndexes, :);
+					trainingTargets = config.targets(trainIndexes, :);
+					testingInstances = config.instances(testIndexes, :);
+					testingTargets = config.targets(testIndexes, :);
 
-				toc;
+					% ---------------------------------------------------------
+					tic;
 
-				% Resultados:
-				[0, sum(targets == -1), sum(config.targets == -1)]
-				[1, sum(targets == +1), sum(config.targets == +1)]
-				sum(targets == config.targets)
+					% Entrenar la red neuronal:
+					perceptron.train(trainingInstances, trainingTargets);
+
+					toc;
+					tic;
+
+					% Predecir los patrones de entrada:
+					predictions = perceptron.predict(testingInstances);
+
+					toc;
+
+					% Resultados:
+					%[0, sum(predictions == -1), sum(testingTargets == -1)]
+					%[1, sum(predictions == +1), sum(testingTargets == +1)]
+					%sum(predictions == testingTargets)
+					[config.error, Nerve.E(testingTargets, predictions)]
+					% ---------------------------------------------------------
+
+					% Stopping-criterion:
+					if Nerve.E(testingTargets, predictions) < config.error, break; end
+				end
+			end
+		end
+
+		methods (Static, Access = private)
+
+			% Computa la función de costo:
+			function error = E(targets, predictions)
+
+				error = 0.5 * immse(targets, predictions);
 			end
 		end
 	end

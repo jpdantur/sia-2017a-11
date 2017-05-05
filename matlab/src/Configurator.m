@@ -44,6 +44,9 @@
 
 			% Objetivos:
 			targets = [];
+
+			% Proporción de instancias de entrenamiento:
+			trainRatio = 0.75;
 		end
 
 		methods
@@ -59,6 +62,7 @@
 				this.problem = configuration.problem;
 				this.epochs = configuration.epochs;
 				this.error = configuration.error;
+				this.trainRatio = configuration.trainRatio;
 
 				% Cargar especificación del problema:
 				specification = importdata(this.problem);

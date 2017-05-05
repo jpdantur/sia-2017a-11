@@ -97,7 +97,7 @@
 			function this = backpropagate(this, target)
 
 				% Computar 'deltas':
-				deltas = getDeltas(this, target);
+				deltas = this.getDeltas(target);
 
 				% Actualizar pesos para cada capa:
 				for k = 1:size(this.network, 2)
