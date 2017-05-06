@@ -47,6 +47,19 @@
 
 			% Proporción de instancias de entrenamiento:
 			trainRatio = 0.75;
+
+			% Momento de inercia de aprendizaje:
+			momentum = 0;
+
+			% Inyección de ruido:
+			patternNoise = 0;
+			weightNoise = 0;
+
+			% Probabilidad de inyectar ruido en patrones:
+			injectionProbability = 0;
+
+			% Vanishing Gradient Problem:
+			vanishingLimit = 0;
 		end
 
 		methods
@@ -63,6 +76,11 @@
 				this.epochs = configuration.epochs;
 				this.error = configuration.error;
 				this.trainRatio = configuration.trainRatio;
+				this.momentum = configuration.momentum;
+				this.injectionProbability = configuration.injectionProbability;
+				this.patternNoise = configuration.patternNoise;
+				this.weightNoise = configuration.weightNoise;
+				this.vanishingLimit = configuration.vanishingLimit;
 
 				% Cargar especificación del problema:
 				specification = importdata(this.problem);

@@ -19,8 +19,12 @@
 			% Función principal:
 			function run()
 
-				% Obtener y mostrar configuración (sin ';'):
-				config = Configurator.load(Nerve.CONFIGURATION_FILENAME)
+				% Timer global y tiempo acumulado:
+				globalTic = tic;
+
+				% Obtener y mostrar configuración:
+				config = Configurator.load(Nerve.CONFIGURATION_FILENAME);
+				Logger.logConfiguration(config);
 
 				% Construir el perceptrón:
 				perceptron = Perceptron( ...
@@ -33,44 +37,48 @@
 				config.instances = 2 * config.instances - 1;
 				config.targets = 2 * config.targets - 1;
 
-				% Cantidad de patrones disponibles:
-				patterns = size(config.instances, 1);
-				trainSize = round(patterns * config.trainRatio);
+				for epoch = 1:config.epochs
 
-				for k = 1:config.epochs
+					[trainIndexes, testIndexes] = Nerve ...
+						.getIndexes( ...
+							size(config.instances, 1), config.trainRatio);
 
-					trainIndexes = randperm(patterns, trainSize);
-					testIndexes = setdiff(1:patterns, trainIndexes);
+					[trainingInstances, trainingTargets] = Nerve ...
+						.getSubset(config, trainIndexes);
 
-					trainingInstances = config.instances(trainIndexes, :);
-					trainingTargets = config.targets(trainIndexes, :);
-					testingInstances = config.instances(testIndexes, :);
-					testingTargets = config.targets(testIndexes, :);
+					[testingInstances, testingTargets] = Nerve ...
+						.getSubset(config, testIndexes);
 
 					% ---------------------------------------------------------
-					tic;
 
 					% Entrenar la red neuronal:
+					trainTic = tic;
 					perceptron.train(trainingInstances, trainingTargets);
-
-					toc;
-					tic;
+					trainingTime = toc(trainTic);
 
 					% Predecir los patrones de entrada:
+					testTic = tic;
 					predictions = perceptron.predict(testingInstances);
+					testingTime = toc(testTic);
 
-					toc;
+					% Computa el error de testeo actual:
+					testingError = Nerve.E(testingTargets, predictions);
 
-					% Resultados:
-					%[0, sum(predictions == -1), sum(testingTargets == -1)]
-					%[1, sum(predictions == +1), sum(testingTargets == +1)]
-					%sum(predictions == testingTargets)
-					[config.error, Nerve.E(testingTargets, predictions)]
-					% ---------------------------------------------------------
+					% Mostrar resultados de la época:
+					Logger.logEpoch( ...
+						epoch, ...
+						config, ...
+						trainingTime, ...
+						testingTime, ...
+						toc(globalTic), ...
+						testingError);
 
 					% Stopping-criterion:
-					if Nerve.E(testingTargets, predictions) < config.error, break; end
+					if testingError < config.error, break; end
 				end
+
+				% Mostrar tiempo de ejecución final:
+				Logger.logExecutionTime(toc(globalTic));
 			end
 		end
 
@@ -80,6 +88,21 @@
 			function error = E(targets, predictions)
 
 				error = 0.5 * immse(targets, predictions);
+			end
+
+			% Computa una selección aleatoria de índices:
+			function [train, test] = getIndexes(instances, trainRatio)
+
+				trainSize = round(instances * trainRatio);
+				train = randperm(instances, trainSize);
+				test = setdiff(1:instances, train);
+			end
+
+			% Genera sub-conjuntos de instancias:
+			function [instances, targets] = getSubset(config, indexes)
+
+				instances = config.instances(indexes, :);
+				targets = config.targets(indexes, :);
 			end
 		end
 	end
