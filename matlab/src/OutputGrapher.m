@@ -16,9 +16,9 @@
 		methods
 			% Constructor
 			function this = OutputGrapher(instances,targets)				
-				x1=instances(:,1);
-				x2=instances(:,2);
-				z=targets;
+				this.x1=instances(:,1);
+				this.x2=instances(:,2);
+				this.z=targets;
 			end			
 
 			function graphSimple(this)
@@ -27,9 +27,9 @@
 			end
 
 			function graphCompare(this,outputs)
-				graphSimple();
+				this.graphSimple;
 				hold on;
-				scatter3(this.x1,this.x2,outputs);	
+				scatter3(this.x1,this.x2,outputs);						
 			end
 		end
 	end
