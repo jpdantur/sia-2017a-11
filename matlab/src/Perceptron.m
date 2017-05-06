@@ -54,13 +54,13 @@
 			end
 
 			% Entrenar la red neuronal:
-			function this = train(this, instances, targets)
+			function result = train(this, instances, targets)
 
 				% Por cada instancia:
 				for k = 1:size(instances, 1)
 
 					% Propagar cambios:
-					this.propagate(instances(k, :));
+					result(k, :) = this.propagate(instances(k, :));
 
 					% Corregir aprendizaje:
 					this.backpropagate(targets(k, :));

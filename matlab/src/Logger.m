@@ -18,18 +18,18 @@
 			end
 
 			% Imprime los resultados de una época:
-			function logEpoch(epoch, config, trainingTime, testingTime, totalTime, error)
+			function logEpoch(epoch, config, trainingTime, testingTime, totalTime, trainingError, testingError)
 
-				fprintf('Epoca %i -> (Train: %.3f seg., Test: %.3f seg., Total: %.3f seg., Error: %.6f)\n', ...
-					epoch, trainingTime, testingTime, totalTime, error);
+				fprintf('Epoca %i -> (Train: %.3f seg., Test: %.3f seg., Total: %.3f seg., TrainingError: %.6f , testingError %.6f)\n', ...
+					epoch, trainingTime, testingTime, totalTime, trainingError, testingError);
 
-				if (error < config.error)
+				if (testingError < config.error)
 					fprintf('La red fue entrenada con exito!\n');
-					fprintf('Error final: %.6f\n', error);
+					fprintf('Error final: %.6f\n', testingError);
 				elseif (config.epochs <= epoch)
 					fprintf('La red no alcanzo el limite maximo de error (%.6f).\n', ...
 						config.error)
-					fprintf('Error final: %.6f\n', error);
+					fprintf('Error final: %.6f\n', testingError);
 				end
 			end
 

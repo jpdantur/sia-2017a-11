@@ -37,6 +37,9 @@
 				config.instances = 2 * config.instances - 1;
 				config.targets = 2 * config.targets - 1;
 
+				trainingErrors = [];
+				testingErrors = [];
+
 				for epoch = 1:config.epochs
 
 					[trainIndexes, testIndexes] = Nerve ...
@@ -53,8 +56,11 @@
 
 					% Entrenar la red neuronal:
 					trainTic = tic;
-					perceptron.train(trainingInstances, trainingTargets);
+					results = perceptron.train(trainingInstances, trainingTargets);
 					trainingTime = toc(trainTic);
+
+					% Computa el error de entrenamiento actual:
+					trainingError = Nerve.E(trainingTargets,results);
 
 					% Predecir los patrones de entrada:
 					testTic = tic;
@@ -62,6 +68,7 @@
 					testingTime = toc(testTic);
 
 					% Computa el error de testeo actual:
+
 					testingError = Nerve.E(testingTargets, predictions);
 
 					% Mostrar resultados de la época:
@@ -71,15 +78,19 @@
 						trainingTime, ...
 						testingTime, ...
 						toc(globalTic), ...
-						testingError);
+						testingError, ...
+						trainingError);
 
+					trainingErrors = [trainingErrors trainingError];
+					testingErrors = [testingErrors testingError];
 					% Stopping-criterion:
 					if testingError < config.error, break; end
 				end
 
 				% Mostrar tiempo de ejecución final:
 				Logger.logExecutionTime(toc(globalTic));
-
+				plot(1:size(trainingErrors,2),trainingErrors, 'color', 'r'); hold on;
+				plot(1:size(testingErrors,2),testingErrors, 'color' , 'b');
 				if (config.graph)
 
 					grapher = OutputGrapher(trainingInstances,trainingTargets);
@@ -92,9 +103,9 @@
 		methods (Static, Access = private)
 
 			% Computa la función de costo:
-			function error = E(targets, predictions)
+			function error = E(targets, data)
 
-				error = 0.5 * immse(targets, predictions);
+				error = 0.5 * immse(targets, data);
 			end
 
 			% Computa una selección aleatoria de índices:
