@@ -20,16 +20,20 @@
 
 			% Función de activación:
 			transfer;
+
+			% Vanishing Gradient Limit:
+			vanishingLimit = 0;
 		end
 
 		methods
 
 			% Constructor:
-			function this = Layer(inputs, neurons, transfer)
+			function this = Layer(inputs, neurons, transfer, vanishingLimit)
 
 				% Estado inicial:
 				this.weights = rand(inputs, neurons) - 0.5;
 				this.transfer = transfer;
+				this.vanishingLimit = vanishingLimit;
 			end
 
 			% Computar la salida de la capa:
@@ -47,13 +51,13 @@
 			% Computa el parámetro 'delta' de salida:
 			function delta = outerDelta(this, target, output)
 
-				delta = this.transfer{1, 2}(output) .* (target - output);
+				delta = (this.transfer{1, 2}(output) + this.vanishingLimit) .* (target - output);
 			end
 
 			% Computa el parámetro 'delta' interno:
 			function delta = innerDelta(this, delta, output, weights)
 
-				delta = this.transfer{1, 2}(output) .* (delta * weights);
+				delta = (this.transfer{1, 2}(output) + this.vanishingLimit) .* (delta * weights);
 			end
 
 			% Devuelve los pesos para 'back-propagation':

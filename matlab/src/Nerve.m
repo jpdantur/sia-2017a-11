@@ -27,11 +27,7 @@
 				Logger.logConfiguration(config);
 
 				% Construir el perceptrón:
-				perceptron = Perceptron( ...
-					config.inputs, ...
-					config.layerSizes, ...
-					config.transfers, ...
-					config.learningRate);
+				perceptron = Perceptron(config);
 
 				% Pre-procesamiento (para 'bits'):
 				config.instances = 2 * config.instances - 1;
@@ -60,7 +56,7 @@
 					trainingTime = toc(trainTic);
 
 					% Computa el error de entrenamiento actual:
-					trainingError = Nerve.E(trainingTargets,results);
+					trainingError = Nerve.E(trainingTargets, results);
 
 					% Predecir los patrones de entrada:
 					testTic = tic;
@@ -68,7 +64,6 @@
 					testingTime = toc(testTic);
 
 					% Computa el error de testeo actual:
-
 					testingError = Nerve.E(testingTargets, predictions);
 
 					% Mostrar resultados de la época:
@@ -78,19 +73,18 @@
 						trainingTime, ...
 						testingTime, ...
 						toc(globalTic), ...
-						testingError, ...
-						trainingError);
+						trainingError, ...
+						testingError);
 
 					trainingErrors = [trainingErrors trainingError];
 					testingErrors = [testingErrors testingError];
+
 					% Stopping-criterion:
 					if testingError < config.error
-						if config.graph
 
+						if true == config.graph
 							grapher = OutputGrapher(testingInstances,testingTargets);
-
 							grapher.graphCompare(predictions);
-
 						end
 						break;
 					end
@@ -98,9 +92,9 @@
 
 				% Mostrar tiempo de ejecución final:
 				Logger.logExecutionTime(toc(globalTic));
-				plot(1:size(trainingErrors,2),trainingErrors, 'color', 'r'); hold on;
-				plot(1:size(testingErrors,2),testingErrors, 'color' , 'b');
-				
+
+				plot(1:size(trainingErrors, 2), trainingErrors, 'color', 'r'); hold on;
+				plot(1:size(testingErrors, 2), testingErrors, 'color', 'b');
 			end
 		end
 

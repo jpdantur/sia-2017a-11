@@ -35,21 +35,21 @@
 		methods
 
 			% Constructor:
-			function this = Perceptron( ...
-				inputs, layerSizes, transfers, learningRate)
+			function this = Perceptron(config)
 
 				% Estado inicial:
-				this.learningRate = learningRate;
+				this.learningRate = config.learningRate;
 
 				% Agregar el tamaño de la capa de entrada y los umbrales:
-				inputSizes = [inputs, layerSizes(1:end - 1)] + 1;
+				inputSizes = [config.inputs, config.layerSizes(1:end - 1)] + 1;
 
 				% Construir la red neuronal:
-				for k = 1:size(layerSizes, 2)
+				for k = 1:size(config.layerSizes, 2)
 					this.network{k} = Layer( ...
 						inputSizes(k), ...
-						layerSizes(k), ...
-						transfers(k, :));
+						config.layerSizes(k), ...
+						config.transfers(k, :), ...
+						config.vanishingLimit);
 				end
 			end
 

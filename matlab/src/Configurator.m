@@ -61,7 +61,7 @@
 			% Vanishing Gradient Problem:
 			vanishingLimit = 0;
 
-			% Graficar
+			% Graficar:
 			graph = false;
 		end
 
