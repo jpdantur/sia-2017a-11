@@ -79,6 +79,13 @@
 
 				% Mostrar tiempo de ejecución final:
 				Logger.logExecutionTime(toc(globalTic));
+
+				if (config.graph)
+
+					grapher = OutputGrapher(trainingInstances,trainingTargets);
+
+					grapher.graphCompare;					
+				end
 			end
 		end
 

@@ -46,7 +46,8 @@ estructura (en formato _JSON_):
 	"trainRatio" : 0.7500,
 	"transfers" : ["sign", "sign", "sign"],
 	"vanishingLimit" : 0.0000,
-	"weightNoise" : 0.0000
+	"weightNoise" : 0.0000,
+	"graph" : false
 }
 
 ```

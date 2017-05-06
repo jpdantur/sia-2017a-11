@@ -14,21 +14,22 @@
 		end
 
 		methods
-			% Constructor (O método estático??)
-			function this = OutputGrapher(instances,targets)
-				this.x1=instances(:,1);
-				this.x2=instances(:,2);
-				this.z=targets;
+			% Constructor
+			function this = OutputGrapher(instances,targets)				
+				x1=instances(:,1);
+				x2=instances(:,2);
+				z=targets;
 			end			
 
-			function graphSimple()
-				scatter3(x1,x2,z);
+			function graphSimple(this)
+				figure
+				scatter3(this.x1,this.x2,this.z);
 			end
 
-			function graphCompare(outputs)
-				scatter3(x1,x2,z);
+			function graphCompare(this,outputs)
+				graphSimple();
 				hold on;
-				scatter3(x1,x2,outputs);	
+				scatter3(this.x1,this.x2,outputs);	
 			end
 		end
 	end

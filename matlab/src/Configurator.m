@@ -60,6 +60,9 @@
 
 			% Vanishing Gradient Problem:
 			vanishingLimit = 0;
+
+			% Graficar
+			graph = false;
 		end
 
 		methods
@@ -81,6 +84,7 @@
 				this.patternNoise = configuration.patternNoise;
 				this.weightNoise = configuration.weightNoise;
 				this.vanishingLimit = configuration.vanishingLimit;
+				this.graph = configuration.graph;
 
 				% Cargar especificación del problema:
 				specification = importdata(this.problem);
