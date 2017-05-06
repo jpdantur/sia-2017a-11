@@ -84,19 +84,23 @@
 					trainingErrors = [trainingErrors trainingError];
 					testingErrors = [testingErrors testingError];
 					% Stopping-criterion:
-					if testingError < config.error, break; end
+					if testingError < config.error
+						if config.graph
+
+							grapher = OutputGrapher(testingInstances,testingTargets);
+
+							grapher.graphCompare(predictions);
+
+						end
+						break;
+					end
 				end
 
 				% Mostrar tiempo de ejecución final:
 				Logger.logExecutionTime(toc(globalTic));
 				plot(1:size(trainingErrors,2),trainingErrors, 'color', 'r'); hold on;
 				plot(1:size(testingErrors,2),testingErrors, 'color' , 'b');
-				if (config.graph)
-
-					grapher = OutputGrapher(trainingInstances,trainingTargets);
-
-					grapher.graphCompare;					
-				end
+				
 			end
 		end
 
