@@ -30,6 +30,9 @@
 
 			% El vector de salidas:
 			outputs = {};
+
+			% El momento de inercia de aprendizaje
+			momentum;
 		end
 
 		methods
@@ -39,6 +42,7 @@
 
 				% Estado inicial:
 				this.learningRate = config.learningRate;
+				this.momentum = config.momentum;
 
 				% Agregar el tamaño de la capa de entrada y los umbrales:
 				inputSizes = [config.inputs, config.layerSizes(1:end - 1)] + 1;
@@ -105,8 +109,8 @@
 					% Agregar umbrales:
 					V = [this.outputs{k}, -1];
 
-					this.network{k}.update( ...
-						this.learningRate * V' * deltas{k});
+					this.network{k}.update(this.learningRate * V' * deltas{k} + ...
+						this.momentum * this.network{k}.getVariation);
 				end
 			end
 

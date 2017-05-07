@@ -23,6 +23,9 @@
 
 			% Vanishing Gradient Limit:
 			vanishingLimit = 0;
+
+			% Variación de pesos:
+			variation = [];
 		end
 
 		methods
@@ -34,6 +37,7 @@
 				this.weights = rand(inputs, neurons) - 0.5;
 				this.transfer = transfer;
 				this.vanishingLimit = vanishingLimit;
+				this.variation = zeros(inputs, neurons);
 			end
 
 			% Computar la salida de la capa:
@@ -44,7 +48,7 @@
 
 			% Actualizar pesos:
 			function this = update(this, weights)
-
+				this.variation = weights;
 				this.weights = this.weights + weights;
 			end
 
@@ -64,6 +68,11 @@
 			function weights = getInnerWeights(this)
 
 				weights = this.weights(1:end - 1, :)';
+			end
+
+			% Devuelve la variacion que generó los pesos actuales
+			function variation = getVariation(this)
+				variation=this.variation;
 			end
 		end
 	end

@@ -92,7 +92,7 @@
 
 				% Mostrar tiempo de ejecución final:
 				Logger.logExecutionTime(toc(globalTic));
-
+				figure;
 				plot(1:size(trainingErrors, 2), trainingErrors, 'color', 'r'); hold on;
 				plot(1:size(testingErrors, 2), testingErrors, 'color', 'b');
 			end
