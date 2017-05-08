@@ -24,6 +24,7 @@
 
 				% Obtener y mostrar configuración:
 				config = Configurator.load(Nerve.CONFIGURATION_FILENAME);
+				learningRate = config.learningRate;
 				Logger.logConfiguration(config);
 
 				% Construir el perceptrón:
@@ -37,6 +38,7 @@
 				testingErrors = [];
 
 				for epoch = 1:config.epochs
+					learningRate = perceptron.getLearningRate();
 
 					[trainIndexes, testIndexes] = Nerve ...
 						.getIndexes( ...
@@ -74,7 +76,16 @@
 						testingTime, ...
 						toc(globalTic), ...
 						trainingError, ...
-						testingError);
+						testingError, ...
+						learningRate);
+
+					if epoch > 1
+						if trainingError < trainingErrors(end)
+							perceptron.increaseLearningRate();
+						elseif trainingError > trainingErrors(end)
+							perceptron.decreaseLearningRate();
+						end
+					end
 
 					trainingErrors = [trainingErrors trainingError];
 					testingErrors = [testingErrors testingError];

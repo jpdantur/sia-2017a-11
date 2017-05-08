@@ -18,10 +18,10 @@
 			end
 
 			% Imprime los resultados de una época:
-			function logEpoch(epoch, config, trainingTime, testingTime, totalTime, trainingError, testingError)
+			function logEpoch(epoch, config, trainingTime, testingTime, totalTime, trainingError, testingError, learningRate)
 
-				fprintf('Epoca %i -> (Train: %.3f seg., Test: %.3f seg., Total: %.3f seg., Train Error: %.6f, Test Error: %.6f)\n', ...
-					epoch, trainingTime, testingTime, totalTime, trainingError, testingError);
+				fprintf('Epoca %i -> (Train: %.3f seg., Test: %.3f seg., Total: %.3f seg., Train Error: %.6f, Test Error: %.6f, Learn Rate: %.6f)\n', ...
+					epoch, trainingTime, testingTime, totalTime, trainingError, testingError, learningRate);
 
 				if (testingError < config.error)
 					fprintf('La red fue entrenada con exito!\n');

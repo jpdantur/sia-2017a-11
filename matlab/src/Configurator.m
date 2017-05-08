@@ -63,6 +63,10 @@
 
 			% Graficar:
 			graph = false;
+
+			learningRateIncrement = 0.0000;
+			learningRateDecrement = 0.0000;
+			minSteps = 0;
 		end
 
 		methods
@@ -85,6 +89,9 @@
 				this.weightNoise = configuration.weightNoise;
 				this.vanishingLimit = configuration.vanishingLimit;
 				this.graph = configuration.graph;
+				this.learningRateIncrement = configuration.learningRateIncrement;
+				this.learningRateDecrement = configuration.learningRateDecrement;
+				this.minSteps = configuration.minSteps;
 
 				% Cargar especificación del problema:
 				specification = importdata(this.problem);
