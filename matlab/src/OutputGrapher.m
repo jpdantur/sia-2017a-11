@@ -29,7 +29,8 @@
 			function graphCompare(this,outputs)
 				this.graphSimple;
 				hold on;
-				scatter3(this.x1,this.x2,outputs);						
+				scatter3(this.x1,this.x2,outputs);
+				legend('original','predicted');
 			end
 		end
 	end

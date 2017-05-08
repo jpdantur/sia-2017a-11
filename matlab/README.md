@@ -105,6 +105,12 @@ descendente.
 inicial de la matriz de pesos. Si posee un valor _W_, entonces los pesos se
 inicializarán aleatoriamente con un valor dentro del intervalo _(-W, W)_.
 
+* `learningRateIncrement`: el incremento adaptativo de la tasa de aprendizaje.
+
+* `learningRateDecrement`: la proporción de decremento adaptativo de la tasa de aprendizaje.
+
+* `minSteps`: la cantidad de pasos que se tendrán en cuenta para adaptar la tasa de aprendizaje.
+
 Luego de construir el archivo de configuración, dentro del sub-directorio
 *matlab/src*, y desde la aplicación _Matlab_, ejecute:
 

@@ -106,6 +106,7 @@
 				figure;
 				plot(1:size(trainingErrors, 2), trainingErrors, 'color', 'r'); hold on;
 				plot(1:size(testingErrors, 2), testingErrors, 'color', 'b');
+				legend('Training error','Testing error');
 			end
 		end
 

@@ -64,8 +64,13 @@
 			% Graficar:
 			graph = false;
 
+			% Incremento para learning rate adaptativo:
 			learningRateIncrement = 0.0000;
+
+			% Decremento para learning rate adaptativo:
 			learningRateDecrement = 0.0000;
+
+			% Cantidad de pasos para adaptar el learning rate:
 			minSteps = 0;
 		end
 

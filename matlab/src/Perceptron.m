@@ -31,12 +31,13 @@
 			% El vector de salidas:
 			outputs = {};
 
-			% El momento de inercia de aprendizaje
+			% El momento de inercia de aprendizaje:
 			momentum;
 
+			% Activador del momento de inercia:
 			momentumEnabled = 1;
 
-			% Tasas de cambio para LR variable
+			% Tasas de cambio para LR variable:
 			learningRateIncrement;
 			learningRateDecrement;
 		end
