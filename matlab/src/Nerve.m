@@ -37,6 +37,8 @@
 				trainingErrors = [];
 				testingErrors = [];
 
+				steps = 0;
+
 				for epoch = 1:config.epochs
 					learningRate = perceptron.getLearningRate();
 
@@ -81,9 +83,13 @@
 
 					if epoch > 1
 						if trainingError < trainingErrors(end)
-							perceptron.increaseLearningRate();
+							steps = steps + 1;
+							if steps >= config.minSteps
+								perceptron.increaseLearningRate();
+							end
 						elseif trainingError > trainingErrors(end)
 							perceptron.decreaseLearningRate();
+							steps = 0;
 						end
 					end
 
