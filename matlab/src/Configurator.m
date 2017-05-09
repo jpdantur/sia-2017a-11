@@ -30,6 +30,9 @@
 			% Funciones de activación por capa:
 			transfers = {@sign, @(x) 1};
 
+			% Nombre de las funciones:
+			transferNames;
+
 			% Instancias del problema:
 			problem = '';
 
@@ -87,6 +90,7 @@
 				this.inputs = configuration.inputs;
 				this.layerSizes = configuration.layerSizes;
 				this.transfers = TransferFactory.generate(configuration);
+				this.transferNames = configuration.transfers;
 				this.problem = configuration.problem;
 				this.epochs = configuration.epochs;
 				this.error = configuration.error;
