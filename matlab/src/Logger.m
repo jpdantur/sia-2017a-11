@@ -15,6 +15,9 @@
 
 				% Falta mejorar!!!
 				config
+
+				fprintf('\tPre-procesamiento : %s\n', config.processor.getName());
+				fprintf('\n');
 			end
 
 			% Imprime los resultados de una época:

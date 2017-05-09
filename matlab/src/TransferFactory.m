@@ -30,7 +30,7 @@
 							beta = configuration.beta;
 							activations{k, 1} = @(x) tanh(beta * x);
 							activations{k, 2} = @(x) beta * (1 - x .^ 2);
-						case 'sigmoid'
+						case 'exp'
 							beta = configuration.beta;
 							activations{k, 1} = @(x) sigmf(x, [2 * beta, 0]);
 							activations{k, 2} = @(x) 2 * beta * x .* (1 - x);

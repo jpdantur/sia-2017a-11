@@ -48,6 +48,7 @@
 
 			% Actualizar pesos:
 			function this = update(this, weights)
+
 				this.variation = weights;
 				this.weights = this.weights + weights;
 			end
@@ -72,7 +73,8 @@
 
 			% Devuelve la variacion que generó los pesos actuales
 			function variation = getVariation(this)
-				variation=this.variation;
+
+				variation = this.variation;
 			end
 		end
 	end

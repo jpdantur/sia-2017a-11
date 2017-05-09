@@ -30,9 +30,11 @@
 				% Construir el perceptrón:
 				perceptron = Perceptron(config);
 
-				% Pre-procesamiento (para 'bits'):
-				config.instances = 2 * config.instances - 1;
-				config.targets = 2 * config.targets - 1;
+				% Pre-procesamiento:
+				config.instances = config.processor...
+					.transform(config.instances);
+				config.targets = config.processor...
+					.transform(config.targets);
 
 				trainingErrors = [];
 				testingErrors = [];
@@ -100,7 +102,16 @@
 					if testingError < config.error
 
 						if true == config.graph
-							grapher = OutputGrapher(testingInstances,testingTargets);
+
+							% Post-procesamiento:
+							testingInstances = config.processor...
+								.restore(testingInstances);
+							testingTargets = config.processor...
+								.restore(testingTargets);
+							predictions = config.processor...
+								.restore(predictions);
+
+							grapher = OutputGrapher(testingInstances, testingTargets);
 							grapher.graphCompare(predictions);
 						end
 						break;
@@ -109,10 +120,11 @@
 
 				% Mostrar tiempo de ejecución final:
 				Logger.logExecutionTime(toc(globalTic));
+
 				figure;
 				plot(1:size(trainingErrors, 2), trainingErrors, 'color', 'r'); hold on;
 				plot(1:size(testingErrors, 2), testingErrors, 'color', 'b');
-				legend('Training error','Testing error');
+				legend('Training Error', 'Testing Error');
 			end
 		end
 

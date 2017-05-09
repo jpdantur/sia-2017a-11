@@ -72,6 +72,9 @@
 
 			% Cantidad de pasos para adaptar el learning rate:
 			minSteps = 0;
+
+			% Pre/Post-procesamiento:
+			processor;
 		end
 
 		methods
@@ -97,6 +100,7 @@
 				this.learningRateIncrement = configuration.learningRateIncrement;
 				this.learningRateDecrement = configuration.learningRateDecrement;
 				this.minSteps = configuration.minSteps;
+				this.processor = Processor(configuration.processor);
 
 				% Cargar especificación del problema:
 				specification = importdata(this.problem);
