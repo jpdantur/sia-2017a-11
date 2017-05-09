@@ -32,8 +32,8 @@
 					case 'bits'
 						this.process = @(x) 2 * x - 1;
 						this.inverse = @(x) 0.5 * (x + 1);
-					case 'normalize'
-						this.process = @(x) x;
+					case 'min-max'
+						this.process = @Processor.minmax;
 						this.inverse = @(x) x;
 					otherwise
 						this.process = @(x) x;
@@ -57,6 +57,20 @@
 			function name = getName(this)
 
 				name = this.name;
+			end
+		end
+
+		methods (Static, Access = protected)
+
+			% Min-max Normalization:
+			function data = minmax(data)
+
+				mins = min(data, [], 1);
+				ranges = max(data, [], 1) - mins;
+				for k = 1:size(data, 1)
+
+					data(k, :) = 2 * (data(k, :) - mins) ./ ranges - 1;
+				end
 			end
 		end
 	end

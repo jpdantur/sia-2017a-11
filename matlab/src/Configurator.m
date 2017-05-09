@@ -64,8 +64,11 @@
 			% Vanishing Gradient Problem:
 			vanishingLimit = 0;
 
-			% Graficar:
+			% Graficar predicción final:
 			graph = false;
+
+			% Graficar curvas de error:
+			graphError = false;
 
 			% Incremento para learning rate adaptativo:
 			learningRateIncrement = 0.0000;
@@ -101,6 +104,7 @@
 				this.weightNoise = configuration.weightNoise;
 				this.vanishingLimit = configuration.vanishingLimit;
 				this.graph = configuration.graph;
+				this.graphError = configuration.graphError;
 				this.learningRateIncrement = configuration.learningRateIncrement;
 				this.learningRateDecrement = configuration.learningRateDecrement;
 				this.minSteps = configuration.minSteps;

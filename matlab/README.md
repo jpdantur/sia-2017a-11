@@ -12,12 +12,6 @@ Para la implementación, se decidió utilizar el framework
 **_MathWorks® Matlab_**, ya que facilita la aplicación de cálculos
 matriciales, y la visualización de información.
 
-La presentación se encuentra disponible en:
-
-* [@YouTube - Artificial Neural Network [video]](
-https://www.youtube.com/
-)
-
 ## Instalación
 
 El proyecto no requiere ninguna instalación en particular ya que se despliega
@@ -33,21 +27,26 @@ estructura (en formato _JSON_):
 #!javascript
 
 {
-	"beta" : 0.9500,
-	"epochs" : 10,
-	"error" : 0.1000,
-	"inputs" : 2,
+	"beta" : 0.8500,
+	"epochs" : 100,
+	"error" : 0.0010,
+	"graph" : false,
+	"graphError" : true,
 	"injectionProbability" : 0.0000,
-	"layerSizes" : [2, 5, 2],
-	"learningRate" : 0.1500,
-	"momentum" : 0.0000,
+	"inputs" : 2,
+	"layerSizes" : [20, 15, 10, 1],
+	"learningRate" : 0.2500,
+	"learningRateDecrement" : 0.0000,
+	"learningRateIncrement" : 0.0000,
+	"minSteps" : 0,
+	"momentum" : 0.1000,
 	"patternNoise" : 0.0000,
-	"problem" : "../res/benchmarks/boolean/add.data",
-	"trainRatio" : 0.7500,
-	"transfers" : ["sign", "sign", "sign"],
-	"vanishingLimit" : 0.0000,
-	"weightNoise" : 0.0000,
-	"graph" : false
+	"problem" : "../res/benchmarks/terrain11.data",
+	"processor" : "min-max",
+	"trainRatio" : 0.6500,
+	"transfers" : ["tanh", "tanh", "tanh", "tanh"],
+	"vanishingLimit" : 0.0100,
+	"weightNoise" : 0.0000
 }
 
 ```
@@ -55,7 +54,7 @@ estructura (en formato _JSON_):
 Cada parámetro especifica:
 
 * `beta`: este parámetro se utiliza para modificar el escalamiento de las
-funciones de activación _tanh_ y _sigmoid_.
+funciones de activación _tanh_ y _exp_.
 
 * `epochs`: la cantidad de veces que la red neuronal es entrenada mediante el
 conjunto de entrada.
@@ -63,12 +62,19 @@ conjunto de entrada.
 * `error`: especifica el error máximo admitido durante el test de predicción
 del conjunto de datos de entrada.
 
-* `inputs`: la cantidad de entradas presentes en el perceptrón. Debe
-corresponderse con la cantidad de predictores especificados en el set de datos
-de entrenamiento.
+* `graph`: indica si se debe generar una representación de la función
+aproximada utilizando la red neuronal final, luego del entrenamiento.
+
+* `graphError`: especifica si es necesario visualizar la variación de las
+curvas de error de entrenamiento y testeo. Esto permite identificar si la red
+ingresó en un estado de _overfitting_.
 
 * `injectionProbability`: probabilidad de inyectar ruido en los patrones de
 entrada durante la fase de entrenamiento.
+
+* `inputs`: la cantidad de entradas presentes en el perceptrón. Debe
+corresponderse con la cantidad de predictores especificados en el set de datos
+de entrenamiento.
 
 * `layerSizes`: un vector de largo _N_ especificando la cantidad de neuronas
 en cada una de las _N_ capas. Las capas son totalmente conexas entre sí, pero
@@ -77,6 +83,14 @@ salidas se corresponde con el tamaño de la última capa.
 
 * `learningRate`: la tasa de aprendizaje de la red neuronal. Un valor alto
 acelera el entrenamiento, pero puede ocasionar oscilaciones indefinidas.
+
+* `learningRateDecrement`: la proporción de decremento adaptativo de la tasa
+de aprendizaje.
+
+* `learningRateIncrement`: el incremento adaptativo de la tasa de aprendizaje.
+
+* `minSteps`: la cantidad de pasos que se tendrán en cuenta para adaptar la
+tasa de aprendizaje.
 
 * `momentum`: especifica el momento de inercia de aprendizaje sobre el proceso
 de actualización de pesos, durante la aplicación de _back-propagation_.
@@ -88,13 +102,17 @@ entrada durante el proceso de entrenamiento.
 se desea aproximar. Los predictores deben disponerse en columnas,
 opcionalmente con una primera fila de _headers_.
 
+* `processor`: indica el tipo de pre/post procesamiento a realizar sobre el
+conjunto de datos. Actualmente se permiten las siguientes transformaciones:
+`nothing`, `bits` y `min-max`.
+
 * `trainRatio`: la proporción de instancias a utilizar durante la fase de
 entrenamiento. Si la proporción es _P_, entonces la proporción del conjunto de
 testeo será de _(1 - P)_.
 
 * `transfers`: este vector debe poseer el mismo largo que _layerSizes_, ya que
 permite establecer las funciones de activación utilizadas en cada capa. Las
-funciones disponibles son `heaviside`, `sign`, `linear`, `tanh` y `sigmoid`.
+funciones disponibles son `heaviside`, `sign`, `linear`, `tanh` y `exp`.
 
 * `vanishingLimit`: constante mínima aditiva para evitar el
 _Vanishing Gradient Problem_, con lo cual se mitiga la probabildiad de
@@ -104,12 +122,6 @@ descendente.
 * `weightNoise`: la cantidad máxima de ruido a inyectar durante la generación
 inicial de la matriz de pesos. Si posee un valor _W_, entonces los pesos se
 inicializarán aleatoriamente con un valor dentro del intervalo _(-W, W)_.
-
-* `learningRateIncrement`: el incremento adaptativo de la tasa de aprendizaje.
-
-* `learningRateDecrement`: la proporción de decremento adaptativo de la tasa de aprendizaje.
-
-* `minSteps`: la cantidad de pasos que se tendrán en cuenta para adaptar la tasa de aprendizaje.
 
 Luego de construir el archivo de configuración, dentro del sub-directorio
 *matlab/src*, y desde la aplicación _Matlab_, ejecute:

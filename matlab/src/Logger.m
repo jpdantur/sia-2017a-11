@@ -52,12 +52,15 @@
 
 				fprintf('\n');
 				fprintf('\t                          Dataset : ''%s''\n', config.problem);
+				fprintf('\t                       Instancias : %i\n', size(config.instances, 1));
+				fprintf('\t                      Predictores : %i\n', size(config.instances, 2) + size(config.targets, 2));
 				fprintf('\t                Pre-procesamiento : ''%s''\n', config.processor.getName());
 				fprintf('\t      Proporcion de entrenamiento : %.6f\n', config.trainRatio);
 				fprintf('\t             Error maximo deseado : %.6f\n', config.error);
 				fprintf('\t                           Epochs : %i\n\n', config.epochs);
 
 				fprintf('\t             Cantidad de entradas : %i\n', config.inputs);
+				fprintf('\t              Cantidad de salidas : %i\n', config.layerSizes(end));
 				fprintf('\t                Neuronas por capa : %s\n', Logger.vectorToString(config.layerSizes){1});
 				fprintf('\t                   Transferencias : %s\n', Logger.stringsToString(config.transferNames){1});
 				fprintf('\t                     Sigmoid Beta : %.6f\n\n', config.beta);
@@ -73,7 +76,8 @@
 				fprintf('\t     Decremento del learning-rate : %.6f\n', config.learningRateIncrement);
 				fprintf('\t            Ventana de adaptacion : %i\n\n', config.minSteps);
 
-				fprintf('\t                        Graficar? : %s\n', Logger.boolToString(config.graph));
+				fprintf('\t     Graficar aproximacion final? : %s\n', Logger.boolToString(config.graph));
+				fprintf('\t        Graficar curvas de error? : %s\n', Logger.boolToString(config.graphError));
 				fprintf('\n');
 			end
 
