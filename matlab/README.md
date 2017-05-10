@@ -30,6 +30,7 @@ estructura (en formato _JSON_):
 	"beta" : 0.8500,
 	"epochs" : 100,
 	"error" : 0.0010,
+	"granularity" : 0.02,
 	"graph" : false,
 	"graphError" : true,
 	"injectionProbability" : 0.0000,
@@ -61,6 +62,9 @@ conjunto de entrada.
 
 * `error`: especifica el error máximo admitido durante el test de predicción
 del conjunto de datos de entrada.
+
+* `granularity`: especifica la granularidad al graficar la función original y
+la función aproximada por la red.
 
 * `graph`: indica si se debe generar una representación de la función
 aproximada utilizando la red neuronal final, luego del entrenamiento.

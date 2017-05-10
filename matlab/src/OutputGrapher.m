@@ -11,6 +11,7 @@
 
 			function graphCompare(config,perceptron)
 				
+				%{
 				scatter3( ...
 						config.instances(:, 1), ...
 						config.instances(:, 2), ...
@@ -21,20 +22,20 @@
 						config.instances(:, 1), ...
 						config.instances(:, 2), ...
 						perceptron.predict(config.instances(:, 1), ...
-						config.instances(:, 2));
+						config.instances(:, 2)));
 				legend('original','predicted');
+				%}
 			end
 
 			function surfacePlot(config,perceptron)
 				% Imprimir el terreno aprendido:
 					baseX = min(config.instances(:,1));
 					baseY = min(config.instances(:,2));
-					granularity = 0.01;
 					topX = max(config.instances(:,1));;
 					topY = max(config.instances(:,2));;
 
-					dotsX = baseX:granularity:topX;
-					dotsY = baseY:granularity:topY;
+					dotsX = baseX:config.granularity:topX;
+					dotsY = baseY:config.granularity:topY;
 
 					[X, Y] = meshgrid(dotsX,dotsY);
 					for r = 1:size(Y, 1)

@@ -78,6 +78,7 @@
 
 				fprintf('\t     Graficar aproximacion final? : %s\n', Logger.boolToString(config.graph));
 				fprintf('\t        Graficar curvas de error? : %s\n', Logger.boolToString(config.graphError));
+				fprintf('\t                     Granularidad : %.3f\n', config.granularity);
 				fprintf('\n');
 			end
 

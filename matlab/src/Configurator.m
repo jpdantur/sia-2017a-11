@@ -67,6 +67,9 @@
 			% Graficar predicción final:
 			graph = false;
 
+			% Granularidad al graficar:
+			granularity;
+
 			% Graficar curvas de error:
 			graphError = false;
 
@@ -109,6 +112,7 @@
 				this.learningRateDecrement = configuration.learningRateDecrement;
 				this.minSteps = configuration.minSteps;
 				this.processor = Processor(configuration.processor);
+				this.granularity = configuration.granularity;
 
 				% Cargar especificación del problema:
 				specification = importdata(this.problem);
