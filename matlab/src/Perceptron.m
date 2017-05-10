@@ -66,6 +66,19 @@
 				end
 			end
 
+			function this = backupWeights(this)
+				for k = 1:size(this.network,2)
+					this.network{k}.backupWeights();
+				end
+			end
+
+
+			function this = undo(this)
+				for k = 1:size(this.network,2)
+					this.network{k}.undo();
+				end
+			end
+
 			function this = increaseLearningRate(this)
 				this.learningRate = this.learningRate + this.learningRateIncrement;
 
