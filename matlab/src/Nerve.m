@@ -101,19 +101,13 @@
 					% Stopping-criterion:
 					if testingError < config.error
 
-						if true == config.graph
-
-							% Post-procesamiento:
-							testingInstances = config.processor...
-								.restore(testingInstances);
-							testingTargets = config.processor...
-								.restore(testingTargets);
-							predictions = config.processor...
-								.restore(predictions);
-
-							grapher = OutputGrapher(testingInstances, testingTargets);
-							grapher.graphCompare(predictions);
-						end
+						% Post-procesamiento:
+						testingInstances = config.processor...
+							.restore(testingInstances);
+						testingTargets = config.processor...
+							.restore(testingTargets);
+						predictions = config.processor...
+							.restore(predictions);
 						break;
 					end
 				end
@@ -127,7 +121,14 @@
 					plot(1:size(trainingErrors, 2), trainingErrors, 'color', 'r');
 					hold on;
 					plot(1:size(testingErrors, 2), testingErrors, 'color', 'b');
+					title('Graph of Training Error and Testing Error');
+					xlabel('Epochs');
+					ylabel('Error');
 					legend('Training Error', 'Testing Error');
+				end
+
+				if true == config.graph
+					OutputGrapher.surfacePlot(config,perceptron);
 				end
 			end
 		end

@@ -7,31 +7,63 @@
 
 	classdef OutputGrapher < handle
 
-		properties (Access = protected)
-			x1;
-			x2;
-			z;			
-		end
+		methods (Static)
 
-		methods
-			% Constructor
-			function this = OutputGrapher(instances,targets)				
-				this.x1=instances(:,1);
-				this.x2=instances(:,2);
-				this.z=targets;
-			end			
-
-			function graphSimple(this)
-				figure
-				scatter3(this.x1,this.x2,this.z);
-			end
-
-			function graphCompare(this,outputs)
-				this.graphSimple;
+			function graphCompare(config,perceptron)
+				
+				scatter3( ...
+						config.instances(:, 1), ...
+						config.instances(:, 2), ...
+						config.targets(:, 1));
 				hold on;
-				scatter3(this.x1,this.x2,outputs);
+
+				scatter3( ...
+						config.instances(:, 1), ...
+						config.instances(:, 2), ...
+						perceptron.predict(config.instances(:, 1), ...
+						config.instances(:, 2));
 				legend('original','predicted');
 			end
+
+			function surfacePlot(config,perceptron)
+				% Imprimir el terreno aprendido:
+					baseX = min(config.instances(:,1));
+					baseY = min(config.instances(:,2));
+					granularity = 0.01;
+					topX = max(config.instances(:,1));;
+					topY = max(config.instances(:,2));;
+
+					dotsX = baseX:granularity:topX;
+					dotsY = baseY:granularity:topY;
+
+					[X, Y] = meshgrid(dotsX,dotsY);
+					for r = 1:size(Y, 1)
+						for c = 1:size(X, 2)
+							Z(r, c) = perceptron.predict([X(r, c), Y(r, c)]);
+						end
+					end
+
+					figure;
+					surf(X, Y, Z);
+
+					% Imprimir el gráfico original:
+					F = scatteredInterpolant( ...
+						config.instances(:, 1), ...
+						config.instances(:, 2), ...
+						config.targets(:, 1));
+
+					Z = F(X, Y);
+					figure;
+					surf(X, Y, Z);
+					hold on;
+
+					% Deja los puntos para que se distinga la interpolación:
+					scatter3( ...
+						config.instances(:, 1), ...
+						config.instances(:, 2), ...
+						config.targets(:, 1));
+				end
+
 		end
 	end
 
