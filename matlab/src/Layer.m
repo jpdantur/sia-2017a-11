@@ -18,6 +18,10 @@
 			% Matriz de pesos:
 			weights = [];
 
+			previousWeights = [];
+
+			previousVariation = [];
+
 			% Función de activación:
 			transfer;
 
@@ -51,6 +55,16 @@
 
 				this.variation = weights;
 				this.weights = this.weights + weights;
+			end
+
+			function this = backupWeights(this)
+				this.previousWeights = this.weights;
+				this.previousVariation = this.variation;
+			end
+
+			function this = undo(this)
+				this.weights = this.previousWeights;
+				this.variation = this.previousVariation;
 			end
 
 			% Computa el parámetro 'delta' de salida:

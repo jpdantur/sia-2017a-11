@@ -54,6 +54,8 @@
 					[testingInstances, testingTargets] = Nerve ...
 						.getSubset(config, testIndexes);
 
+					perceptron.backupWeights();
+
 					% ---------------------------------------------------------
 
 					% Entrenar la red neuronal:
@@ -92,6 +94,7 @@
 						elseif trainingError > trainingErrors(end)
 							perceptron.decreaseLearningRate();
 							steps = 0;
+							perceptron.undo();
 						end
 					end
 
