@@ -87,6 +87,9 @@
 
 			% Utilizar conjuntos de entrenamiento y testeo disjuntos:
 			disjoint = true;
+
+			% Path donde se guardarán los pesos tras el entrenamiento:
+			output = '..res/benchmarks/states/weights.json';
 		end
 
 		methods
@@ -117,6 +120,7 @@
 				this.processor = Processor(configuration.processor);
 				this.granularity = configuration.granularity;
 				this.disjoint = configuration.disjoint;
+				this.output = configuration.output;
 
 				% Cargar especificación del problema:
 				specification = importdata(this.problem);

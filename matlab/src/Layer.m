@@ -85,6 +85,17 @@
 				weights = this.weights(1:end - 1, :)';
 			end
 
+			% Devuelte todos los pesos:
+			function weights = getWeights(this)
+
+				weights = this.weights;
+			end
+
+			function setWeights(this,weights)
+
+				this.weights=weights;
+			end
+
 			% Devuelve la variacion que generó los pesos actuales
 			function variation = getVariation(this)
 

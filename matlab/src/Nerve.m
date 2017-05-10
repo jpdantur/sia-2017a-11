@@ -17,7 +17,7 @@
 		methods (Static)
 
 			% Función principal:
-			function run()
+			function run(state)
 
 				% Timer global y tiempo acumulado:
 				globalTic = tic;
@@ -29,6 +29,13 @@
 
 				% Construir el perceptrón:
 				perceptron = Perceptron(config);
+
+				if nargin == 1
+
+					state = loadjson(state);
+
+					perceptron.setWeights(state);
+				end
 
 				% Pre-procesamiento:
 				config.instances = config.processor...
@@ -133,6 +140,10 @@
 				if true == config.graph
 					OutputGrapher.surfacePlot(config,perceptron);
 				end
+
+				weights = perceptron.getAllWeights;
+
+                savejson('',weights,config.output);
 			end
 		end
 

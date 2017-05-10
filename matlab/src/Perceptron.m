@@ -118,6 +118,25 @@
 					prediction(k, :) = this.propagate(instances(k, :));
 				end
 			end
+
+			function weights=getAllWeights(this)
+
+				weights = {};
+
+				for k = 1:size(this.network,2)
+					weights{end+1} = this.network{k}.getWeights;
+				end
+
+			end
+
+			function setWeights(this,state)
+
+				for k = 1:size(this.network,2)
+					this.network{k}.setWeights(state{k});
+				end
+
+			end
+
 		end
 
 		methods (Access = protected)

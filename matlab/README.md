@@ -42,6 +42,7 @@ estructura (en formato _JSON_):
 	"learningRateIncrement" : 0.0000,
 	"minSteps" : 0,
 	"momentum" : 0.1000,
+	"output": "../res/benchmarks/states/weights.json"
 	"patternNoise" : 0.0000,
 	"problem" : "../res/benchmarks/terrain11.data",
 	"processor" : "min-max",
@@ -102,6 +103,8 @@ tasa de aprendizaje.
 
 * `momentum`: especifica el momento de inercia de aprendizaje sobre el proceso
 de actualización de pesos, durante la aplicación de _back-propagation_.
+
+* `output`: archivo donde se guardarán los pesos del perceptrón una vez finalizado el entrenamiento y testeo.
 
 * `patternNoise`: la cantidad máxima de ruido a inyectar en los patrones de
 entrada durante el proceso de entrenamiento.
