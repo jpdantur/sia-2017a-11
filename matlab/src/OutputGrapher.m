@@ -9,24 +9,6 @@
 
 		methods (Static)
 
-			function graphCompare(config,perceptron)
-				
-				%{
-				scatter3( ...
-						config.instances(:, 1), ...
-						config.instances(:, 2), ...
-						config.targets(:, 1));
-				hold on;
-
-				scatter3( ...
-						config.instances(:, 1), ...
-						config.instances(:, 2), ...
-						perceptron.predict(config.instances(:, 1), ...
-						config.instances(:, 2)));
-				legend('original','predicted');
-				%}
-			end
-
 			function surfacePlot(config,perceptron)
 				% Imprimir el terreno aprendido:
 					baseX = min(config.instances(:,1));
