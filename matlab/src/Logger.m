@@ -56,6 +56,7 @@
 				fprintf('\t                      Predictores : %i\n', size(config.instances, 2) + size(config.targets, 2));
 				fprintf('\t                Pre-procesamiento : ''%s''\n', config.processor.getName());
 				fprintf('\t      Proporcion de entrenamiento : %.6f\n', config.trainRatio);
+				fprintf('\t        Usar conjuntos disjuntos? : %s\n', Logger.boolToString(config.disjoint));
 				fprintf('\t             Error maximo deseado : %.6f\n', config.error);
 				fprintf('\t                           Epochs : %i\n\n', config.epochs);
 

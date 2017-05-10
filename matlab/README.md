@@ -28,6 +28,7 @@ estructura (en formato _JSON_):
 
 {
 	"beta" : 0.8500,
+	"disjoint" : true,
 	"epochs" : 100,
 	"error" : 0.0010,
 	"granularity" : 0.02,
@@ -56,6 +57,9 @@ Cada parámetro especifica:
 
 * `beta`: este parámetro se utiliza para modificar el escalamiento de las
 funciones de activación _tanh_ y _exp_.
+
+* `disjoint`: permite utilizar conjuntos de entrenamiento y testeo disjuntos,
+los cuales son seleccionados al azar al iniciar el sistema.
 
 * `epochs`: la cantidad de veces que la red neuronal es entrenada mediante el
 conjunto de entrada.

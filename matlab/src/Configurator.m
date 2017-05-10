@@ -84,6 +84,9 @@
 
 			% Pre/Post-procesamiento:
 			processor;
+
+			% Utilizar conjuntos de entrenamiento y testeo disjuntos:
+			disjoint = true;
 		end
 
 		methods
@@ -113,6 +116,7 @@
 				this.minSteps = configuration.minSteps;
 				this.processor = Processor(configuration.processor);
 				this.granularity = configuration.granularity;
+				this.disjoint = configuration.disjoint;
 
 				% Cargar especificación del problema:
 				specification = importdata(this.problem);
