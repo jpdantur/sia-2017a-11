@@ -42,7 +42,7 @@ estructura (en formato _JSON_):
 	"learningRateIncrement" : 0.0000,
 	"minSteps" : 0,
 	"momentum" : 0.1000,
-	"output": "../res/benchmarks/states/weights.json"
+	"output": "../res/benchmarks/states/weights.json",
 	"patternNoise" : 0.0000,
 	"problem" : "../res/benchmarks/terrain11.data",
 	"processor" : "min-max",
