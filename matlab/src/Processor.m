@@ -35,6 +35,9 @@
 					case 'min-max'
 						this.process = @Processor.minmax;
 						this.inverse = @(x) x;
+					case 'half-min-max'
+						this.process = @Processor.half;
+						this.inverse = @(x) x;
 					otherwise
 						this.process = @(x) x;
 						this.inverse = @(x) x;
@@ -62,15 +65,21 @@
 
 		methods (Static, Access = protected)
 
-			% Min-max Normalization:
-			function data = minmax(data)
+			% Min-max Normalization in (0, +1):
+			function data = half(data)
 
 				mins = min(data, [], 1);
 				ranges = max(data, [], 1) - mins;
 				for k = 1:size(data, 1)
 
-					data(k, :) = 2 * (data(k, :) - mins) ./ ranges - 1;
+					data(k, :) = (data(k, :) - mins) ./ ranges;
 				end
+			end
+
+			% Min-max Normalization in (-1, +1):
+			function data = minmax(data)
+
+				data = 2 * Processor.half(data) - 1;
 			end
 		end
 	end

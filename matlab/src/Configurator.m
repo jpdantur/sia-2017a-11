@@ -88,6 +88,9 @@
 			% Utilizar conjuntos de entrenamiento y testeo disjuntos:
 			disjoint = true;
 
+			% Tamaño de la muestra a tomar en cada entrenamiento/testeo:
+			sampleRatio = 0.5;
+
 			% Path donde se guardarán los pesos tras el entrenamiento:
 			output = '..res/benchmarks/states/weights.json';
 		end
@@ -121,6 +124,7 @@
 				this.granularity = configuration.granularity;
 				this.disjoint = configuration.disjoint;
 				this.output = configuration.output;
+				this.sampleRatio = configuration.sampleRatio;
 
 				% Cargar especificación del problema:
 				specification = importdata(this.problem);

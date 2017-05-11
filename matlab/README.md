@@ -46,6 +46,7 @@ estructura (en formato _JSON_):
 	"patternNoise" : 0.0000,
 	"problem" : "../res/benchmarks/terrain11.data",
 	"processor" : "min-max",
+	"sampleRatio" : 0.5000,
 	"trainRatio" : 0.6500,
 	"transfers" : ["tanh", "tanh", "tanh", "tanh"],
 	"vanishingLimit" : 0.0100,
@@ -104,7 +105,8 @@ tasa de aprendizaje.
 * `momentum`: especifica el momento de inercia de aprendizaje sobre el proceso
 de actualización de pesos, durante la aplicación de _back-propagation_.
 
-* `output`: archivo donde se guardarán los pesos del perceptrón una vez finalizado el entrenamiento y testeo.
+* `output`: archivo donde se guardarán los pesos del perceptrón una vez
+finalizado el entrenamiento y testeo.
 
 * `patternNoise`: la cantidad máxima de ruido a inyectar en los patrones de
 entrada durante el proceso de entrenamiento.
@@ -115,7 +117,11 @@ opcionalmente con una primera fila de _headers_.
 
 * `processor`: indica el tipo de pre/post procesamiento a realizar sobre el
 conjunto de datos. Actualmente se permiten las siguientes transformaciones:
-`nothing`, `bits` y `min-max`.
+`nothing`, `bits`, `min-max` y `half-min-max`.
+
+* `sampleRatio`: indica el porcentaje de instancias a utilizar durante cada
+nueva generación (época), tanto para testeo como para entrenamiento. Si los
+conjuntos son disjuntos, esta relación aplica a cada subconjunto por separado.
 
 * `trainRatio`: la proporción de instancias a utilizar durante la fase de
 entrenamiento. Si la proporción es _P_, entonces la proporción del conjunto de

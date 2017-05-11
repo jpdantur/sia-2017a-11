@@ -31,9 +31,7 @@
 				perceptron = Perceptron(config);
 
 				if nargin == 1
-
 					state = loadjson(state);
-
 					perceptron.setWeights(state);
 				end
 
@@ -43,23 +41,19 @@
 				config.targets = config.processor...
 					.transform(config.targets);
 
+				% Generador de conjuntos:
+				generator = Generator(config);
+
 				trainingErrors = [];
 				testingErrors = [];
-
 				steps = 0;
 
 				for epoch = 1:config.epochs
 					learningRate = perceptron.getLearningRate();
 
-					[trainIndexes, testIndexes] = Nerve ...
-						.getIndexes( ...
-							size(config.instances, 1), config.trainRatio);
-
-					[trainingInstances, trainingTargets] = Nerve ...
-						.getSubset(config, trainIndexes);
-
-					[testingInstances, testingTargets] = Nerve ...
-						.getSubset(config, testIndexes);
+					% Generar muestras:
+					[trainingInstances, trainingTargets, ...
+					testingInstances, testingTargets] = generator.getSample();
 
 					perceptron.backupWeights();
 
@@ -105,8 +99,8 @@
 						end
 					end
 
-					trainingErrors = [trainingErrors trainingError];
-					testingErrors = [testingErrors testingError];
+					trainingErrors(1, end + 1) = trainingError;
+					testingErrors(1, end + 1) = testingError;
 
 					% Stopping-criterion:
 					if testingError < config.error
@@ -137,13 +131,14 @@
 					legend('Training Error', 'Testing Error');
 				end
 
+				% Graficar aproximación final:
 				if true == config.graph
 					OutputGrapher.surfacePlot(config,perceptron);
 				end
 
-				weights = perceptron.getAllWeights;
-
-                savejson('',weights,config.output);
+				% Almacenar el estado del perceptrón:
+				weights = perceptron.getAllWeights();
+                savejson('', weights, config.output);
 			end
 		end
 
@@ -153,21 +148,6 @@
 			function error = E(targets, data)
 
 				error = 0.5 * immse(targets, data);
-			end
-
-			% Computa una selección aleatoria de índices:
-			function [train, test] = getIndexes(instances, trainRatio)
-
-				trainSize = round(instances * trainRatio);
-				train = randperm(instances, trainSize);
-				test = setdiff(1:instances, train);
-			end
-
-			% Genera sub-conjuntos de instancias:
-			function [instances, targets] = getSubset(config, indexes)
-
-				instances = config.instances(indexes, :);
-				targets = config.targets(indexes, :);
 			end
 		end
 	end

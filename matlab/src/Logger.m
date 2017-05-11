@@ -52,10 +52,12 @@
 
 				fprintf('\n');
 				fprintf('\t                          Dataset : ''%s''\n', config.problem);
+				fprintf('\t                           Output : ''%s''\n', config.output);
 				fprintf('\t                       Instancias : %i\n', size(config.instances, 1));
 				fprintf('\t                      Predictores : %i\n', size(config.instances, 2) + size(config.targets, 2));
 				fprintf('\t                Pre-procesamiento : ''%s''\n', config.processor.getName());
-				fprintf('\t      Proporcion de entrenamiento : %.6f\n', config.trainRatio);
+				fprintf('\t      Porcentaje de entrenamiento : %.6f %c\n', 100 * config.trainRatio, '%');
+				fprintf('\t           Porcentaje de muestreo : %.6f %c\n', 100 * config.sampleRatio, '%');
 				fprintf('\t        Usar conjuntos disjuntos? : %s\n', Logger.boolToString(config.disjoint));
 				fprintf('\t             Error maximo deseado : %.6f\n', config.error);
 				fprintf('\t                           Epochs : %i\n\n', config.epochs);
