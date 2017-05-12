@@ -59,7 +59,9 @@
 			weightNoise = 0;
 
 			% Probabilidad de inyectar ruido en patrones:
-			injectionProbability = 0;
+			patternInjectionProbability = 0;
+
+			weightInjectionProbability = 0;
 
 			% Vanishing Gradient Problem:
 			vanishingLimit = 0;
@@ -111,7 +113,8 @@
 				this.error = configuration.error;
 				this.trainRatio = configuration.trainRatio;
 				this.momentum = configuration.momentum;
-				this.injectionProbability = configuration.injectionProbability;
+				this.patternInjectionProbability = configuration.patternInjectionProbability;
+				this.weightInjectionProbability = configuration.weightInjectionProbability;
 				this.patternNoise = configuration.patternNoise;
 				this.weightNoise = configuration.weightNoise;
 				this.vanishingLimit = configuration.vanishingLimit;

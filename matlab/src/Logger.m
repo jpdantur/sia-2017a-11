@@ -68,7 +68,8 @@
 				fprintf('\t                   Transferencias : %s\n', Logger.stringsToString(config.transferNames){1});
 				fprintf('\t                     Sigmoid Beta : %.6f\n\n', config.beta);
 
-				fprintf('\t   Probabilidad de inyectar ruido : %.6f\n', config.injectionProbability);
+				fprintf('\tProbabilidad de inyectar ruido sobre patrones : %.6f\n', config.patternInjectionProbability);
+				fprintf('\tProbabilidad de inyectar ruido sobre pesos : %.6f\n', config.weightInjectionProbability);
 				fprintf('\tInterferencia max. sobre patrones : %.6f\n', config.patternNoise);
 				fprintf('\tInterferencia inicial sobre pesos : %.6f\n\n', config.weightNoise);
 

@@ -31,6 +31,9 @@
 
 			% Porcentaje de muestreo:
 			sampleRatio = 0.5;
+
+			patternInjectionProbability = 0;
+			patternNoise = 0;
 		end
 
 		methods
@@ -55,6 +58,9 @@
 
 				this.instanceJoin = [this.trainSet; this.testSet];
 				this.targetJoin = [this.trainTargets; this.testTargets];
+
+				this.patternNoise = configuration.patternNoise;
+				this.patternInjectionProbability = configuration.patternInjectionProbability;
 			end
 
 			% Genera una muestra de entrenamiento/testeo:
@@ -65,16 +71,16 @@
 
 					[trainInstances, trainTargets, ~] = Generator...
 						.getSingleSample( ...
-							this.trainSet, this.trainTargets, this.sampleRatio);
+							this.trainSet, this.trainTargets, this.sampleRatio, this.patternNoise, this.patternInjectionProbability);
 
 					[testInstances, testTargets, ~] = Generator...
 						.getSingleSample( ...
-							this.testSet, this.testTargets, this.sampleRatio);
+							this.testSet, this.testTargets, this.sampleRatio, this.patternNoise, this.patternInjectionProbability);
 				else
 
 					[trainInstances, trainTargets, remain] = Generator...
 						.getSingleSample( ...
-							this.instanceJoin, this.targetJoin, this.trainRatio);
+							this.instanceJoin, this.targetJoin, this.trainRatio, this.patternNoise, this.patternInjectionProbability);
 
 					testInstances = this.instanceJoin(remain, :);
 					testTargets = this.targetJoin(remain, :);
@@ -93,13 +99,13 @@
 			end
 
 			function [instances, targets, remainingIndexes] = getSingleSample( ...
-				sampleSet, sampleTargets, ratio)
+				sampleSet, sampleTargets, ratio, patternNoise, patternInjectionProbability)
 
 				[indexes, remainingIndexes] = Generator.getIndexes( ...
 					size(sampleSet, 1), ...
 					ratio);
-
-				instances = sampleSet(indexes, :);
+				keyboard();
+				instances = sampleSet(indexes, :) + repmat(binornd(1,patternInjectionProbability,size(indexes,2),1) * patternNoise,1,size(sampleSet,2));
 				targets = sampleTargets(indexes, :);
 			end
 		end
