@@ -67,6 +67,10 @@
 				this.variation = this.previousVariation;
 			end
 
+			function this = addNoise(this, weightNoise, weightInjectionProbability)
+				this.weights = this.weights + binornd(1,weightInjectionProbability,size(this.weights)) * weightNoise;
+			end
+
 			% Computa el parámetro 'delta' de salida:
 			function delta = outerDelta(this, target, output)
 

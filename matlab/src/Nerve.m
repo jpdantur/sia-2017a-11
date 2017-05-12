@@ -114,6 +114,7 @@
 							.restore(predictions);
 						break;
 					end
+					perceptron.addNoise();
 				end
 
 				% Mostrar tiempo de ejecución final:

@@ -104,7 +104,6 @@
 				[indexes, remainingIndexes] = Generator.getIndexes( ...
 					size(sampleSet, 1), ...
 					ratio);
-				keyboard();
 				instances = sampleSet(indexes, :) + repmat(binornd(1,patternInjectionProbability,size(indexes,2),1) * patternNoise,1,size(sampleSet,2));
 				targets = sampleTargets(indexes, :);
 			end

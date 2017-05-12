@@ -40,6 +40,11 @@
 			% Tasas de cambio para LR variable:
 			learningRateIncrement;
 			learningRateDecrement;
+
+			weightInjectionProbability;
+			weightNoise;
+
+
 		end
 
 		methods
@@ -52,6 +57,8 @@
 				this.momentum = config.momentum;
 				this.learningRateIncrement = config.learningRateIncrement;
 				this.learningRateDecrement = config.learningRateDecrement;
+				this.weightInjectionProbability = config.weightInjectionProbability;
+				this.weightNoise = config.weightNoise;
 
 				% Agregar el tamaño de la capa de entrada y los umbrales:
 				inputSizes = [config.inputs, config.layerSizes(1:end - 1)] + 1;
@@ -135,6 +142,12 @@
 					this.network{k}.setWeights(state{k});
 				end
 
+			end
+
+			function this = addNoise(this)
+				for k = 1:size(this.network,2)
+					this.network{k}.addNoise(this.weightNoise,this.weightInjectionProbability);
+				end
 			end
 
 		end
