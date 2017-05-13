@@ -36,9 +36,10 @@
 
 			% Constructor:
 			function this = Layer(inputs, neurons, transfer, vanishingLimit)
-
+				minweight = -1/sqrt(inputs);
+				maxweight = 1/sqrt(inputs);
 				% Estado inicial:
-				this.weights = rand(inputs, neurons) - 0.5;
+				this.weights = (maxweight-minweight).*rand(inputs, neurons) + minweight;
 				this.transfer = transfer;
 				this.vanishingLimit = vanishingLimit;
 				this.variation = zeros(inputs, neurons);
