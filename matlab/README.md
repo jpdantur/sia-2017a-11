@@ -33,8 +33,7 @@ estructura (en formato _JSON_):
 	"error" : 0.0010,
 	"granularity" : 0.02,
 	"graph" : false,
-	"graphError" : true,
-	"injectionProbability" : 0.0000,
+	"graphError" : true,    
 	"inputs" : 2,
 	"layerSizes" : [20, 15, 10, 1],
 	"learningRate" : 0.2500,
@@ -43,6 +42,7 @@ estructura (en formato _JSON_):
 	"minSteps" : 0,
 	"momentum" : 0.1000,
 	"output": "../res/benchmarks/states/weights.json",
+	"patternInjectionProbability" : 0.0000,
 	"patternNoise" : 0.0000,
 	"problem" : "../res/benchmarks/terrain11.data",
 	"processor" : "min-max",
@@ -50,6 +50,7 @@ estructura (en formato _JSON_):
 	"trainRatio" : 0.6500,
 	"transfers" : ["tanh", "tanh", "tanh", "tanh"],
 	"vanishingLimit" : 0.0100,
+	"weightInjectionProbability" : 0.0000,
 	"weightNoise" : 0.0000
 }
 
@@ -79,9 +80,6 @@ aproximada utilizando la red neuronal final, luego del entrenamiento.
 curvas de error de entrenamiento y testeo. Esto permite identificar si la red
 ingresó en un estado de _overfitting_.
 
-* `injectionProbability`: probabilidad de inyectar ruido en los patrones de
-entrada durante la fase de entrenamiento.
-
 * `inputs`: la cantidad de entradas presentes en el perceptrón. Debe
 corresponderse con la cantidad de predictores especificados en el set de datos
 de entrenamiento.
@@ -107,6 +105,9 @@ de actualización de pesos, durante la aplicación de _back-propagation_.
 
 * `output`: archivo donde se guardarán los pesos del perceptrón una vez
 finalizado el entrenamiento y testeo.
+
+* `patternInjectionProbability`: probabilidad de inyectar ruido en los patrones de
+entrada durante la fase de entrenamiento.
 
 * `patternNoise`: la cantidad máxima de ruido a inyectar en los patrones de
 entrada durante el proceso de entrenamiento.
@@ -136,9 +137,11 @@ _Vanishing Gradient Problem_, con lo cual se mitiga la probabildiad de
 saturación de una neurona al limitar la magnitud mínima del gradiente
 descendente.
 
-* `weightNoise`: la cantidad máxima de ruido a inyectar durante la generación
-inicial de la matriz de pesos. Si posee un valor _W_, entonces los pesos se
-inicializarán aleatoriamente con un valor dentro del intervalo _(-W, W)_.
+* `weightInjectionProbability`: probabilidad de inyectar ruido en los pesos durante
+ la fase de entrenamiento.
+
+* `weightNoise`: la cantidad máxima de ruido a inyectar durante la fase de entrenamiento 
+a la matriz de pesos.
 
 Luego de construir el archivo de configuración, dentro del sub-directorio
 *matlab/src*, y desde la aplicación _Matlab_, ejecute:
