@@ -51,38 +51,38 @@
 			function logConfiguration(config)
 
 				fprintf('\n');
-				fprintf('\t                          Dataset : ''%s''\n', config.problem);
-				fprintf('\t                           Output : ''%s''\n', config.output);
-				fprintf('\t                       Instancias : %i\n', size(config.instances, 1));
-				fprintf('\t                      Predictores : %i\n', size(config.instances, 2) + size(config.targets, 2));
-				fprintf('\t                Pre-procesamiento : ''%s''\n', config.processor.getName());
-				fprintf('\t      Porcentaje de entrenamiento : %.6f %c\n', 100 * config.trainRatio, '%');
-				fprintf('\t           Porcentaje de muestreo : %.6f %c\n', 100 * config.sampleRatio, '%');
-				fprintf('\t        Usar conjuntos disjuntos? : %s\n', Logger.boolToString(config.disjoint));
-				fprintf('\t             Error maximo deseado : %.6f\n', config.error);
-				fprintf('\t                           Epochs : %i\n\n', config.epochs);
+				fprintf('\t                                      Dataset : ''%s''\n', config.problem);
+				fprintf('\t                                       Output : ''%s''\n', config.output);
+				fprintf('\t                                   Instancias : %i\n', size(config.instances, 1));
+				fprintf('\t                                  Predictores : %i\n', size(config.instances, 2) + size(config.targets, 2));
+				fprintf('\t                            Pre-procesamiento : ''%s''\n', config.processor.getName());
+				fprintf('\t                  Porcentaje de entrenamiento : %.6f %c\n', 100 * config.trainRatio, '%');
+				fprintf('\t                       Porcentaje de muestreo : %.6f %c\n', 100 * config.sampleRatio, '%');
+				fprintf('\t                    Usar conjuntos disjuntos? : %s\n', Logger.boolToString(config.disjoint));
+				fprintf('\t                         Error maximo deseado : %.6f\n', config.error);
+				fprintf('\t                                       Epochs : %i\n\n', config.epochs);
 
-				fprintf('\t             Cantidad de entradas : %i\n', config.inputs);
-				fprintf('\t              Cantidad de salidas : %i\n', config.layerSizes(end));
-				fprintf('\t                Neuronas por capa : %s\n', Logger.vectorToString(config.layerSizes){1});
-				fprintf('\t                   Transferencias : %s\n', Logger.stringsToString(config.transferNames){1});
-				fprintf('\t                     Sigmoid Beta : %.6f\n\n', config.beta);
+				fprintf('\t                         Cantidad de entradas : %i\n', config.inputs);
+				fprintf('\t                          Cantidad de salidas : %i\n', config.layerSizes(end));
+				fprintf('\t                            Neuronas por capa : %s\n', Logger.vectorToString(config.layerSizes){1});
+				fprintf('\t                               Transferencias : %s\n', Logger.stringsToString(config.transferNames){1});
+				fprintf('\t                                 Sigmoid Beta : %.6f\n\n', config.beta);
 
 				fprintf('\tProbabilidad de inyectar ruido sobre patrones : %.6f\n', config.patternInjectionProbability);
-				fprintf('\tProbabilidad de inyectar ruido sobre pesos : %.6f\n', config.weightInjectionProbability);
-				fprintf('\tInterferencia max. sobre patrones : %.6f\n', config.patternNoise);
-				fprintf('\tInterferencia inicial sobre pesos : %.6f\n\n', config.weightNoise);
+				fprintf('\t   Probabilidad de inyectar ruido sobre pesos : %.6f\n', config.weightInjectionProbability);
+				fprintf('\t            Interferencia max. sobre patrones : %.6f\n', config.patternNoise);
+				fprintf('\t            Interferencia inicial sobre pesos : %.6f\n\n', config.weightNoise);
 
-				fprintf('\t       Vanishing Gradient Problem : %.6f\n', config.vanishingLimit);
-				fprintf('\t           Momento de aprendizaje : %.6f\n', config.momentum);
-				fprintf('\t            Learning-rate inicial : %.6f\n', config.learningRate);
-				fprintf('\t     Incremento del learning-rate : %.6f\n', config.learningRateDecrement);
-				fprintf('\t     Decremento del learning-rate : %.6f\n', config.learningRateIncrement);
-				fprintf('\t            Ventana de adaptacion : %i\n\n', config.minSteps);
+				fprintf('\t                   Vanishing Gradient Problem : %.6f\n', config.vanishingLimit);
+				fprintf('\t                       Momento de aprendizaje : %.6f\n', config.momentum);
+				fprintf('\t                        Learning-rate inicial : %.6f\n', config.learningRate);
+				fprintf('\t                 Incremento del learning-rate : %.6f\n', config.learningRateDecrement);
+				fprintf('\t                 Decremento del learning-rate : %.6f\n', config.learningRateIncrement);
+				fprintf('\t                        Ventana de adaptacion : %i\n\n', config.minSteps);
 
-				fprintf('\t     Graficar aproximacion final? : %s\n', Logger.boolToString(config.graph));
-				fprintf('\t        Graficar curvas de error? : %s\n', Logger.boolToString(config.graphError));
-				fprintf('\t                     Granularidad : %.3f\n', config.granularity);
+				fprintf('\t                 Graficar aproximacion final? : %s\n', Logger.boolToString(config.graph));
+				fprintf('\t                    Graficar curvas de error? : %s\n', Logger.boolToString(config.graphError));
+				fprintf('\t                                 Granularidad : %.3f\n', config.granularity);
 				fprintf('\n');
 			end
 
