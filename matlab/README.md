@@ -27,31 +27,31 @@ estructura (en formato _JSON_):
 #!javascript
 
 {
-	"beta" : 0.8500,
+	"beta" : 0.6500,
 	"disjoint" : true,
-	"epochs" : 100,
-	"error" : 0.0010,
-	"granularity" : 0.02,
-	"graph" : false,
-	"graphError" : true,    
+	"epochs" : 1000,
+	"error" : 0.0001,
+	"granularity" : 0.04,
+	"graph" : true,
+	"graphError" : true,
 	"inputs" : 2,
-	"layerSizes" : [20, 15, 10, 1],
-	"learningRate" : 0.2500,
-	"learningRateDecrement" : 0.0000,
-	"learningRateIncrement" : 0.0000,
-	"minSteps" : 0,
-	"momentum" : 0.1000,
-	"output": "../res/benchmarks/states/weights.json",
-	"patternInjectionProbability" : 0.0000,
-	"patternNoise" : 0.0000,
+	"layerSizes" : [100, 45, 1],
+	"learningRate" : 0.15,
+	"learningRateDecrement" : 0.035,
+	"learningRateIncrement" : 0.015,
+	"minSteps" : 2,
+	"momentum" : 0.01,
+	"output": "../res/benchmarks/states/weights-11.json",
+	"patternInjectionProbability" : 0.25,
+	"patternNoise" : 0.1,
 	"problem" : "../res/benchmarks/terrain11.data",
 	"processor" : "min-max",
-	"sampleRatio" : 0.5000,
-	"trainRatio" : 0.6500,
-	"transfers" : ["tanh", "tanh", "tanh", "tanh"],
-	"vanishingLimit" : 0.0100,
-	"weightInjectionProbability" : 0.0000,
-	"weightNoise" : 0.0000
+	"sampleRatio" : 0.35,
+	"trainRatio" : 0.8,
+	"transfers" : ["tanh", "tanh", "tanh"],
+	"vanishingLimit" : 0.0000035,
+	"weightInjectionProbability" : 0.025,
+	"weightNoise" : 0.001
 }
 
 ```
@@ -148,9 +148,13 @@ Luego de construir el archivo de configuración, dentro del sub-directorio
 
 	Nerve.run();
 
-## Casos de Uso
+Si desea utilizar una matriz de pesos pre-existente, utilice la siguiente
+llamada:
 
-[...]
+	Nerve.run(filename);
+
+Donde _filename_ representa la ruta hacia el archivo con la información de las
+matrices de pesos del perceptrón multicapa, en formato _JSON_.
 
 ### Autores
 
