@@ -1,5 +1,8 @@
 ![...](res/images/header.jpg)
 
+
+# Para README de redes neuronales, dirigirse al directorio "matlab"
+
 # General Problem Solver 
 
 Se implementó un sistema de resolución de problemas general (*GPS*), bajo
