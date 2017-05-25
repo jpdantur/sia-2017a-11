@@ -27,15 +27,22 @@
 			function this = Fitness(config)
 
 				this.config = config;
-				this.classMods = config.;
-				this.classPerformance = config.;
+
+				this.classMods = [config.itemStrength, ...
+					config.itemAgility, ...
+					config.itemExpertise, ...
+					config.itemResistance, ...
+					config.itemHealth];
+
+				this.classPerformance = [config.attackDefenseRate, ...
+					1 - config.attackDefenseRate];
 			end
 
 			% Computa el índice de adaptación del cromosoma:
 			function fitness = getFitness(this, chromosome)
 
 				stats = sum(chromosome.getStats(), 1) .* this.classMods;
-				stats = [100,1, 0.6, 1, 100] .* tanh(0.01 * stats);
+				stats = [100, 1, 0.6, 1, 100] .* tanh(0.01 * stats);
 
 				height = chromosome.getHeight();
 				attack = (stats(2) + stats(3)) * stats(1) * Fitness.attackMod(height);

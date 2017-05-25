@@ -30,17 +30,20 @@
 				% -------------------------------------------------------------
 
 				% Generar población inicial:
-				population = Generator.init(config);
+				% population = Generator.init(config);
 
-				evaluar fitness de todos
-				while no se cumpla cut-off
+				% Calculador de adaptación:
+				fitness = Fitness(config);
 
-					seleccionar individuos para reproducción
-					recombinar (cross)
-					mutar algunos
-					evaluar el nuevo fitness
-					generar nueva población
-				end
+				% evaluar fitness de todos
+				% while no se cumpla cut-off
+
+				%	seleccionar individuos para reproducción
+				%	recombinar (cross)
+				%	mutar algunos
+				%	evaluar el nuevo fitness
+				%	generar nueva población
+				% end
 
 				% -------------------------------------------------------------
 
