@@ -17,6 +17,45 @@
 
 			% JSON original:
 			json;
+
+			attackDefenseRate = 0.1
+
+			crossoverMethod = 'singlepoint';
+
+			crossoverProbability = 0.6;
+
+			generations = 100;
+
+			generationalGap = 1;
+
+			itemStrength = 1.1;
+
+			itemAgility = 0.8;
+
+			itemExpertise = 0.8;
+
+			itemResistance = 1.1;
+
+			itemHealth = 1.1;
+
+			mutationProbability = 0.01;
+
+			population = 100;
+
+			replacementMethod = [1 , 2];
+
+			replacementMethodRate = 0.5;
+
+			selection = 5;
+
+			selectionMethod;
+
+			selectionMethodRate = 0.5;
+
+			temperature = 1.0;
+
+			tournamentSubset = 1;
+
 		end
 
 		methods
@@ -37,6 +76,28 @@
 
 				% Configuración normal...
 				this.json = config;
+
+				% Setear parámetros
+
+				this.attackDefenseRate = config.attackDefenseRate;
+				this.crossoverMethod = config.crossoverMethod;
+				this.crossoverProbability = config.crossoverProbability;
+				this.generations = config.generations;
+				this.generationalGap = config.generationalGap;
+				this.itemStrength = config.itemStrength;
+				this.itemAgility = config.itemAgility;
+				this.itemExpertise = config.itemExpertise;
+				this.itemResistance = config.itemResistance;
+				this.itemHealth = config.itemHealth;
+				this.mutationProbability = config.mutationProbability;
+				this.population = config.population;
+				this.replacementMethod = config.replacementMethod;
+				this.replacementMethodRate = config.replacementMethodRate;
+				this.selection = config.selection;
+				this.selectionMethod = config.selectionMethod;
+				this.selectionMethodRate = config.selectionMethodRate;
+				this.temperature = config.temperature;
+				this.tournamentSubset = config.tournamentSubset;
 			end
 		end
 
