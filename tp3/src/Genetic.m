@@ -29,9 +29,18 @@
 
 				% -------------------------------------------------------------
 
-				% ...
-				% Implementar...
-				% ...
+				% Generar población inicial:
+				population = Generator.init(config);
+
+				evaluar fitness de todos
+				while no se cumpla cut-off
+
+					seleccionar individuos para reproducción
+					recombinar (cross)
+					mutar algunos
+					evaluar el nuevo fitness
+					generar nueva población
+				end
 
 				% -------------------------------------------------------------
 

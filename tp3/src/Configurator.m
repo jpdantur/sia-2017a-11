@@ -15,6 +15,7 @@
 
 		properties (Access = public)
 
+			% JSON original:
 			json;
 		end
 
