@@ -21,6 +21,17 @@
 				fprintf('\t Gauntlets Dataset : ''%s''\t[%ix%i]\n', config.json.gauntlets, size(data{3}));
 				fprintf('\t   Helmets Dataset : ''%s''\t[%ix%i]\n', config.json.helmets, size(data{4}));
 				fprintf('\t   Weapons Dataset : ''%s''\t\t[%ix%i]\n', config.json.weapons, size(data{5}));
+				fprintf('\t   Attack Defense Rate : %.1f\n', config.attackDefenseRate);
+				fprintf('\t   Crossover Method : %s\n', config.crossoverMethod);
+				fprintf('\t   Crossover Probability : %.3f\n', config.crossoverProbability);
+				fprintf('\t   Generational Gap (G) : %.3f\n', config.generationalGap);
+				fprintf('\t   Generations : %d\n', config.generations);
+				fprintf('\t   Mutation Probability : %.3f\n', config.mutationProbability);
+				fprintf('\t   Population : %d\n', config.population);
+				fprintf('\t   Replacement Method : %s\n', Logger.vectorToString(config.replacementMethod){1});
+				fprintf('\t   Replacement Method Rate : %.3f\n', config.replacementMethodRate);
+				fprintf('\t   Selection Method : %s\n', Logger.stringsToString(config.selectionMethod){1});
+				fprintf('\t   Selection Method Rate : %.3f\n', config.selectionMethodRate);
 				fprintf('\n');
 			end
 

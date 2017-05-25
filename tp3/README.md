@@ -23,10 +23,29 @@ configuración `config.json`, con la siguiente estructura (en formato _JSON_):
 
 {
 	"armors" : "../res/benchmarks/test/pecheras.tsv",
-	"boots" : "../res/benchmarks/test/botas.tsv",
-	"gauntlets" : "../res/benchmarks/test/guantes.tsv",
-	"helmets" : "../res/benchmarks/test/cascos.tsv",
-	"weapons" : "../res/benchmarks/test/armas.tsv"
+    "boots" : "../res/benchmarks/test/botas.tsv",
+    "gauntlets" : "../res/benchmarks/test/guantes.tsv",
+    "helmets" : "../res/benchmarks/test/cascos.tsv",
+    "weapons" : "../res/benchmarks/test/armas.tsv",
+    "attackDefenseRate" : 0.1,
+    "crossoverMethod": "singlepoint",
+    "crossoverProbability": 0.6,
+    "generationalGap" : 1,
+    "generations": 100,
+    "itemStrength" : 1.1,
+    "itemAgility": 0.8,
+    "itemExpertise": 0.8,
+    "itemResistance" : 1.1,
+    "itemHealth": 1.1,
+    "mutationProbability" : 0.01,
+    "population" : 100,
+    "replacementMethod": [1 , 2],
+    "replacementMethodRate": 0.5,
+    "selection" : 5,
+    "selectionMethod": ["roulette" , "universal"],
+    "selectionMethod": 0.6,
+    "temperature" : 1.0,
+    "tournamentSubset" : 2
 }
 
 ```
