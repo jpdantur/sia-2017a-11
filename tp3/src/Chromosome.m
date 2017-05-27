@@ -39,9 +39,6 @@
 				stats(3, :) = data{3}(this.genes(3), 2:end);
 				stats(4, :) = data{4}(this.genes(4), 2:end);
 				stats(5, :) = data{5}(this.genes(5), 2:end);
-
-				% Hay que cambiar esto!!!
-				stats = table2array(stats);
 			end
 
 			% Devuelve el gen de altura:

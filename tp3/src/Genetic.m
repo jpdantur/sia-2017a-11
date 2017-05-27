@@ -29,21 +29,54 @@
 
 				% -------------------------------------------------------------
 
-				% Generar población inicial:
-				% population = Generator.init(config);
+				% Generador de poblaciones:
+				generator = Generator(config);
 
 				% Calculador de adaptación:
 				fitness = Fitness(config);
 
-				% evaluar fitness de todos
-				% while no se cumpla cut-off
+				% Stopping-criterion:
+				cutOff = CutOff(config);
 
-				%	seleccionar individuos para reproducción
-				%	recombinar (cross)
-				%	mutar algunos
-				%	evaluar el nuevo fitness
-				%	generar nueva población
-				% end
+				% Método de selección natural:
+				selector = Selector(config);
+
+				% Método de cruce/apareamiento:
+				crossover = Crossover(config);
+
+				% Mutador genético:
+				mutator = Mutator(config);
+
+				% -------------------------------------------------------------
+
+				% Generar población inicial:
+				population = generator.init();
+
+				% Computar el 'fitness' global inicial:
+				globalFitness = fitness.getGlobalFitness(population);
+
+				while cutOff.assert(population, globalFitness) == false
+
+					% Seleccionar individuos de prueba:
+					indexes = selector.select(globalFitness);
+
+					% Recombinar y generar descendientes:
+					subPopulation = crossover.recombine(population(indexes));
+
+					% Mutar el código genético de la sub-población:
+					subPopulation = mutator.mutate(subPopulation);
+
+					% Evaluar el nuevo fitness...
+					% Generar nueva población:
+						% Brecha generacional?
+						% Metodo de reemplazo 1...
+						% Metodo de reemplazo 2...
+						% Metodo de reemplazo 3...
+						% Método híbrido...
+				end
+
+				% Computar el resultado final!!!
+				% Gráficos, etc.
 
 				% -------------------------------------------------------------
 

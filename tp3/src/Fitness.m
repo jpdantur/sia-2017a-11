@@ -50,6 +50,23 @@
 
 				fitness = this.classPerformance * [attack; defense];
 			end
+
+			% Computa la adaptación de toda la población:
+			function fitness = getGlobalFitness(this, population)
+
+				fitness = [0, 0, 0];
+
+				% Índice de adaptación:
+				for k = 1:size(population)
+					fitness(k, 1) = this.getFitness(population{k});
+				end
+
+				% Adaptación relativa:
+				fitness(:, 2) = fitness(:, 1) / sum(fitness(:, 1));
+
+				% Adaptación acumulada:
+				fitness(:, 3) = cumsum(fitness(:, 2));
+			end
 		end
 
 		methods (Static, Access = protected)
