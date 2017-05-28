@@ -91,9 +91,9 @@
 
 				% Horner's Rule (parcial):
 				a = h * (9 * h - 30) + 25;
-				b = - (a * a) + a + 0.5 * h;
-				ATM = 0.5 + b;
-				DEM = 2 - b;
+				b = (a * a) - a - 0.5 * h;
+				ATM = 0.5 - b;
+				DEM = 2 + b;
 			end
 
 			% Computar adaptación relativa y acumulada:

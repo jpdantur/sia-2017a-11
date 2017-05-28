@@ -48,7 +48,10 @@ configuración `config.json`, con la siguiente estructura (en formato _JSON_):
 	"selectionMethod": ["roulette", "universal"],
 	"selectionMethodRate": 0.6,
 	"temperature" : 1.0,
-	"tournamentSubset" : 2
+	"tournamentSubset" : 2,
+
+	"graphRateLimit" : true,
+	"graphFitness" : true
 }
 
 ```

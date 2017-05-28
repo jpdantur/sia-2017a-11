@@ -47,6 +47,9 @@
 				% Mutador genético:
 				mutator = Mutator(config);
 
+				% Graficador de curvas:
+				grapher = Grapher(config);
+
 				% -------------------------------------------------------------
 
 				% Generar población inicial:
@@ -54,6 +57,9 @@
 
 				% Computar el 'fitness' global inicial:
 				globalFitness = fitness.getGlobalFitness(population);
+
+				% Graficar curva de 'fitness':
+				grapher.addFitness(globalFitness);
 
 				while cutOff.assert(population, globalFitness) == false
 
@@ -77,15 +83,15 @@
 					% Actualizar el 'fitness':
 					globalFitness = fitness.updateFitness(...
 						globalFitness, old, subPopulation, new);
+
+					% Graficar curva de 'fitness':
+					grapher.addFitness(globalFitness);
 				end
 
-				% Computar el resultado final!!!
-				% Al mostrar el resultado final, tener en cuenta que los ID
-				% empiezan desde 0 y no desde 1.
-				% Gráficos, etc.
-				% ...
-
 				% -------------------------------------------------------------
+
+				% Mostrar el resultado final:
+				Logger.logResult(population, globalFitness);
 
 				% Mostrar tiempo de ejecución final:
 				Logger.logExecutionTime(toc(globalTic));

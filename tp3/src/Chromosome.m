@@ -6,7 +6,7 @@
 			población en un momento determinado. Para el problema modelado, el
 			cromosoma posee los siguientes genes:
 
-				<Armor, Boot, Gauntlet, Helmet, Weapon, Height>
+				<Armor, Boots, Gauntlet, Helmet, Weapon, Height>
 
 			A su vez, cada uno de los genes se codifica como un número
 			natural mayor o igual a 0, a excepción de la altura, la cual se
@@ -39,6 +39,18 @@
 				stats(3, :) = data{3}(this.genes(3), 2:end);
 				stats(4, :) = data{4}(this.genes(4), 2:end);
 				stats(5, :) = data{5}(this.genes(5), 2:end);
+			end
+
+			% Obtener la matriz de estados + ID:
+			function stats = getFullStats(this)
+
+				global data;
+
+				stats(1, :) = data{1}(this.genes(1), 1:end);
+				stats(2, :) = data{2}(this.genes(2), 1:end);
+				stats(3, :) = data{3}(this.genes(3), 1:end);
+				stats(4, :) = data{4}(this.genes(4), 1:end);
+				stats(5, :) = data{5}(this.genes(5), 1:end);
 			end
 
 			% Devuelve el gen de altura:

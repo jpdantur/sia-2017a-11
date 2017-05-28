@@ -56,6 +56,10 @@
 
 			tournamentSubset = 1;
 
+			graphRateLimit = true;
+
+			graphFitness = true;
+
 		end
 
 		methods
@@ -95,6 +99,8 @@
 				this.selectionMethodRate = config.selectionMethodRate;
 				this.temperature = config.temperature;
 				this.tournamentSubset = config.tournamentSubset;
+				this.graphRateLimit = config.graphRateLimit;
+				this.graphFitness = config.graphFitness;
 			end
 		end
 
