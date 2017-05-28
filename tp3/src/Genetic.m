@@ -68,20 +68,22 @@
 
 					% Obtener índices de reemplazo:
 					[old, new] = generator.replace(...
-						size(population), ...
-						size(subPopulation));
+						size(population, 2), ...
+						size(subPopulation, 2));
 
 					% Generar nueva población:
 					population = [population(old), subPopulation(new)];
 
-					% Evaluar el nuevo fitness... (OPTIMIZAR!!!)
-					globalFitness = fitness.getGlobalFitness(population);
-					% globalFitness = fitness.updateFitness(...
-					%	globalFitness, old, subPopulation, new);
+					% Actualizar el 'fitness':
+					globalFitness = fitness.updateFitness(...
+						globalFitness, old, subPopulation, new);
 				end
 
 				% Computar el resultado final!!!
+				% Al mostrar el resultado final, tener en cuenta que los ID
+				% empiezan desde 0 y no desde 1.
 				% Gráficos, etc.
+				% ...
 
 				% -------------------------------------------------------------
 

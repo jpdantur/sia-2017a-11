@@ -45,8 +45,10 @@
 				stats = [100, 1, 0.6, 1, 100] .* tanh(0.01 * stats);
 
 				height = chromosome.getHeight();
-				attack = (stats(2) + stats(3)) * stats(1) * Fitness.attackMod(height);
-				defense = (stats(4) + stats(3)) * stats(5) * Fitness.defenseMod(height);
+				[ATM, DEM] = Fitness.mods(height);
+
+				attack = (stats(2) + stats(3)) * stats(1) * ATM;
+				defense = (stats(4) + stats(3)) * stats(5) * DEM;
 
 				fitness = this.classPerformance * [attack; defense];
 			end
@@ -54,41 +56,54 @@
 			% Computa la adaptación de toda la población:
 			function fitness = getGlobalFitness(this, population)
 
-				fitness = [0, 0, 0];
+				% Inicializar:
+				fitness = zeros(size(population, 2), 3);
 
 				% Índice de adaptación:
 				for k = 1:size(population, 2)
 					fitness(k, 1) = this.getFitness(population{k});
 				end
 
-				% Adaptación relativa:
-				fitness(:, 2) = fitness(:, 1) / sum(fitness(:, 1));
-
-				% Adaptación acumulada:
-				fitness(:, 3) = cumsum(fitness(:, 2));
+				% Adaptación relativa y acumulada:
+				fitness = Fitness.fillFitness(fitness);
 			end
 
 			% Computar la adaptación global, de forma parcial:
 			function fitness = updateFitness(this, ...
 				globalFitness, old, subPopulation, new)
 
-				% TODO: completar...
-				fitness = globalFitness;
+				fitness(:, 1) = globalFitness(old, 1);
+				for k = 1:size(new, 2)
+
+					fitness(end + 1, 1) = this.getFitness(...
+						subPopulation{new(k)});
+				end
+
+				% Adaptación relativa y acumulada:
+				fitness = Fitness.fillFitness(fitness);
 			end
 		end
 
 		methods (Static, Access = protected)
 
-			% Modificador de ataque:
-			function modifier = attackMod(height)
+			% Modificadores de ataque/defensa:
+			function [ATM, DEM] = mods(h)
 
-				modifier = 0.5 - (3 * height - 5)^4 + (3 * height - 5)^2 + 0.5 * height;
+				% Horner's Rule (parcial):
+				a = h * (9 * h - 30) + 25;
+				b = - (a * a) + a + 0.5 * h;
+				ATM = 0.5 + b;
+				DEM = 2 - b;
 			end
 
-			% Modificador de defensa:
-			function modifier = defenseMod(height)
+			% Computar adaptación relativa y acumulada:
+			function fitness = fillFitness(fitness)
 
-				modifier = 2 + (3 * height - 5)^4 - (3 * height - 5)^2 - 0.5 * height;
+				% Adaptación relativa:
+				fitness(:, 2) = fitness(:, 1) / sum(fitness(:, 1));
+
+				% Adaptación acumulada:
+				fitness(:, 3) = cumsum(fitness(:, 2));
 			end
 		end
 	end

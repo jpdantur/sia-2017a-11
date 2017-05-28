@@ -42,7 +42,7 @@
 				%		size(old) + size(new) = size(oldSize)
 
 				% TODO: Completar...
-				old = 1:oldSize;
+				old = [1:oldSize];
 				new = [];
 			end
 		end
