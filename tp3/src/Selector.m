@@ -24,6 +24,10 @@
 			% Selecciona los siguientes individuos:
 			function indexes = select(this, fitness)
 
+				% IMPORTANTE: la lista de índices generados puede tener
+				%	repetidos, lo que facilita la aplicación del método de
+				%	reemplazo N° 1 (donde G = 1).
+
 				% TODO: Completar...
 				indexes = [];
 			end

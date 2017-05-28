@@ -57,7 +57,7 @@
 				fitness = [0, 0, 0];
 
 				% Índice de adaptación:
-				for k = 1:size(population)
+				for k = 1:size(population, 2)
 					fitness(k, 1) = this.getFitness(population{k});
 				end
 
@@ -66,6 +66,14 @@
 
 				% Adaptación acumulada:
 				fitness(:, 3) = cumsum(fitness(:, 2));
+			end
+
+			% Computar la adaptación global, de forma parcial:
+			function fitness = updateFitness(this, ...
+				globalFitness, old, subPopulation, new)
+
+				% TODO: completar...
+				fitness = globalFitness;
 			end
 		end
 

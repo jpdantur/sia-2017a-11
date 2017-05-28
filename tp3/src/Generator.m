@@ -31,5 +31,19 @@
 				% TODO: Completar...
 				population = {};
 			end
+
+			% Genera los índices de la siguiente población:
+			function [old, new] = replace(this, oldSize, newSize)
+
+				% IMPORTANTE: se devuelven los índices seleccionados de la
+				%	población original y de la nueva. En cualquier caso, se
+				%	debe verificar:
+				%
+				%		size(old) + size(new) = size(oldSize)
+
+				% TODO: Completar...
+				old = 1:oldSize;
+				new = [];
+			end
 		end
 	end

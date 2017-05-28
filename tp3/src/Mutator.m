@@ -24,6 +24,10 @@
 			% Selecciona los siguientes individuos:
 			function population = mutate(this, population)
 
+				% IMPORTANTE: este método puede modificar libremente los
+				%	cromosomas en 'population', ya que no son los originales
+				%	(son copias), y se espera que la mutación los modifique.
+
 				% TODO: Completar...
 				population = {};
 			end

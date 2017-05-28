@@ -25,6 +25,10 @@
 			% Selecciona los siguientes individuos:
 			function population = recombine(this, population)
 
+				% IMPORTANTE: este método no debe modificar los cromosomas en
+				%	'population', sino copiar el contenido y generar nuevos
+				%	cromosomas.
+
 				% TODO: Completar...
 				population = {};
 			end
