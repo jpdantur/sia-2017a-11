@@ -45,8 +45,6 @@
 
 						parent1 = selected{i};
 
-						length(parent1.genes)
-
 						parent2 = selected{i+1};
 
 						descendant = this.pointCross(parent1,parent2,randi(1,5)); %% TODO Parametrizar o random?
@@ -60,8 +58,6 @@
 			end
 
 			function descendant = pointCross(this,parent1,parent2,point)
-
-				[parent1.genes(1:point) parent2.genes(point+1:6)]
 
 				descendant = Chromosome([parent1.genes(1:point) parent2.genes(point+1:6)]); %%TODO Reemplazar 6 por end
 
