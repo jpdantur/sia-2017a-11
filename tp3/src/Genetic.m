@@ -18,6 +18,7 @@
 
 			% Función principal:
 			function run()
+				rng shuffle; %Real random ;)
 
 				global data config;
 
