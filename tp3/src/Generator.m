@@ -28,8 +28,21 @@
 			% Genera la población inicial:
 			function population = init(this)
 
-				% TODO: Completar...
+				global data;
+
 				population = {};
+
+				for ( N = 1:this.config.population )
+
+					genes(1, 1 : size(data{1} , 2)) = randi([1 size(data{1},1)]);
+
+					genes(6) = 1.3 + rand * (2.0-1.3);
+
+					chromosome = Chromosome(genes);
+
+					population{end+1} = chromosome;
+				end
+
 			end
 
 			% Genera los índices de la siguiente población:
