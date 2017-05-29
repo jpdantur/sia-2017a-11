@@ -10,7 +10,7 @@
 
 		properties (Access = protected)
 
-			% Propiedades...
+			config;
 		end
 
 		methods (Access = public)
@@ -18,7 +18,7 @@
 			% Constructor:
 			function this = Mutator(config)
 
-				% TODO: Completar...
+				this.config = config;
 			end
 
 			% Selecciona los siguientes individuos:
@@ -28,8 +28,15 @@
 				%	cromosomas en 'population', ya que no son los originales
 				%	(son copias), y se espera que la mutación los modifique.
 
-				% TODO: Completar...
-				population = {};
+				%Genes es vector fila o vector columna?
+				%Not tested
+				for n = 1:length(population)
+					population{n}.genes(1:5) = mod((population{n}.genes(1:5) + binornd(1,config.mutationProbability,5,1).*randi([1 9],5,1)),10);
+					if (rand<config.mutationProbability)
+						population{n}.genes(6) = 1.3 + rand * (2.0-1.3);
+					end
+				end
+
 			end
 		end
 	end
