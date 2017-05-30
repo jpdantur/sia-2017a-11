@@ -32,6 +32,8 @@
 
 				% TODO cambiar criterio de elección de padres
 
+				descendants = {};
+
 				for i = 1:length(selected)-1
 
 					if rand < this.config.crossoverProbability
@@ -67,7 +69,7 @@
 
 				point = randi([1 5]);
 
-				descendant{1} = Chromosome([parent1.genes(1:point) parent2.genes(point+1:6)]); %TODO Reemplazar 6 por end
+				descendant{1} = Chromosome([parent1.genes(1:point) parent2.genes(point+1:6)]);
 				descendant{2} = Chromosome([parent2.genes(1:point) parent1.genes(point+1:6)]);
 
 			end
@@ -105,6 +107,8 @@
 					if not ( g1(i) == g2(i) )
 
 						if (rand < p)
+
+							% Intercambio genes
 
 							aux = g1(i);
 

@@ -14,10 +14,6 @@
 
 			config;
 
-			selectionMethods = [];
-
-			selectionRate;
-
 		end
 
 		methods (Access = public)
@@ -26,32 +22,32 @@
 			function this = Selector(config)
 
 				this.config = config;
-				this.selectionMethods = this.config.selectionMethod;
-				this.selectionRate = config.selectionMethodRate;
 
 			end
 
 			% Selecciona los siguientes individuos:
-			function indexes = select(this, fitness)
-
-				% TODO: Porcentaje de k para cada selección
+			function indexes = select(this, selection, selectionMethods, selectionRate, fitness)
 
 				indexes = [];
 
-				for k = 1:length(this.selectionMethods)
+				rate = floor(selection*selectionRate);
 
-					switch this.selectionMethods{k}
+				selections = [rate selection-rate];
+
+				for k = 1:length(selectionMethods)
+
+					switch selectionMethods{k}
 
 						case 'elite'
-							indexes = [indexes eliteSelection(this,fitness)];
+							indexes = [indexes eliteSelection(this,fitness,selections(k)) ];
 						case 'roulette'
-							indexes = [indexes rouletteSelection(this,fitness)];
+							indexes = [indexes rouletteSelection(this,fitness,selections(k)) ];
 						case 'universal'
-							indexes = [indexes universalSelection(this,fitness)];
+							indexes = [indexes universalSelection(this,fitness,selections(k)) ];
 						case 'deterministicTournament'
-							indexes = [indexes deterministicTournamentSelection(this,fitness)];
+							indexes = [indexes deterministicTournamentSelection(this,fitness,selections(k)) ];
 						case 'probabilisticTournament'
-							indexes = [indexes probabilisticTournamentSelection(this,fitness)];
+							indexes = [indexes probabilisticTournamentSelection(this,fitness,selections(k)) ];
 						case 'bolzmann'
 							%indexes = [indexes bolzmannSelection(this,fitness)];
 						case 'ranking'
@@ -64,19 +60,28 @@
 
 			end
 
-			function indexes = eliteSelection (this,fitness)
+			function indexes = eliteSelection (this,fitness,selection)
 
 				[sortedFitness,sortingIndexes] = sortrows(fitness(:,1),-1);
 
-				indexes = sortingIndexes(1:this.config.selection);
+				if size(fitness,1)>=selection
+
+					indexes = sortingIndexes(1:selection);
+
+				else
+
+					indexes = rouletteSelection(fitness,selection);
+					return;
+
+				end
 
 				indexes = indexes';
 
 			end
 
-			function indexes = rouletteSelection (this,fitness)
+			function indexes = rouletteSelection (this,fitness,selection)
 
-				r = rand(this.config.selection,1);
+				r = rand(selection,1);
 
 				indexes = [];
 
@@ -102,14 +107,14 @@
 				end
 			end
 
-			function indexes = universalSelection (this,fitness)
+			function indexes = universalSelection (this,fitness,selection)
 
 				uni = rand;
 
-				r = [];
+				r = zeros(1,selection);
 
-				for j = 1:this.config.selection;
-					r(end+1) = (uni + j - 1)/this.config.selection;
+				for j = 1:selection
+					r(j) = (uni + j - 1)/(selection);
 				end
 
 				indexes = [];
@@ -137,13 +142,13 @@
 
 			end
 
-			function indexes = deterministicTournamentSelection (this,fitness)
+			function indexes = deterministicTournamentSelection (this,fitness,selection)
 
 				indexes = [];
 
-				for i = 1:this.config.selection
+				for i = 1:selection
 
-					[fitnessValue index] = datasample(fitness(:,1), ...
+					[fitnessValue, index] = datasample(fitness(:,1), ...
 						this.config.tournamentSubset ,'Replace',false); % Obtiene subconjunto sin reemplazo
 
 					a = [fitnessValue index'];
@@ -156,13 +161,13 @@
 
 			end
 
-			function indexes = probabilisticTournamentSelection (this,fitness) %TODO revisar
+			function indexes = probabilisticTournamentSelection (this,fitness,selection) %TODO revisar
 
 				indexes = [];
 
 				r = rand;
 
-				for i = 1:this.config.selection
+				for i = 1:selection
 
 					[fitnessValue index] = datasample(fitness(:,1), ...
 						2 ,'Replace',false); % Obtiene subconjunto sin reemplazo

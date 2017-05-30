@@ -65,7 +65,8 @@
 				while cutOff.assert(population, globalFitness) == false
 
 					% Seleccionar individuos de prueba:
-					indexes = selector.select(globalFitness);
+					indexes = selector.select(config.selection,...
+						config.selectionMethod, config.selectionMethodRate, globalFitness);
 
 					% Recombinar y generar descendientes:
 					subPopulation = crossover.recombine(population(indexes));
@@ -74,9 +75,7 @@
 					subPopulation = mutator.mutate(subPopulation);
 
 					% Obtener índices de reemplazo:
-					[old, new] = generator.replace(...
-						size(population, 2), ...
-						size(subPopulation, 2));
+					[old new] = generator.replace(selector,fitness,population,subPopulation,globalFitness);
 
 					% Generar nueva población:
 					population = [population(old), subPopulation(new)];
