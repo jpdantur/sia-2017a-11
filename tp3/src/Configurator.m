@@ -48,7 +48,7 @@
 
 			selection = 5;
 
-			selectionMethod;
+			selectionMethod = [];
 
 			selectionMethodRate = 0.5;
 
