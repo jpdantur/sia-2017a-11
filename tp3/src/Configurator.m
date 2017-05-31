@@ -62,6 +62,8 @@
 
 			graphFitness = true;
 
+			cutOffThreshold;
+
 		end
 
 		methods
@@ -104,6 +106,7 @@
 				this.tournamentSubset = config.tournamentSubset;
 				this.graphRateLimit = config.graphRateLimit;
 				this.graphFitness = config.graphFitness;
+				this.cutOffThreshold = config.cutOffThreshold;
 			end
 		end
 

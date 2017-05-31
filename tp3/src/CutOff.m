@@ -34,7 +34,7 @@
 
 				% TODO: Completar...
 
-				stop = this.generation > this.config.generations;
+				stop = this.generation > this.config.generations || max(fitness(:,1))>this.config.cutOffThreshold;
 			end
 		end
 	end

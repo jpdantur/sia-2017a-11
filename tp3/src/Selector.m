@@ -13,6 +13,7 @@
 			% Propiedades...
 
 			config;
+			temperature;
 
 		end
 
@@ -22,6 +23,7 @@
 			function this = Selector(config)
 
 				this.config = config;
+				this.temperature = config.temperature;
 
 			end
 
@@ -48,8 +50,8 @@
 							indexes = [indexes deterministicTournamentSelection(this,fitness,selections(k)) ];
 						case 'probabilisticTournament'
 							indexes = [indexes probabilisticTournamentSelection(this,fitness,selections(k)) ];
-						case 'bolzmann'
-							%indexes = [indexes bolzmannSelection(this,fitness)];
+						case 'boltzmann'
+							indexes = [indexes boltzmannSelection(this,fitness,selections(k))];
 						case 'ranking'
 							%indexes = [indexes rankingSelection(this,fitness)];
 						otherwise
@@ -184,6 +186,19 @@
 
 				end
 
+			end
+
+			function indexes = boltzmannSelection(this,fitness,selection)
+				%TODO: Change Temperature
+				indexes = [];
+				pressures = exp(fitness(:,1)/this.temperature);
+				expValues = pressures/mean(pressures);
+				relativeExpValues = expValues/sum(expValues);
+				cumValues = cumsum(relativeExpValues);
+
+				for i = 1:selection
+					indexes(end+1) = sum(cumValues<rand)+1;
+				end
 			end
 		end
 	end
