@@ -55,7 +55,7 @@
 					this.fitness.DisplayName = 'Adaptacion Maxima';
 
 					title('Curvas de Adaptacion Maxima y Media');
-					axis([0, config.generations, 0, estimatedFitness]);
+					axis([0, config.generations, 0, inf]);
 					legend('show');
 
 					xlabel('Generacion', ...
@@ -77,7 +77,12 @@
 
 					% Agregar una generación:
 					figure(this.fitnessHandler);
-					this.fitness.addpoints(this.x, max(fitness(:, 1)));
+					maxFitness = max(fitness(:, 1));
+
+					% +20% de margen superior:
+					axis([0, this.config.generations, 0, maxFitness * 1.2]);
+
+					this.fitness.addpoints(this.x, maxFitness);
 					this.fitnessAverage.addpoints(this.x, mean(fitness(:, 1)));
 					this.x = this.x + 1;
 
