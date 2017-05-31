@@ -30,36 +30,53 @@
 
 				population = {};
 
-				% TODO cambiar criterio de elección de padres
-
 				descendants = {};
 
-				for i = 1:length(selected)-1
+				if this.config.replacement == 1
+					populationLimit = this.config.population;
+				else
+					populationLimit = this.config.selection;
+				end
 
-					if rand < this.config.crossoverProbability
+					while length(population) < populationLimit
 
-						parent1 = selected{i};
+						parent1 = selected{randi(length(selected))};
+						parent2 = selected{randi(length(selected))};
 
-						parent2 = selected{i+1};
+						if rand < this.config.crossoverProbability
 
-						switch this.config.crossoverMethod
+							% elijo 2 padres al azar y los cruzo
 
-							case 'singlepoint'
-								descendants = this.singlePointCross(parent1,parent2);
-							case 'twopoint'
-								descendants = this.twoPointCross(parent1,parent2);
-							case 'uniform'
-								descendants = this.uniformCross(parent1,parent2);
-							case 'anular'
-								descendants = this.anularCross(parent1,parent2);
+							switch this.config.crossoverMethod
+								case 'singlepoint'
+									descendants = this.singlePointCross(parent1,parent2);
+								case 'twopoint'
+									descendants = this.twoPointCross(parent1,parent2);
+								case 'uniform'
+									descendants = this.uniformCross(parent1,parent2);
+								case 'anular'
+									descendants = this.anularCross(parent1,parent2);
+							end
+
+						else
+
+							% los padres pasan a ser hijos
+
+							descendants{end+1} = parent1;
+
+							descendants{end+1} = parent2;
+
 						end
 
 						population{end+1} = descendants{1};
-						population{end+1} = descendants{2};
+
+						if length(population) < this.config.population
+							population{end+1} = descendants{2};
+						end
 
 					end
 
-                end
+					return;
 
 			end
 

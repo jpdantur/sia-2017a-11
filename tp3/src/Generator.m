@@ -59,43 +59,44 @@
 				populationSize = this.config.population;
 
 				subPopulationFitness = fitness.getGlobalFitness(subPopulation);
+				subPopulationSize = size(subPopulation,2);
 
 				if this.config.replacement == 1
 
 					old = [];
-					new = selector.select(populationSize,...  % Toda la población va a ser nueva
-							this.config.replacementMethod, this.config.replacementMethodRate, subPopulationFitness);
+					new = [1:subPopulationSize];
 
 				end
 
 				if this.config.replacement == 2
 
-					previousGeneration = floor(populationSize*(1-this.config.generationalGap));
-					newGeneration = populationSize-previousGeneration;
+					previousGeneration = populationSize - subPopulationSize; % N-k de la generación anterior
 
 					old = selector.select(previousGeneration, ...
 							this.config.replacementMethod, this.config.replacementMethodRate, globalFitness);
 
-					new = selector.select(newGeneration, ...
-							this.config.replacementMethod, this.config.replacementMethodRate, subPopulationFitness);
+					new = [1:subPopulationSize]; % k nuevos hijos
 				end
 
 				if this.config.replacement == 3
 
-					previousGeneration = floor(populationSize*(1-this.config.generationalGap));
-					newGeneration = populationSize-previousGeneration;
+					previousGeneration = populationSize - subPopulationSize; % N-k de la generación anterior
 
 					oldindexes = selector.select(previousGeneration , ...
 							this.config.replacementMethod, this.config.replacementMethodRate, globalFitness);
 
 					globalFitness = [globalFitness;fitness.getGlobalFitness(subPopulation)];
 
-					indexes = selector.select(newGeneration, ...
+					indexes = selector.select(subPopulationSize, ...
 							this.config.replacementMethod, this.config.replacementMethodRate, globalFitness);
 
 					old = [oldindexes indexes(find(indexes <= length(population)))];
 					new = indexes(find(indexes > length(population)))-length(population);
 
+				end
+
+				if not (size(old,2) + size(new,2) == this.config.population)
+					disp('ERROR EN REEMPLAZO');
 				end
 			end
 		end
