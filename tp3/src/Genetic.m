@@ -18,9 +18,11 @@
 
 			% Función principal:
 			function run()
-				rng shuffle; %Real random ;)
 
 				global data config;
+
+				% Inicializar el PRNG:
+				rng shuffle;
 
 				% Timer global y tiempo acumulado:
 				globalTic = tic;
