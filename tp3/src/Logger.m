@@ -30,7 +30,7 @@
 				fprintf('\t             Generations : %d\n', config.generations);
 				fprintf('\t    Mutation Probability : %.3f\n', config.mutationProbability);
 				fprintf('\t              Population : %d\n', config.population);
-				fprintf('\t      Replacement Method : %s\n', Logger.vectorToString(config.replacementMethod){1});
+				fprintf('\t      Replacement Method : %s\n', Logger.stringsToString(config.replacementMethod){1});
 				fprintf('\t Replacement Method Rate : %.3f\n', config.replacementMethodRate);
 				fprintf('\t        Selection Method : %s\n', Logger.stringsToString(config.selectionMethod){1});
 				fprintf('\t   Selection Method Rate : %.3f\n', config.selectionMethodRate);

@@ -42,13 +42,15 @@
 
 			population = 100;
 
-			replacementMethod = [1, 2];
+			replacement = 2;
+
+			replacementMethod = ['elite','roulette'];
 
 			replacementMethodRate = 0.5;
 
 			selection = 5;
 
-			selectionMethod;
+			selectionMethod = ['elite','roulette'];
 
 			selectionMethodRate = 0.5;
 
@@ -92,6 +94,7 @@
 				this.itemHealth = config.itemHealth;
 				this.mutationProbability = config.mutationProbability;
 				this.population = config.population;
+				this.replacement = config.replacement;
 				this.replacementMethod = config.replacementMethod;
 				this.replacementMethodRate = config.replacementMethodRate;
 				this.selection = config.selection;
