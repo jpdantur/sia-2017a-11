@@ -189,7 +189,6 @@
 			end
 
 			function indexes = boltzmannSelection(this,fitness,selection)
-				%TODO: Change Temperature
 				indexes = [];
 				pressures = exp(fitness(:,1)/this.temperature);
 				expValues = pressures/mean(pressures);
@@ -200,7 +199,6 @@
 					indexes(end+1) = sum(cumValues<rand)+1;
 				end
 			end
-
 			function indexes = rankingSelection(this,fitness,selection)
 
 				indexes = [];
@@ -221,7 +219,9 @@
 				id = sortedFitness(:,4)';
 
 				indexes = id(this.rouletteSelection(sortedFitness,selection));
-
+			end
+			function this = updateTemperature(this)
+				this.temperature = this.temperature - this.config.tempReductionRate*this.temperature;
 			end
 		end
 	end

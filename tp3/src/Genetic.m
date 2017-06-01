@@ -88,6 +88,8 @@
 
 					% Graficar curva de 'fitness':
 					grapher.addFitness(globalFitness);
+					
+					selector.updateTemperature();
 				end
 
 				% -------------------------------------------------------------

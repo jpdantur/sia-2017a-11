@@ -60,6 +60,8 @@
 
 			cutOffThreshold;
 
+			tempReductionRate;
+
 		end
 
 		methods
@@ -101,6 +103,7 @@
 				this.graphRateLimit = config.graphRateLimit;
 				this.graphFitness = config.graphFitness;
 				this.cutOffThreshold = config.cutOffThreshold;
+				this.tempReductionRate = config.tempReductionRate;
 			end
 		end
 
