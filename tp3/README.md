@@ -2,7 +2,8 @@
 
 # Genetic Algorithms
 
-...
+Se desarrolló un **RCGA** (_Real-Coded Genetic Algorithm_), para optimizar el equipamiento
+de un personaje en un videojuego, maximizando su desempeño. El personaje asignado fue el _Defensor N° 2_.
 
 Para la implementación, se decidió utilizar el framework
 **_MathWorks® Matlab_**, ya que facilita la aplicación de cálculos
@@ -70,8 +71,8 @@ Cada parámetro especifica:
  * `selectionMethodRate`: porcentaje _A_ de elegidos con el primer método de selección. Un porcentaje _1-A_ se elige mediante el segundo método.
  * `temperature`: temperatura inicial para el método de Boltzmann.
  * `tempReductionRate`: proporción en la cual se reduce la temperatura en cada generación.
- * `graphRateLimit`:
- * `graphFitness`:
+ * `graphRateLimit`: limita la cantidad de FPS utilizados en el gráfico de _fitness_, lo que permite reducir el costo de este proceso, e incrementar la fluidez percibida.
+ * `graphFitness`: permite graficar la variación de adaptación máxima y promedio en tiempo real, mientras el algoritmo se ejecuta.
 
 Luego de construir el archivo de configuración, dentro del sub-directorio
 *src*, y desde la aplicación _Matlab_, ejecute:
@@ -79,8 +80,8 @@ Luego de construir el archivo de configuración, dentro del sub-directorio
 	Genetic.load(lazyness);
 
 Donde **lazyness** indica si el set de datos debe cargarse nuevamente
-(_false_), o debe reutilizarse el mismo conjunto de una llamada previa al
-método _load_. Esto permite evitar cargar un gran volumen de datos cada vez
+(_false_), o si debe reutilizarse el mismo conjunto de una llamada previa al
+método _load_ (_true_). Esto permite evitar cargar un gran volumen de datos cada vez
 que se ejecuta una instancia del algoritmo (debido quizás a la modificación de
 algún parámetro de ejecución). Luego de cargar la configuración, ejecute el
 algoritmo:
