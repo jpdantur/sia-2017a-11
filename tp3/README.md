@@ -68,8 +68,8 @@ Cada parámetro especifica:
  * `selection`: la cantidad de padres que se elegirán para cruzar.
  * `selectionMethod`: vector con los 2 métodos mediante los cuales se seleccionarán los cromosomas en la etapa de cruza. Las opciones son: `boltzmann`, `elite`, `deterministicTournament`, `probabilisticTournament`, `ranking`  o `roulette`.
  * `selectionMethodRate`: porcentaje _A_ de elegidos con el primer método de selección. Un porcentaje _1-A_ se elige mediante el segundo método.
- * `temperature`:
- * `tempReductionRate`:
+ * `temperature`: temperatura inicial para el método de Boltzmann.
+ * `tempReductionRate`: proporción en la cual se reduce la temperatura en cada generación.
  * `graphRateLimit`:
  * `graphFitness`:
 
