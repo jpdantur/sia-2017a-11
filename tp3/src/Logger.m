@@ -26,7 +26,6 @@
 				fprintf('\t     Attack Defense Rate : %.1f\n', config.attackDefenseRate);
 				fprintf('\t        Crossover Method : %s\n', config.crossoverMethod);
 				fprintf('\t   Crossover Probability : %.3f\n', config.crossoverProbability);
-				fprintf('\t    Generational Gap (G) : %.3f\n', config.generationalGap);
 				fprintf('\t             Generations : %d\n', config.generations);
 				fprintf('\t    Mutation Probability : %.3f\n', config.mutationProbability);
 				fprintf('\t              Population : %d\n', config.population);

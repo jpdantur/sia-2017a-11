@@ -37,19 +37,17 @@ configuración `config.json`, con la siguiente estructura (en formato _JSON_):
 	"itemHealth": 1.1,
 
 	"crossoverMethod": "singlepoint",
-	"crossoverProbability": 0.6,
-	"generationalGap" : 1,
-	"generations": 100,
+	"crossoverProbability": 0.9,
+	"generations": 1000,
 	"mutationProbability" : 0.01,
 	"population" : 100,
 	"replacement": 2,
 	"replacementMethod": ["roulette", "universal"],
 	"replacementMethodRate": 0.5,
-	"selection" : 5,
-	"selectionMethod": ["roulette", "universal"],
+	"selection" : 20,
+	"selectionMethod": ["roulette", "elite"],
 	"selectionMethodRate": 0.6,
 	"temperature" : 1.0,
-	"tournamentSubset" : 2,
 
 	"graphRateLimit" : true,
 	"graphFitness" : true

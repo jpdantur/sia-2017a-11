@@ -98,17 +98,44 @@
 				point1 = randi([1 4]);
 				point2 = randi([point1+1 5]);
 
-				descendant{1} = Chromosome([parent1.genes(1:point1) parent2.genes(point1+1:point2) parent1.genes(point2+1:end)]);
-				descendant{2} = Chromosome([parent2.genes(1:point1) parent1.genes(point1+1:point2) parent2.genes(point2+1:end)]);
+				descendant{1} = Chromosome([parent1.genes(1:point1) parent2.genes(point1+1:point2) parent1.genes(point2+1:6)]);
+				descendant{2} = Chromosome([parent2.genes(1:point1) parent1.genes(point1+1:point2) parent2.genes(point2+1:6)]);
 
 			end
 
 			function descendant = anularCross(this,parent1,parent2)
-				% Se elige un locus y luego un segmento,
-				% hacia la derecha, de longitud l en el intervalo [1, L/2], donde L es la longitud del cromosoma.
-				% TODO
 
 				descendant = {};
+				L = 6;
+
+				point1 = randi([1 L]);
+				l = randi([1 L/2]);
+				point2 = mod(point1 + l,L);
+
+				if point2 == 0
+					point2 = L;
+				end
+
+				g1 = parent1.genes;
+				g2 = parent2.genes;
+
+				if point1 < point2
+
+					g1(point1:point2) = g2(point1:point2);
+
+					g1(point1:point2) = parent1.genes(point1:point2);
+
+				end
+
+				if (point1 > point2)
+					g1(point1:6) = g2(point1:6);
+					g1(1:point2) = g2(1:point2);
+					g2(point1:6) = parent1.genes(point1:6);
+					g2(1:point2) = parent1.genes(1:point2);
+				end
+
+				descendant{1} = Chromosome(g1);
+				descendant{2} = Chromosome(g2);
 			end
 
 			function descendant = uniformCross(this,parent1,parent2)

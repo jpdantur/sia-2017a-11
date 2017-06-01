@@ -53,7 +53,7 @@
 						case 'boltzmann'
 							indexes = [indexes boltzmannSelection(this,fitness,selections(k))];
 						case 'ranking'
-							%indexes = [indexes rankingSelection(this,fitness)];
+							indexes = [indexes rankingSelection(this,fitness,selections(k))];
 						otherwise
 							indexes = [];
 					end
@@ -151,7 +151,7 @@
 				for i = 1:selection
 
 					[fitnessValue, index] = datasample(fitness(:,1), ...
-						this.config.tournamentSubset ,'Replace',false); % Obtiene subconjunto sin reemplazo
+						2 ,'Replace',false); % Obtiene subconjunto sin reemplazo
 
 					a = [fitnessValue index'];
 
@@ -199,6 +199,29 @@
 				for i = 1:selection
 					indexes(end+1) = sum(cumValues<rand)+1;
 				end
+			end
+
+			function indexes = rankingSelection(this,fitness,selection)
+
+				indexes = [];
+
+				[sortedFitness,sortingIndexes] = sortrows(fitness(:,1),-1);
+
+				sortedFitness(:,1) = fliplr(1:size(fitness,1));
+
+				% Adaptación relativa:
+				sortedFitness(:, 2) = sortedFitness(:, 1) / sum(sortedFitness(:, 1));
+
+				% Adaptación acumulada:
+				sortedFitness(:, 3) = cumsum(sortedFitness(:, 2));
+
+				% Setear id
+				sortedFitness(:,4) = sortingIndexes;
+
+				id = sortedFitness(:,4)';
+
+				indexes = id(this.rouletteSelection(sortedFitness,selection));
+
 			end
 		end
 	end

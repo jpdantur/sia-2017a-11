@@ -26,8 +26,6 @@
 
 			generations = 100;
 
-			generationalGap = 1;
-
 			itemStrength = 1.1;
 
 			itemAgility = 0.8;
@@ -55,8 +53,6 @@
 			selectionMethodRate = 0.5;
 
 			temperature = 1.0;
-
-			tournamentSubset = 1;
 
 			graphRateLimit = true;
 
@@ -88,7 +84,6 @@
 				this.crossoverMethod = config.crossoverMethod;
 				this.crossoverProbability = config.crossoverProbability;
 				this.generations = config.generations;
-				this.generationalGap = config.generationalGap;
 				this.itemStrength = config.itemStrength;
 				this.itemAgility = config.itemAgility;
 				this.itemExpertise = config.itemExpertise;
@@ -103,7 +98,6 @@
 				this.selectionMethod = config.selectionMethod;
 				this.selectionMethodRate = config.selectionMethodRate;
 				this.temperature = config.temperature;
-				this.tournamentSubset = config.tournamentSubset;
 				this.graphRateLimit = config.graphRateLimit;
 				this.graphFitness = config.graphFitness;
 				this.cutOffThreshold = config.cutOffThreshold;
