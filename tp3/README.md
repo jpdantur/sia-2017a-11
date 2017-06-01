@@ -57,7 +57,20 @@ configuración `config.json`, con la siguiente estructura (en formato _JSON_):
 
 Cada parámetro especifica:
 
-* `...`: .
+* `crossoverMethod`: el método que se utilizará en la cruza. Puede ser `singlepoint`, `twopoint`, `uniform` o `anular`.
+* `crossoverProbability`: la probabilidad de realizarse una cruza.
+* `generations`: la cantidad máxima de generaciones.
+* `mutationProbability`: la probabilidad de que se realize una mutación en un gen.
+* `population`: la cantidad de inviduos que tendrá la población.
+* `replacement`: el método de reemplazo `1`,`2` o `3`.
+* `replacementMethod`: vector con los 2 métodos mediante los cuales se seleccionarán los cromosomas en la etapa de reemplazo. Las opciones son: `boltzmann`, `elite`, `deterministicTournament`, `probabilisticTournament`, `ranking`  o `roulette`.
+ * `replacementMethodRate`: porcentaje _B_ de elegidos con el primer método de selección para reemplazo. Un porcentaje _1-B_ se elige mediante el segundo método.
+ * `selection`: la cantidad de padres que se elegirán para cruzar.
+ * `selectionMethod`: vector con los 2 métodos mediante los cuales se seleccionarán los cromosomas en la etapa de cruza. Las opciones son: `boltzmann`, `elite`, `deterministicTournament`, `probabilisticTournament`, `ranking`  o `roulette`.
+ * `selectionMethodRate`: porcentaje _A_ de elegidos con el primer método de selección. Un porcentaje _1-A_ se elige mediante el segundo método.
+ * `temperature`:
+ * `graphRateLimit`:
+ * `graphFitness`:
 
 Luego de construir el archivo de configuración, dentro del sub-directorio
 *src*, y desde la aplicación _Matlab_, ejecute:
