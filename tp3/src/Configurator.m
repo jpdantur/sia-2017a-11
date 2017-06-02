@@ -62,6 +62,10 @@
 
 			tempReductionRate;
 
+			contentAssert = false;
+
+			contentAssertSteps = 5;
+
 		end
 
 		methods
@@ -104,6 +108,8 @@
 				this.graphFitness = config.graphFitness;
 				this.cutOffThreshold = config.cutOffThreshold;
 				this.tempReductionRate = config.tempReductionRate;
+				this.contentAssert = config.contentAssert;
+				this.contentAssertSteps = config.contentAssertSteps;
 			end
 		end
 
