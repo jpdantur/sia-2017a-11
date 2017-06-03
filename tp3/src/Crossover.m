@@ -28,55 +28,54 @@
 
 			function population = recombine(this, selected)
 
-				population = {};
-
-				descendants = {};
-
 				if this.config.replacement == 1
 					populationLimit = this.config.population;
 				else
 					populationLimit = this.config.selection;
 				end
 
-					while length(population) < populationLimit
+                population = {};
+                descendants = {};
 
-						parent1 = selected{randi(length(selected))};
-						parent2 = selected{randi(length(selected))};
+				while length(population) < populationLimit
 
-						if rand < this.config.crossoverProbability
+					parent1 = selected{randi(length(selected))};
+					parent2 = selected{randi(length(selected))};
 
-							% elijo 2 padres al azar y los cruzo
+					if rand < this.config.crossoverProbability
 
-							switch this.config.crossoverMethod
-								case 'singlepoint'
-									descendants = this.singlePointCross(parent1,parent2);
-								case 'twopoint'
-									descendants = this.twoPointCross(parent1,parent2);
-								case 'uniform'
-									descendants = this.uniformCross(parent1,parent2);
-								case 'anular'
-									descendants = this.anularCross(parent1,parent2);
-							end
+						% elijo 2 padres al azar y los cruzo
 
-						else
-
-							% los padres pasan a ser hijos
-
-							descendants{end+1} = parent1;
-
-							descendants{end+1} = parent2;
-
+						switch this.config.crossoverMethod
+							case 'singlepoint'
+								descendants = this.singlePointCross(parent1,parent2);
+							case 'twopoint'
+								descendants = this.twoPointCross(parent1,parent2);
+							case 'uniform'
+								descendants = this.uniformCross(parent1,parent2);
+							case 'anular'
+								descendants = this.anularCross(parent1,parent2);
 						end
 
-						population{end+1} = descendants{1};
+					else
 
-						if length(population) < this.config.population
-							population{end+1} = descendants{2};
-						end
+						% los padres pasan a ser hijos
+
+						descendants{1} = parent1;
+
+						descendants{2} = parent2;
 
 					end
 
-					return;
+					population{end+1} = descendants{1};
+
+					if length(population) < this.config.population
+						population{end+1} = descendants{2};
+					end
+
+					descendants = {};
+
+				end
 
 			end
 

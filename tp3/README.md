@@ -58,7 +58,7 @@ configuración `config.json`, con la siguiente estructura (en formato _JSON_):
 
 Cada parámetro especifica:
 
-* `crossoverMethod`: el método que se utilizará en la cruza. Puede ser `onepoint`, `twopoint`, `uniform` o `anular`.
+* `crossoverMethod`: el método que se utilizará en la cruza. Puede ser `singlepoint`, `twopoint`, `uniform` o `anular`.
 * `crossoverProbability`: la probabilidad de realizarse una cruza.
 * `generations`: la cantidad máxima de generaciones.
 * `mutationProbability`: la probabilidad de que se realize una mutación en un gen.

@@ -34,13 +34,18 @@
 
 				for N = 1:this.config.population
 
-					genes(1, 1 : size(data{1} , 2)) = randi([1 size(data{1},1)],1,size(data{1},2));
+					genes = zeros(1,size(data, 2));
 
-					genes(6) = 1.3 + rand * (2.0-1.3);
+					for i = 1:size(data, 2)
 
-					chromosome = Chromosome(genes);
+						genes(1, i) = randi(size(data{i},1));
 
-					population{N} = chromosome;
+					end
+
+					genes(end+1) = 1.3 + rand * (2.0-1.3);
+
+					population{N} = Chromosome(genes);
+
 				end
 
 			end
@@ -64,7 +69,7 @@
 				if this.config.replacement == 1
 
 					old = [];
-					new = [1:subPopulationSize];
+					new = 1:subPopulationSize;
 
 				end
 
@@ -72,23 +77,20 @@
 
 					previousGeneration = populationSize - subPopulationSize; % N-k de la generación anterior
 
-					old = selector.select(previousGeneration, ...
-							this.config.replacementMethod, this.config.replacementMethodRate, globalFitness);
+					old = selector.select('replacement', previousGeneration, globalFitness);
 
-					new = [1:subPopulationSize]; % k nuevos hijos
+					new = 1:subPopulationSize; % k nuevos hijos
 				end
 
 				if this.config.replacement == 3
 
 					previousGeneration = populationSize - subPopulationSize; % N-k de la generación anterior
 
-					oldindexes = selector.select(previousGeneration , ...
-							this.config.replacementMethod, this.config.replacementMethodRate, globalFitness);
+					oldindexes = selector.select('replacement', previousGeneration, globalFitness);
 
 					globalFitness = [globalFitness;fitness.getGlobalFitness(subPopulation)];
 
-					indexes = selector.select(subPopulationSize, ...
-							this.config.replacementMethod, this.config.replacementMethodRate, globalFitness);
+					indexes = selector.select('replacement', subPopulationSize, globalFitness);
 
 					old = [oldindexes indexes(find(indexes <= length(population)))];
 					new = indexes(find(indexes > length(population)))-length(population);

@@ -67,8 +67,7 @@
 				while cutOff.assert(population, globalFitness) == false
 
 					% Seleccionar individuos de prueba:
-					indexes = selector.select(config.selection,...
-						config.selectionMethod, config.selectionMethodRate, globalFitness);
+					indexes = selector.select('selection',config.selection, globalFitness);
 
 					% Recombinar y generar descendientes:
 					subPopulation = crossover.recombine(population(indexes));

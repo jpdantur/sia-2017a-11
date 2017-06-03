@@ -28,9 +28,17 @@
 			end
 
 			% Selecciona los siguientes individuos:
-			function indexes = select(this, selection, selectionMethods, selectionRate, fitness)
+			function indexes = select(this, selectionType, selection, fitness)
 
 				indexes = [];
+
+				if strcmp(selectionType,'selection')
+					selectionMethods = this.config.selectionMethod;
+					selectionRate = this.config.selectionMethodRate;
+				elseif strcmp(selectionType,'replacement')
+					selectionMethods = this.config.replacementMethod;
+					selectionRate = this.config.replacementMethodRate;
+				end
 
 				rate = floor(selection*selectionRate);
 
@@ -85,20 +93,20 @@
 
 				r = rand(selection,1);
 
-				indexes = [];
+				indexes = zeros(1,selection);
 
 				for i = 1:length(r)
 
 					for j = 2:size(fitness,1)
 
 						if(r(i) < fitness(1,3))
-							indexes(end+1) = 1;
+							indexes(i) = 1;
 							break;
 						end
 
 						if (r(i) > fitness(j-1,3) && r(i) < fitness(j,3))
 
-							indexes(end+1) = j;
+							indexes(i) = j;
 
 							break;
 
@@ -119,20 +127,20 @@
 					r(j) = (uni + j - 1)/(selection);
 				end
 
-				indexes = [];
+				indexes = zeros(1,selection);
 
 				for i = 1:length(r)
 
 					for j = 2:size(fitness,1)
 
 						if(r(i) < fitness(1,3))
-							indexes(end+1) = 1;
+							indexes(i) = 1;
 							break;
 						end
 
 						if (r(i) > fitness(j-1,3) && r(i) < fitness(j,3))
 
-							indexes(end+1) = j;
+							indexes(i) = j;
 
 							break;
 
@@ -146,18 +154,20 @@
 
 			function indexes = deterministicTournamentSelection (this,fitness,selection)
 
-				indexes = [];
+				indexes = zeros(1,selection);
+
+				subSet = 2; % Tamaño del subconjunto
 
 				for i = 1:selection
 
 					[fitnessValue, index] = datasample(fitness(:,1), ...
-						2 ,'Replace',false); % Obtiene subconjunto sin reemplazo
+						subSet ,'Replace',false); % Obtiene subconjunto sin reemplazo
 
 					a = [fitnessValue index'];
 
-					b = sortrows(a,-1);
+					b = sortrows(a,-1); % Orden descendente
 
-					indexes(end+1) = b(1,2);
+					indexes(i) = b(1,2);
 
 				end
 
@@ -169,10 +179,12 @@
 
 				r = rand;
 
+				subSet = 2; % Tamaño del subconjunto
+
 				for i = 1:selection
 
-					[fitnessValue index] = datasample(fitness(:,1), ...
-						2 ,'Replace',false); % Obtiene subconjunto sin reemplazo
+					[fitnessValue, index] = datasample(fitness(:,1), ...
+						subSet ,'Replace',false); % Obtiene subconjunto sin reemplazo
 
 					a = [fitnessValue index'];
 
@@ -200,8 +212,6 @@
 				end
 			end
 			function indexes = rankingSelection(this,fitness,selection)
-
-				indexes = [];
 
 				[sortedFitness,sortingIndexes] = sortrows(fitness(:,1),-1);
 
