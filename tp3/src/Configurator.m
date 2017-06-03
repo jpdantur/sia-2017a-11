@@ -66,6 +66,10 @@
 
 			contentAssertSteps = 5;
 
+			structAssert = false;
+
+			structAssertRatio = 1;
+
 		end
 
 		methods
@@ -110,6 +114,8 @@
 				this.tempReductionRate = config.tempReductionRate;
 				this.contentAssert = config.contentAssert;
 				this.contentAssertSteps = config.contentAssertSteps;
+				this.structAssert = config.structAssert;
+				this.structAssertRatio = config.structAssertRatio;
 			end
 		end
 
