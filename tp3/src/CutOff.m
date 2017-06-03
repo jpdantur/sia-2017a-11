@@ -14,6 +14,7 @@
 			% Configuraci??n:
 			config;
 			lastFitness;
+			lastPopulation;
 			contentAssertCounter = 0;
 
 			% N??mero de generaci??n:
@@ -44,7 +45,14 @@
 				if (this.config.contentAssert)
 					stop = stop || this.contentAssert(fitness);
 				end
+				if (this.config.structAssert && this.generation > 1) %Primera generacion no se controla
+					stop = stop || this.structAssert(population);
+					if (stop)
+						keyboard();
+					end
+				end
 				this.lastFitness = max(fitness(:,1));
+				this.lastPopulation = population;
 			end
 
 			function stop = contentAssert(this, fitness)
@@ -55,6 +63,15 @@
 					this.contentAssertCounter = 0;
 				end
 				stop = this.contentAssertCounter >= this.config.contentAssertSteps;
+			end
+
+			function stop = structAssert(this,population)
+				coincidences = arrayfun(@isequal,[population{:}],[this.lastPopulation{:}]);
+				stop = (sum(coincidences)/size(population,2) > this.config.structAssertRatio);
+			end
+
+			function this = setPopulation(this, population)
+				this.lastPopulation=population;
 			end
 
 		end

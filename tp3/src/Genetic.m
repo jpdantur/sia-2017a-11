@@ -57,6 +57,7 @@
 
 				% Generar población inicial:
 				population = generator.init();
+				cutOff.setPopulation(population);
 
 				% Computar el 'fitness' global inicial:
 				globalFitness = fitness.getGlobalFitness(population);
