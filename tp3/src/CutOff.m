@@ -38,8 +38,6 @@
 				%{
 				TODO: Completar...Una parte relevante de la poblacion no cambia de
 									generacion en generacion (Estructura).
-									El mejor fitness de la poblacion no progresa con las
-									generaciones (Contenido).
 				%}
 
 				stop = this.generation > this.config.generations || max(fitness(:,1))>this.config.cutOffThreshold;

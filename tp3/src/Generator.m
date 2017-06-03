@@ -34,7 +34,7 @@
 
 				for N = 1:this.config.population
 
-					genes(1, 1 : size(data{1} , 2)) = randi([1 size(data{1},1)]);
+					genes(1, 1 : size(data{1} , 2)) = randi([1 size(data{1},1)],1,size(data{1},2));
 
 					genes(6) = 1.3 + rand * (2.0-1.3);
 
