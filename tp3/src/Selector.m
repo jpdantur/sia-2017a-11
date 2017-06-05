@@ -173,27 +173,28 @@
 
 			end
 
-			function indexes = probabilisticTournamentSelection (this,fitness,selection) %TODO revisar
+			function indexes = probabilisticTournamentSelection (this,fitness,selection)
 
-				indexes = [];
-
-				r = rand;
+				indexes = zeros(1,selection);
 
 				subSet = 2; % Tamaño del subconjunto
 
 				for i = 1:selection
 
+
 					[fitnessValue, index] = datasample(fitness(:,1), ...
 						subSet ,'Replace',false); % Obtiene subconjunto sin reemplazo
 
-					a = [fitnessValue index'];
+					r = rand; % elijo un número al azar
 
-					b = sortrows(a,-1);
+					subSetFitness = [fitnessValue index']; % Obtengo el fitness y el índice de cada uno
 
-					if (r > 0.75)
-						indexes(end+1) = b(1,2);
+					subSetFitness = sortrows(subSetFitness,-1); % Ordeno descendentemente segun el fitness
+
+					if (r < 0.75)
+						indexes(i) = subSetFitness(1,2); % elijo el índice del de mejor fitness
 					else
-						indexes(end+1) = b(end,2);
+						indexes(i) = subSetFitness(end,2); % elijo el índice del de peor fitness
 					end
 
 				end

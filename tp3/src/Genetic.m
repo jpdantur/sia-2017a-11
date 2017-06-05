@@ -89,7 +89,7 @@
 					subPopulation = mutator.mutate(subPopulation);
 
 					% Obtener índices de reemplazo:
-					[old new] = generator.replace(selector,fitness,population,subPopulation,globalFitness);
+					[old, new] = generator.replace(selector,fitness,population,subPopulation,globalFitness);
 
 					% Generar nueva población:
 					population = [population(old), subPopulation(new)];
