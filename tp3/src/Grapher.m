@@ -57,6 +57,7 @@
 					title('Curvas de Adaptacion Maxima y Media');
 					axis([0, inf, 0, inf]);
 					legend('show');
+					grid on;
 
 					xlabel('Generacion', ...
 						'FontSize', 12, ...
