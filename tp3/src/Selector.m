@@ -163,11 +163,11 @@
 					[fitnessValue, index] = datasample(fitness(:,1), ...
 						subSet ,'Replace',false); % Obtiene subconjunto sin reemplazo
 
-					a = [fitnessValue index'];
+					subSetFitness = [fitnessValue index']; % Fitness e índice de cada uno
 
-					b = sortrows(a,-1); % Orden descendente
+					subSetFitness = sortrows(subSetFitness,-1); % Orden descendente según fitness
 
-					indexes(i) = b(1,2);
+					indexes(i) = subSetFitness(1,2); % Se elige el mejor
 
 				end
 
@@ -214,14 +214,15 @@
 			end
 			function indexes = rankingSelection(this,fitness,selection)
 
-				[sortedFitness,sortingIndexes] = sortrows(fitness(:,1),-1);
+				[sortedFitness,sortingIndexes] = sortrows(fitness(:,1),-1); % Ordeno según el fitness
 
+				% Se asigna un fitness inversamente proporcional a la posición en la lista
 				sortedFitness(:,1) = fliplr(1:size(fitness,1));
 
-				% Adaptación relativa:
+				% Cálculo de adaptación relativa:
 				sortedFitness(:, 2) = sortedFitness(:, 1) / sum(sortedFitness(:, 1));
 
-				% Adaptación acumulada:
+				% Cálculo de adaptación acumulada:
 				sortedFitness(:, 3) = cumsum(sortedFitness(:, 2));
 
 				% Setear id

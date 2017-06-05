@@ -53,7 +53,6 @@ configuración `config.json`, con la siguiente estructura (en formato _JSON_):
 	"temperature" : 1000,
 	"tempReductionRate" : 1,
 
-	"CROSSOVERS" : "anular|singlepoint|twopoint|uniform",
 	"crossoverProbability": 0.9,
 	"crossoverMethod": "anular",
 
@@ -71,16 +70,18 @@ configuración `config.json`, con la siguiente estructura (en formato _JSON_):
 
 Cada parámetro especifica:
 
+* `attackDefenseRate`: porcentaje de desempeño que se le asignará al ataque y la defensa. El mismo se elige en base al personaje: si se toma un valor _P_, el desempeño del mismo dependerá de un porcentaje _P_ del ataque y _1-P_ de la defensa.
+* `itemStrength`, `itemAgility`, `itemExpertise`, `itemResistance`, `itemHealth`: los multiplicadores de los ítems.
 * `crossoverMethod`: el método que se utilizará en la cruza. Puede ser `singlepoint`, `twopoint`, `uniform` o `anular`.
 * `crossoverProbability`: la probabilidad de realizarse una cruza.
 * `generations`: la cantidad máxima de generaciones.
 * `mutationProbability`: la probabilidad de que se realize una mutación en un gen.
 * `population`: la cantidad de inviduos que tendrá la población.
 * `replacement`: el método de reemplazo `1`, `2` o `3`.
-* `replacementMethod`: vector con los 2 métodos mediante los cuales se seleccionarán los cromosomas en la etapa de reemplazo. Las opciones son: `boltzmann`, `elite`, `deterministicTournament`, `probabilisticTournament`, `ranking`  o `roulette`.
+* `replacementMethod`: vector con los 2 métodos mediante los cuales se seleccionarán los cromosomas en la etapa de reemplazo. Las opciones son: `boltzmann`, `elite`, `deterministicTournament`, `probabilisticTournament`, `ranking`, `roulette` o `universal`.
  * `replacementMethodRate`: porcentaje _B_ de elegidos con el primer método de selección para reemplazo. Un porcentaje _1-B_ se elige mediante el segundo método.
  * `selection`: la cantidad de padres que se elegirán para cruzar.
- * `selectionMethod`: vector con los 2 métodos mediante los cuales se seleccionarán los cromosomas en la etapa de cruza. Las opciones son: `boltzmann`, `elite`, `deterministicTournament`, `probabilisticTournament`, `ranking`  o `roulette`.
+ * `selectionMethod`: vector con los 2 métodos mediante los cuales se seleccionarán los cromosomas en la etapa de cruza. Las opciones son: `boltzmann`, `elite`, `deterministicTournament`, `probabilisticTournament`, `ranking`, `roulette`  o `universal`.
  * `selectionMethodRate`: porcentaje _A_ de elegidos con el primer método de selección. Un porcentaje _1-A_ se elige mediante el segundo método.
  * `temperature`: temperatura inicial para el método de Boltzmann.
  * `tempReductionRate`: proporción en la cual se reduce la temperatura en cada generación.
