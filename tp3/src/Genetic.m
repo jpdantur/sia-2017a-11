@@ -17,7 +17,7 @@
 		methods (Static)
 
 			% Función principal:
-			function run()
+			function run(state)
 
 				global data config;
 
@@ -56,7 +56,19 @@
 				% -------------------------------------------------------------
 
 				% Generar población inicial:
-				population = generator.init();
+				population = {};
+				if nargin == 1
+
+					% Leer estado previo (si existe):
+					state = loadjson(state);
+					for k = 1:size(state, 2)
+						population{k} = Chromosome(state{k}.genes);
+					end
+				else
+
+					% Generar desde cero:
+					population = generator.init();
+				end
 				cutOff.setPopulation(population);
 
 				% Computar el 'fitness' global inicial:
@@ -93,6 +105,9 @@
 				end
 
 				% -------------------------------------------------------------
+
+				% Almacenar población final:
+				savejson('', population, config.output);
 
 				% Mostrar el resultado final:
 				Logger.logResult(population, globalFitness);

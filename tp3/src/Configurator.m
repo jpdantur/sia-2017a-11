@@ -18,6 +18,8 @@
 			% JSON original:
 			json;
 
+			output;
+
 			attackDefenseRate = 0.1;
 
 			crossoverMethod = 'singlepoint';
@@ -90,6 +92,7 @@
 
 				% Configuración normal...
 				this.json = config;
+				this.output = config.output;
 				this.attackDefenseRate = config.attackDefenseRate;
 				this.crossoverMethod = config.crossoverMethod;
 				this.crossoverProbability = config.crossoverProbability;

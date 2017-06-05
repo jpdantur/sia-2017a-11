@@ -45,10 +45,12 @@
 				[maxFitness, index] = max(fitness(:, 1));
 				stats = population{index}.getFullStats();
 
+				format long;
 				Cromosoma = table(...
 					stats(:, 1), stats(:, 2), stats(:, 3), stats(:, 4), stats(:, 5), stats(:, 6), ...
 					'RowNames', {'Armor', 'Boots', 'Gauntlet', 'Helmet', 'Weapon'}, ...
 					'VariableNames', {'ID', 'Strength', 'Agility', 'Expertise', 'Resistance', 'Health'})
+				format short;
 
 				fprintf('\n');
 				fprintf('Adaptacion maxima final: %.6f\n', maxFitness);
