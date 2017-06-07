@@ -119,6 +119,11 @@
 				this.contentAssertSteps = config.contentAssertSteps;
 				this.structAssert = config.structAssert;
 				this.structAssertRatio = config.structAssertRatio;
+
+				if this.selection > this.population
+					error('El parametro selection debe ser menor o igual a population')
+				end
+
 			end
 		end
 
