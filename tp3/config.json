@@ -1,0 +1,43 @@
+{
+	"armors" : "../res/benchmarks/data/pecheras.tsv",
+	"boots" : "../res/benchmarks/data/botas.tsv",
+	"gauntlets" : "../res/benchmarks/data/guantes.tsv",
+	"helmets" : "../res/benchmarks/data/cascos.tsv",
+	"weapons" : "../res/benchmarks/data/armas.tsv",
+
+	"output" : "../res/benchmarks/output.json",
+
+	"attackDefenseRate" : 0.1,
+
+	"itemStrength" : 1.1,
+	"itemAgility": 0.8,
+	"itemExpertise": 0.8,
+	"itemResistance" : 1.1,
+	"itemHealth": 1.1,
+
+	"population" : 300,
+	"generations": 10000,
+	"cutOffThreshold" : 176,
+	"contentAssert" : false,
+	"contentAssertSteps" : 1000,
+	"structAssert" : false,
+	"structAssertRatio" : 0.75,
+
+	"selection" : 50,
+	"selectionMethod": ["deterministicTournament", "elite"],
+	"selectionMethodRate": 0.7,
+	"temperature" : 1000,
+	"tempReductionRate" : 1,
+
+	"crossoverProbability": 0.85,
+	"crossoverMethod": "anular",
+
+	"mutationProbability" : 0.07,
+
+	"replacement": 1,
+	"replacementMethod": ["deterministicTournament", "elite"],
+	"replacementMethodRate": 0.7,
+
+	"graphFitness" : true,
+	"graphRateLimit" : true
+}
